@@ -4,12 +4,15 @@ import spock.lang.Specification
 
 class DamageControlTest extends Specification {
 
-    def "should generate reports using Spock specifications"() {
-        given: "I have a Spock spec"
+    private static final File SAMPLE_MVN_PROJECT = new File("functional-test/sample-spock-project")
 
+    def "should generate reports using Spock specifications"() {
         when: "I run my Maven build"
+        def mvn = "mvn clean test damage-control:report".execute(["JAVA_HOME=${System.getenv("JAVA_HOME")}"], SAMPLE_MVN_PROJECT)
+        mvn.waitFor()
 
         then: "I should see a nice report"
-        false
+        assert mvn.exitValue() == 0
+        assert new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/HelloSpockTest.html").exists()
     }
 }
