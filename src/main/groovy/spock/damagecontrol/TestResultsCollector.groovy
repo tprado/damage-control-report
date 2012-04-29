@@ -12,19 +12,23 @@ class TestResultsCollector {
 
         iterateFiles(folder, XML, INCLUDE_SUB_FOLDERS).each {file ->
             try {
-                parse(file).testcase.each {testCase ->
-                    def feature = results.addFeature testCase.'@classname', testCase.'@name'
-
-                    if (testCase.failure) {
-                        feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
-                    }
-                }
+                collectSpecs(file, results)
             } catch (Exception e) {
                 println "Error reading file '${file}': ${e.message}"
             }
         }
 
         return results
+    }
+
+    private void collectSpecs(file, results) {
+        parse(file).testcase.each {testCase ->
+            def feature = results.addFeature testCase.'@classname', testCase.'@name'
+
+            if (testCase.failure) {
+                feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
+            }
+        }
     }
 
     private Node parse(file) {
