@@ -1,4 +1,4 @@
-package spock.damagecontrol
+package spock.damagecontrol.testresults
 
 import static org.apache.commons.io.FileUtils.iterateFiles
 
