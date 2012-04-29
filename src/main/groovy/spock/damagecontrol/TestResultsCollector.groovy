@@ -7,7 +7,7 @@ class TestResultsCollector {
     private static final boolean INCLUDE_SUB_FOLDERS = true
     private static final String[] XML = ['xml']
 
-    def collect(folder) {
+    def collect(File folder) {
         def results = new TestResults()
 
         iterateFiles(folder, XML, INCLUDE_SUB_FOLDERS).each {file ->
@@ -21,7 +21,7 @@ class TestResultsCollector {
         return results
     }
 
-    private void collectSpecs(file, results) {
+    private void collectSpecs(File file, TestResults results) {
         parse(file).testcase.each {testCase ->
             def feature = results.addFeature testCase.'@classname', testCase.'@name'
 
@@ -31,7 +31,7 @@ class TestResultsCollector {
         }
     }
 
-    private Node parse(file) {
+    private Node parse(File file) {
         new XmlParser().parse(file)
     }
 }
