@@ -7,10 +7,16 @@ class TestResultsCollector {
     private static final boolean INCLUDE_SUB_FOLDERS = true
     private static final String[] XML = ['xml']
 
-    def collect(File folder) {
+    File resultsFolder
+
+    TestResultsCollector(File folder) {
+        resultsFolder = folder
+    }
+
+    def collect() {
         def results = new TestResults()
 
-        iterateFiles(folder, XML, INCLUDE_SUB_FOLDERS).each {file ->
+        iterateFiles(resultsFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
             try {
                 collectSpecs(file, results)
             } catch (Exception e) {

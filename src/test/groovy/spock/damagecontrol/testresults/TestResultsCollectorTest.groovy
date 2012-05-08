@@ -31,7 +31,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
 
         then:
         assert testResults.specs['spock.damagecontrol.TestResultsCollectorTest1']
@@ -44,7 +44,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
 
         then:
         assert testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
@@ -56,7 +56,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
         def feature = testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
@@ -68,7 +68,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
         def feature = testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
@@ -80,7 +80,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_NO_TEST_CASE, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
 
         then:
         assert testResults.specs.size() == 0
@@ -91,7 +91,7 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(EMPTY, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector().collect(RESULTS_FOLDER);
+        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
 
         then:
         assert testResults.specs.size() == 0
