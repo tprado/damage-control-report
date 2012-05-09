@@ -13,8 +13,16 @@ class TestResultsCollector {
         resultsFolder = folder
     }
 
-    def collect() {
-        def results = new TestResults()
+    def forEach(Closure closure) {
+        TestResults results = collect()
+
+        results.specs.values().each({ spec ->
+            closure(spec)
+        })
+    }
+
+    private TestResults collect() {
+        TestResults results = new TestResults()
 
         iterateFiles(resultsFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
             try {

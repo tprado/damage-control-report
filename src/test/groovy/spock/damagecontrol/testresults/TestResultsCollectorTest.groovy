@@ -16,6 +16,14 @@ class TestResultsCollectorTest extends Specification {
 
     private static final File RESULTS_FOLDER = new File('build/' + TestResultsCollectorTest.class.name)
 
+    def specs = [:]
+
+    TestResultsCollector collector = new TestResultsCollector(RESULTS_FOLDER)
+
+    Closure toSpecsMap = { spec ->
+        specs[spec.name] = spec
+    }
+
     def setup() {
         deleteDirectory(RESULTS_FOLDER);
         RESULTS_FOLDER.mkdirs()
@@ -31,12 +39,12 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
+        collector.forEach(toSpecsMap);
 
         then:
-        assert testResults.specs['spock.damagecontrol.TestResultsCollectorTest1']
-        assert testResults.specs['spock.damagecontrol.TestResultsCollectorTest2']
-        assert testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest']
+        assert specs['spock.damagecontrol.TestResultsCollectorTest1']
+        assert specs['spock.damagecontrol.TestResultsCollectorTest2']
+        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest']
     }
 
     def 'should collect all features for the same specification'() {
@@ -44,11 +52,11 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
+        collector.forEach(toSpecsMap);
 
         then:
-        assert testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
-        assert testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
+        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
     }
 
     def 'should collect failure message for each feature'() {
@@ -56,8 +64,10 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
-        def feature = testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        collector.forEach(toSpecsMap);
+
+        and:
+        def feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
         assert feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
@@ -68,8 +78,10 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
-        def feature = testResults.specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        collector.forEach(toSpecsMap);
+
+        and:
+        def feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
         assert feature.failure.details.contains('at spock.damagecontrol.TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
@@ -80,10 +92,10 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(XML_WITH_NO_TEST_CASE, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
+        collector.forEach(toSpecsMap);
 
         then:
-        assert testResults.specs.size() == 0
+        assert specs.size() == 0
     }
 
     def 'should collect anything when result file is empty'() {
@@ -91,9 +103,9 @@ class TestResultsCollectorTest extends Specification {
         copyFileToDirectory(EMPTY, RESULTS_FOLDER)
 
         when:
-        def testResults = new TestResultsCollector(RESULTS_FOLDER).collect();
+        collector.forEach(toSpecsMap);
 
         then:
-        assert testResults.specs.size() == 0
+        assert specs.size() == 0
     }
 }
