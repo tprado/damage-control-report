@@ -7,10 +7,10 @@ class TestResultsCollector {
     private static final boolean INCLUDE_SUB_FOLDERS = true
     private static final String[] XML = ['xml']
 
-    File resultsFolder
+    final File resultsFolder
 
-    TestResultsCollector(File folder) {
-        resultsFolder = folder
+    TestResultsCollector(File resultsFolder) {
+        this.resultsFolder = resultsFolder
     }
 
     def forEach(Closure closure) {

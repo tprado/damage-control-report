@@ -7,8 +7,7 @@ class TestResults {
     def addFeature(specName, featureName) {
 
         if (!specs[specName]) {
-            def newSpec = new Spec()
-            newSpec.name = specName
+            def newSpec = new Spec(specName)
             specs[specName] = newSpec
         }
 
