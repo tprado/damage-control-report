@@ -16,11 +16,11 @@ class TestResultsCollectorTest extends Specification {
 
     private static final File RESULTS_FOLDER = new File('build/' + TestResultsCollectorTest.class.name)
 
-    def specs = [:]
+    private Map specs = [:]
 
-    TestResultsCollector collector = new TestResultsCollector(RESULTS_FOLDER)
+    private TestResultsCollector collector = new TestResultsCollector(RESULTS_FOLDER)
 
-    Closure toSpecsMap = { spec ->
+    private Closure toSpecsMap = { spec ->
         specs[spec.name] = spec
     }
 
@@ -42,9 +42,9 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         then:
-        assert specs['spock.damagecontrol.TestResultsCollectorTest1']
-        assert specs['spock.damagecontrol.TestResultsCollectorTest2']
-        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest']
+        specs['spock.damagecontrol.TestResultsCollectorTest1']
+        specs['spock.damagecontrol.TestResultsCollectorTest2']
+        specs['spock.damagecontrol.AnotherTestResultsCollectorTest']
     }
 
     def 'should collect all features for the same specification'() {
@@ -55,8 +55,8 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         then:
-        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
-        assert specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
+        specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
     }
 
     def 'should collect failure message for each feature'() {
@@ -67,10 +67,10 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         and:
-        def feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
-        assert feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
+        feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
     }
 
     def 'should collect failure details for each feature'() {
@@ -81,10 +81,10 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         and:
-        def feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
-        assert feature.failure.details.contains('at spock.damagecontrol.TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
+        feature.failure.details.contains('at spock.damagecontrol.TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
     }
 
     def 'should collect anything when result file has no test cases'() {
@@ -95,7 +95,7 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         then:
-        assert specs.size() == 0
+        specs.size() == 0
     }
 
     def 'should collect anything when result file is empty'() {
@@ -106,6 +106,6 @@ class TestResultsCollectorTest extends Specification {
         collector.forEach(toSpecsMap);
 
         then:
-        assert specs.size() == 0
+        specs.size() == 0
     }
 }
