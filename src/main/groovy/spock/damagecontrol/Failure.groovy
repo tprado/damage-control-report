@@ -1,4 +1,4 @@
-package spock.damagecontrol.testresults
+package spock.damagecontrol
 
 class Failure {
     def message

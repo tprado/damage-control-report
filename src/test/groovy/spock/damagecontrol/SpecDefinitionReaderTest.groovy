@@ -4,7 +4,6 @@ import spock.lang.Specification
 
 import static org.apache.commons.io.FileUtils.copyFileToDirectory
 import static org.apache.commons.io.FileUtils.deleteDirectory
-import spock.damagecontrol.testresults.Spec
 
 class SpecDefinitionReaderTest extends Specification {
 

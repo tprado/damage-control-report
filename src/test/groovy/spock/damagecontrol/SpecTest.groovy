@@ -1,4 +1,4 @@
-package spock.damagecontrol.testresults
+package spock.damagecontrol
 
 import spock.lang.Specification
 
