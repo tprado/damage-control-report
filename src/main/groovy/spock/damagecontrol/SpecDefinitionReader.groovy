@@ -1,18 +1,16 @@
 package spock.damagecontrol
 
-import spock.damagecontrol.testresults.Spec
-
 import static org.apache.commons.io.FileUtils.readFileToString
 
 class SpecDefinitionReader {
 
-    final File specsFolder
+    private final File specsFolder
 
-    SpecDefinitionReader(File folder) {
+    SpecDefinitionReader(folder) {
         specsFolder = folder
     }
 
-    SpecDefinition read(Spec spec) {
+    def read(spec) {
         String contents = readFileToString(spec.file(specsFolder))
         return new SpecDefinition(contents)
     }

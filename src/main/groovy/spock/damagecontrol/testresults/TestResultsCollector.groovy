@@ -7,13 +7,13 @@ class TestResultsCollector {
     private static final boolean INCLUDE_SUB_FOLDERS = true
     private static final String[] XML = ['xml']
 
-    final File resultsFolder
+    private final File resultsFolder
 
-    TestResultsCollector(File resultsFolder) {
+    TestResultsCollector(resultsFolder) {
         this.resultsFolder = resultsFolder
     }
 
-    def forEach(Closure closure) {
+    def forEach(closure) {
         TestResults results = collect()
 
         results.specs.values().each({ spec ->
@@ -36,8 +36,8 @@ class TestResultsCollector {
     }
 
     private void collectSpecs(File file, TestResults results) {
-        parse(file).testcase.each {testCase ->
-            def feature = results.addFeature testCase.'@classname', testCase.'@name'
+        parse(file).testcase.each { testCase ->
+            Feature feature = results.addFeature testCase.'@classname', testCase.'@name'
 
             if (testCase.failure) {
                 feature.failed testCase.failure[0].'@message', testCase.failure[0].text()

@@ -1,6 +1,7 @@
 package spock.damagecontrol.testresults
 
 class Feature {
+
     def failure
 
     def failed(message, details) {

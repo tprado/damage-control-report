@@ -2,15 +2,14 @@ package spock.damagecontrol.testresults
 
 class Spec {
 
-    final String name
-
+    def name
     def features = [:]
 
-    Spec(String name) {
+    Spec(name) {
         this.name = name
     }
 
-    File file(File baseFolder) {
+    def file(baseFolder) {
         return new File(baseFolder.absolutePath + '/' + name.replaceAll(/\./, '/') + '.groovy')
     }
 }

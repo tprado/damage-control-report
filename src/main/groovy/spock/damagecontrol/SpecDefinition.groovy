@@ -2,9 +2,9 @@ package spock.damagecontrol
 
 class SpecDefinition {
 
-    final String sourceCode
+    def sourceCode
 
-    SpecDefinition(String sourceCode) {
+    SpecDefinition(sourceCode) {
         this.sourceCode = sourceCode
     }
 }
