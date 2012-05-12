@@ -1,8 +1,6 @@
 package spock.damagecontrol
 
-import spock.lang.Specification
-
-class HtmlSpecDefinitionFormatterTest extends Specification {
+class HtmlSpecDefinitionFormatterTest extends BaseSpec {
 
     private static final String code = """
 package samples

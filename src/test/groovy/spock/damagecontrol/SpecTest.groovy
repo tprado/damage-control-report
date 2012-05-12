@@ -1,8 +1,6 @@
 package spock.damagecontrol
 
-import spock.lang.Specification
-
-class SpecTest extends Specification {
+class SpecTest extends BaseSpec {
 
     def 'should compose spec file name based on the spec name'() {
         given:

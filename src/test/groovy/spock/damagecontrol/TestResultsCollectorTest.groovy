@@ -1,11 +1,8 @@
 package spock.damagecontrol
 
-import spock.lang.Specification
-
 import static org.apache.commons.io.FileUtils.copyFileToDirectory
-import static org.apache.commons.io.FileUtils.deleteDirectory
 
-class TestResultsCollectorTest extends Specification {
+class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     private static final String SAMPLE_FOLDER = 'src/test/resources/samples'
 
@@ -14,29 +11,22 @@ class TestResultsCollectorTest extends Specification {
     private static final File XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
     private static final File EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
 
-    private static final File RESULTS_FOLDER = new File('build/' + TestResultsCollectorTest.class.name)
-
     private Map specs = [:]
 
-    private TestResultsCollector collector = new TestResultsCollector(RESULTS_FOLDER)
+    private TestResultsCollector collector
 
     private Closure toSpecsMap = { spec ->
         specs[spec.name] = spec
     }
 
     def setup() {
-        deleteDirectory(RESULTS_FOLDER);
-        RESULTS_FOLDER.mkdirs()
-    }
-
-    def cleanup() {
-        deleteDirectory(RESULTS_FOLDER);
+        collector = new TestResultsCollector(testFolder)
     }
 
     def 'should collect all specification names in the folder'() {
         given:
-        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, RESULTS_FOLDER)
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
+        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testFolder)
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
@@ -49,7 +39,7 @@ class TestResultsCollectorTest extends Specification {
 
     def 'should collect all features for the same specification'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
@@ -61,7 +51,7 @@ class TestResultsCollectorTest extends Specification {
 
     def 'should collect failure message for each feature'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
@@ -75,7 +65,7 @@ class TestResultsCollectorTest extends Specification {
 
     def 'should collect failure details for each feature'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, RESULTS_FOLDER)
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
@@ -89,7 +79,7 @@ class TestResultsCollectorTest extends Specification {
 
     def 'should collect anything when result file has no test cases'() {
         given:
-        copyFileToDirectory(XML_WITH_NO_TEST_CASE, RESULTS_FOLDER)
+        copyFileToDirectory(XML_WITH_NO_TEST_CASE, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
@@ -100,7 +90,7 @@ class TestResultsCollectorTest extends Specification {
 
     def 'should collect anything when result file is empty'() {
         given:
-        copyFileToDirectory(EMPTY, RESULTS_FOLDER)
+        copyFileToDirectory(EMPTY, testFolder)
 
         when:
         collector.forEach(toSpecsMap);
