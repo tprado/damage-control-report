@@ -4,19 +4,19 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
 
-    private static final String SAMPLE_FOLDER = 'src/test/resources/samples'
-    private static final File SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/SampleSpecDefinitionTest.groovy')
+    private static final String SAMPLE_FOLDER = 'src/test/resources'
+    private static final File SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/samples/definitions/SampleSpecDefinitionTest.groovy')
 
     private File specsDefinitionPackage
 
     def setup() {
-        specsDefinitionPackage = new File(testFolder.absolutePath + '/samples')
+        specsDefinitionPackage = new File(testFolder.absolutePath + '/samples/definitions')
     }
 
     def 'should read spec definition inside a package'() {
         given:
         copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)
-        Spec spec = new Spec('samples.SampleSpecDefinitionTest')
+        Spec spec = new Spec('samples.definitions.SampleSpecDefinitionTest')
 
         when:
         SpecDefinition specDefinition = new SpecDefinitionReader(testFolder).read(spec)

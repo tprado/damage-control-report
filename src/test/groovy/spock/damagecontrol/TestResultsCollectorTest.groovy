@@ -4,7 +4,7 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
-    private static final String SAMPLE_FOLDER = 'src/test/resources/samples'
+    private static final String SAMPLE_FOLDER = 'src/test/resources/samples/results'
 
     private static final File XML_WITH_ONE_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
     private static final File XML_WITH_TWO_TEST_CASES = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
