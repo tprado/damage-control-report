@@ -1,0 +1,53 @@
+
+.reserved {
+    color: #00008b;
+    font-weight: bold;
+}
+
+.string {
+    color: green;
+}
+
+.literal {
+    color: blue;
+}
+
+.code {
+    font-family: monospace;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #a9a9a9;
+}
+
+.line {
+}
+
+.number {
+    color: #8b0000;
+    background-color: #f0f0f0;
+    border-color: black;
+    width: 25px;
+    float: left;
+    text-align: right;
+    margin-right: 0px;
+    padding-right: 2px;
+    border-style: hidden dotted hidden hidden;
+    border-width: 1px;
+}
+
+.content {
+
+}
+
+.control {
+    color: #8b0000;
+    background-color: #f0f0f0;
+    border-color: black;
+    width: 10px;
+    float: left;
+    text-align: right;
+    margin-right: 5px;
+    padding-right: 2px;
+    border-style: hidden dotted hidden hidden;
+    border-width: 1px;
+}

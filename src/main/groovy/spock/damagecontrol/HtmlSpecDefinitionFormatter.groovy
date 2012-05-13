@@ -1,13 +1,24 @@
 package spock.damagecontrol
 
+import groovy.text.Template
+import groovy.text.SimpleTemplateEngine
+
 class HtmlSpecDefinitionFormatter {
+
+    private static final URL SPEC_HTML_URL = HtmlSpecDefinitionFormatter.class.getResource('/spock/damagecontrol/templates/spec.html')
 
     private final Spec spec
     private final SpecDefinition specDefinition
+    private final Template specHtmlTemplate
 
     HtmlSpecDefinitionFormatter(spec, specDefinition) {
         this.spec = spec
         this.specDefinition = specDefinition
+        this.specHtmlTemplate = new SimpleTemplateEngine().createTemplate(SPEC_HTML_URL)
+    }
+
+    def file(baseFolder) {
+        return new File(baseFolder.absolutePath + '/' + spec.name + '.html')
     }
 
     def format() {
@@ -28,12 +39,8 @@ class HtmlSpecDefinitionFormatter {
         result = stringLiteral.denormalize(result, { "<span class='string-literal'>${it}</span>" })
         result = comments.denormalize(result, { "<span class='comments'>${it}</span>" })
 
-        result = "<div id='spec-definition'>\n${result}\n</div>"
-
-        return result
-    }
-
-    def file(baseFolder) {
-        return new File(baseFolder.absolutePath + '/' + spec.name + '.html')
+        return specHtmlTemplate.make([
+                spec_definition: result
+        ]).toString()
     }
 }
