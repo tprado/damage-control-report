@@ -1,8 +1,11 @@
 package spock.damagecontrol
 
+import static org.apache.commons.io.FileUtils.copyURLToFile
 import static org.apache.commons.io.FileUtils.writeStringToFile
 
 class Report {
+
+    private static final URL CSS_URL = Report.class.getResource('/spock/damagecontrol/statics/style/damage-control.css')
 
     private final TestResultsCollector resultsCollector
     private final SpecDefinitionReader definitionReader
@@ -22,5 +25,7 @@ class Report {
 
             writeStringToFile(formatter.file(outputFolder), formatter.format());
         })
+
+        copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))
     }
 }

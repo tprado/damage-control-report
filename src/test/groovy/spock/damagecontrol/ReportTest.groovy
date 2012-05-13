@@ -25,6 +25,18 @@ class ReportTest extends BaseFileHandlingSpec {
         ])
     }
 
+    def 'should copy static resources'() {
+        given:
+        copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)
+        copyFileToDirectory(SPEC_RESULT, testFolder)
+
+        when:
+        report.run()
+
+        then:
+        new File(outputFolder.absolutePath + '/style/damage-control.css').exists()
+    }
+
     def 'should create html file for each spec'() {
         given:
         copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)
