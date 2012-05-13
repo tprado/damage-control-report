@@ -101,4 +101,12 @@ class SampleSpecTest extends Specification {
         then:
         html =~ /(?s).*\Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when:\E.*/
     }
+
+    def 'should add trailing white space'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<span class='line-number'>29<\/span>\Q&nbsp;\E.*/
+    }
 }

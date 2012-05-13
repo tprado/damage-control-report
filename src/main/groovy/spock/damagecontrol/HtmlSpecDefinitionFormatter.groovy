@@ -34,13 +34,11 @@ class HtmlSpecDefinitionFormatter {
 
         int lineCount = 1
         result = "<span class='line-number'>${lineCount++}</span>" + result.replaceAll(/\n/, { "<br/>${it}<span class='line-number'>${lineCount++}</span>" })
-
+        result = result + '&nbsp;'
 
         result = stringLiteral.denormalize(result, { "<span class='string-literal'>${it}</span>" })
         result = comments.denormalize(result, { "<span class='comments'>${it}</span>" })
 
-        return specHtmlTemplate.make([
-                spec_definition: result
-        ]).toString()
+        return specHtmlTemplate.make([spec_definition: result]).toString()
     }
 }
