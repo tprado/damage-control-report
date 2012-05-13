@@ -32,6 +32,8 @@ class HtmlSpecDefinitionFormatter {
 
         result = result.replaceAll(/[ ]{2,}/, { it.replaceAll(' ', '&nbsp;') })
 
+        result = result.replaceAll(/((package)|(class)|(extends)|(def))[\s]+/, { "<span class='reserved'>${it[1]}</span> " })
+
         int lineCount = 1
         result = "<span class='line-number'>${lineCount++}</span>" + result.replaceAll(/\n/, { "<br/>${it}<span class='line-number'>${lineCount++}</span>" })
         result = result + '&nbsp;'

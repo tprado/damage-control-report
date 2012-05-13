@@ -3,7 +3,7 @@ package spock.damagecontrol
 class HtmlSpecDefinitionFormatterTest extends BaseSpec {
 
     private static final String code = """
-package samples
+package samples.definitions
 
 /* Comments */
 class SampleSpecTest extends Specification {
@@ -32,7 +32,7 @@ class SampleSpecTest extends Specification {
 }
 """
 
-    private Spec spec = new Spec('samples.SampleSpecTest')
+    private Spec spec = new Spec('samples.definitions.SampleSpecTest')
 
     private SpecDefinition specDefinition = new SpecDefinition(code)
 
@@ -43,7 +43,7 @@ class SampleSpecTest extends Specification {
         File htmlFile = formatter.file(new File('.'))
 
         then:
-        htmlFile.name == 'samples.SampleSpecTest.html'
+        htmlFile.name == 'samples.definitions.SampleSpecTest.html'
     }
 
     def 'should surround spec definition with div'() {
@@ -52,6 +52,39 @@ class SampleSpecTest extends Specification {
 
         then:
         html =~ /(?s)<div id='spec-definition'>.*(SampleSpecTest).*<\/div>/
+    }
+
+    def 'should identify "class" as reserved word'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<span class='reserved'>class<\/span>.*/
+    }
+
+    def 'should identify "package" as reserved word'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<span class='reserved'>package<\/span>.*/
+    }
+
+    def 'should identify "def" as reserved word'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<span class='reserved'>def<\/span>.*/
+        html =~ /(?s).*samples\.definitions.*/
+    }
+
+    def 'should identify "extends" as reserved word'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<span class='reserved'>extends<\/span>.*/
     }
 
     def 'should identify single line comments'() {
@@ -83,7 +116,7 @@ class SampleSpecTest extends Specification {
         String html = formatter.format()
 
         then:
-        html =~ /(?s).*package samples<br\/>.*/
+        html =~ /(?s).*package.* samples\.definitions<br\/>.*/
     }
 
     def 'should identify lines'() {
@@ -91,7 +124,7 @@ class SampleSpecTest extends Specification {
         String html = formatter.format()
 
         then:
-        html =~ /(?s).*<span class='line-number'>2<\/span>package samples.*/
+        html =~ /(?s).*<span class='line-number'>2<\/span>.*package.* samples.*/
     }
 
     def 'should keep indentation'() {
