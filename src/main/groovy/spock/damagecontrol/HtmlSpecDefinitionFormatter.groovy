@@ -2,9 +2,11 @@ package spock.damagecontrol
 
 class HtmlSpecDefinitionFormatter {
 
+    private final Spec spec
     private final SpecDefinition specDefinition
 
-    HtmlSpecDefinitionFormatter(specDefinition) {
+    HtmlSpecDefinitionFormatter(spec, specDefinition) {
+        this.spec = spec
         this.specDefinition = specDefinition
     }
 
@@ -29,5 +31,9 @@ class HtmlSpecDefinitionFormatter {
         result = "<div id='spec-definition'>\n${result}\n</div>"
 
         return result
+    }
+
+    def file(baseFolder) {
+        return new File(baseFolder.absolutePath + '/' + spec.name + '.html')
     }
 }

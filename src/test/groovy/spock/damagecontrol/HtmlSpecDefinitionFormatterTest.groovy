@@ -32,9 +32,19 @@ class SampleSpecTest extends Specification {
 }
 """
 
+    private Spec spec = new Spec('samples.SampleSpecTest')
+
     private SpecDefinition specDefinition = new SpecDefinition(code)
 
-    private HtmlSpecDefinitionFormatter formatter = new HtmlSpecDefinitionFormatter(specDefinition)
+    private HtmlSpecDefinitionFormatter formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+
+    def 'should name HTML file based on spec name'() {
+        when:
+        File htmlFile = formatter.file(new File('.'))
+
+        then:
+        htmlFile.name == 'samples.SampleSpecTest.html'
+    }
 
     def 'should surround spec definition with div'() {
         when:
