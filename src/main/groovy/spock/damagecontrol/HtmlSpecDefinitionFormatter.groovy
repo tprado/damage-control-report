@@ -30,17 +30,30 @@ class HtmlSpecDefinitionFormatter {
         result = stringLiteral.normalize(result)
         result = comments.normalize(result)
 
-        result = result.replaceAll(/[ ]{2,}/, { it.replaceAll(' ', '&nbsp;') })
-
-        result = result.replaceAll(/((package)|(class)|(extends)|(def))[\s]+/, { "<span class='reserved'>${it[1]}</span> " })
-
-        int lineCount = 1
-        result = "<span class='line-number'>${lineCount++}</span>" + result.replaceAll(/\n/, { "<br/>${it}<span class='line-number'>${lineCount++}</span>" })
-        result = result + '&nbsp;'
+        result = reservedWords(result)
+        result = lineNumbers(result)
+        result = errorLines(result)
 
         result = stringLiteral.denormalize(result, { "<span class='string-literal'>${it}</span>" })
         result = comments.denormalize(result, { "<span class='comments'>${it}</span>" })
 
         return specHtmlTemplate.make([spec_definition: result]).toString()
+    }
+
+    private String lineNumbers(String result) {
+        int lineCount = 1
+        return result.replaceAll(/(?m)^.*$/, { "<span class='line-number'>${lineCount++}</span>${it}" })
+    }
+
+    private String errorLines(String result) {
+        List errorLines = spec.errorLines()
+        int lineCount = 1
+        return result.replaceAll(/(?m)^.*$/, { errorLines.contains(lineCount++) ? "<span class='error'>${it}</span>" : it })
+    }
+
+    private String reservedWords(String result) {
+        return result.replaceAll(/((package)|(class)|(extends)|(def))[\s]+/, {
+            "<span class='reserved'>${it[1]}</span> "
+        })
     }
 }

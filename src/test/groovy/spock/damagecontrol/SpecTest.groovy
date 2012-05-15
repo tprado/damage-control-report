@@ -13,4 +13,45 @@ class SpecTest extends BaseSpec {
         then:
         specFile.absolutePath.contains('src/test/resources/samples/SampleSpecificationTest.groovy')
     }
+
+    def 'should indicate no line number if there is no error'() {
+        given:
+        Feature feature = new Feature()
+        Spec spec = new Spec('samples.definitions.SampleSpecificationTest')
+        spec.features['some feature'] = feature
+
+        when:
+        def lines = spec.errorLines()
+
+        then:
+        lines == []
+    }
+
+    def 'should indicate the line numbers where an error occurred'() {
+        given:
+        Feature feature = new Feature()
+        feature.failed('error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
+        Spec spec = new Spec('samples.definitions.SampleSpecificationTest')
+        spec.features['some feature'] = feature
+
+        when:
+        def lines = spec.errorLines()
+
+        then:
+        lines == [19]
+    }
+
+    def 'should indicate the line numbers where an error occurred for spec in the default package'() {
+        given:
+        Feature feature = new Feature()
+        feature.failed('error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
+        Spec spec = new Spec('SampleSpecificationTest')
+        spec.features['some feature'] = feature
+
+        when:
+        def lines = spec.errorLines()
+
+        then:
+        lines == [19]
+    }
 }

@@ -28,6 +28,10 @@
     font-weight: bold;
 }
 
+.error {
+    background-color: #f09d9d;
+}
+
 .literal {
     color: blue;
 }

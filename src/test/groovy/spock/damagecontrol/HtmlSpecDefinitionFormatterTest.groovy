@@ -2,8 +2,7 @@ package spock.damagecontrol
 
 class HtmlSpecDefinitionFormatterTest extends BaseSpec {
 
-    private static final String code = """
-package samples.definitions
+    private static final String code = """package samples.definitions
 
 /* Comments */
 class SampleSpecTest extends Specification {
@@ -32,11 +31,16 @@ class SampleSpecTest extends Specification {
 }
 """
 
-    private Spec spec = new Spec('samples.definitions.SampleSpecTest')
+    private Spec spec
 
     private SpecDefinition specDefinition = new SpecDefinition(code)
 
-    private HtmlSpecDefinitionFormatter formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+    private HtmlSpecDefinitionFormatter formatter
+
+    def setup() {
+        spec = new Spec('samples.definitions.SampleSpecTest')
+        formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+    }
 
     def 'should name HTML file based on spec name'() {
         when:
@@ -111,35 +115,23 @@ class SampleSpecTest extends Specification {
         html =~ /(?s).*<span class='string-literal'>"feature 2"<\/span>.*/
     }
 
-    def 'should identify line separators'() {
-        when:
-        String html = formatter.format()
-
-        then:
-        html =~ /(?s).*package.* samples\.definitions<br\/>.*/
-    }
-
     def 'should identify lines'() {
         when:
         String html = formatter.format()
 
         then:
-        html =~ /(?s).*<span class='line-number'>2<\/span>.*package.* samples.*/
+        html =~ /(?s).*<span class='line-number'>1<\/span>.*package.* samples.*/
     }
 
-    def 'should keep indentation'() {
+    def 'should indicate line where error occurred'() {
+        given:
+        spec.features['feature 1'] = new Feature()
+        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:15)'
+
         when:
         String html = formatter.format()
 
         then:
-        html =~ /(?s).*\Q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;when:\E.*/
-    }
-
-    def 'should add trailing white space'() {
-        when:
-        String html = formatter.format()
-
-        then:
-        html =~ /(?s).*<span class='line-number'>29<\/span>\Q&nbsp;\E.*/
+        html =~ /(?m)<span class='error'>.*'some condition'.*<\/span>$/
     }
 }
