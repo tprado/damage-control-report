@@ -126,7 +126,7 @@ class SampleSpecTest extends Specification {
     def 'should indicate line where error occurred'() {
         given:
         spec.features['feature 1'] = new Feature()
-        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:15)'
+        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
 
         when:
         String html = formatter.format()
