@@ -43,6 +43,11 @@ class TestResultsCollector {
                 feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
             }
         }
+
+        parse(file).'ignored-testcase'.each { testCase ->
+            Feature feature = results.addFeature testCase.'@classname', testCase.'@name'
+            feature.ignored = true
+        }
     }
 
     private Node parse(File file) {

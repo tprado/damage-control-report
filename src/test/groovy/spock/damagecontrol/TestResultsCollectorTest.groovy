@@ -9,6 +9,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
     private static final File XML_WITH_ONE_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
     private static final File XML_WITH_TWO_TEST_CASES = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
     private static final File XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
+    private static final File XML_WITH_ONE_IGNORED_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith1IgnoredTestCase.xml')
     private static final File EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
 
     private Map specs = [:]
@@ -61,6 +62,20 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
         then:
         feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
+    }
+
+    def 'should collect ignored features'() {
+        given:
+        copyFileToDirectory(XML_WITH_ONE_IGNORED_TEST_CASE, testFolder)
+
+        when:
+        collector.forEach(toSpecsMap);
+
+        and:
+        Feature feature = specs['spock.damagecontrol.TestResultsWith1IgnoredTestCase'].features['ignored feature']
+
+        then:
+        feature.ignored
     }
 
     def 'should collect failure details for each feature'() {
