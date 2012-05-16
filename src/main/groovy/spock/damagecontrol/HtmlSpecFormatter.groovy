@@ -3,15 +3,15 @@ package spock.damagecontrol
 import groovy.text.Template
 import groovy.text.SimpleTemplateEngine
 
-class HtmlSpecDefinitionFormatter {
+class HtmlSpecFormatter {
 
-    private static final URL SPEC_HTML_URL = HtmlSpecDefinitionFormatter.class.getResource('/spock/damagecontrol/templates/spec.html')
+    private static final URL SPEC_HTML_URL = HtmlSpecFormatter.class.getResource('/spock/damagecontrol/templates/spec.html')
 
     private final Spec spec
     private final SpecDefinition specDefinition
     private final Template specHtmlTemplate
 
-    HtmlSpecDefinitionFormatter(spec, specDefinition) {
+    HtmlSpecFormatter(spec, specDefinition) {
         this.spec = spec
         this.specDefinition = specDefinition
         this.specHtmlTemplate = new SimpleTemplateEngine().createTemplate(SPEC_HTML_URL)

@@ -21,7 +21,7 @@ class Report {
         resultsCollector.forEach({ spec ->
             SpecDefinition specDefinition = definitionReader.read(spec)
 
-            HtmlSpecDefinitionFormatter formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+            HtmlSpecFormatter formatter = new HtmlSpecFormatter(spec, specDefinition)
 
             writeStringToFile(formatter.file(outputFolder), formatter.format());
         })

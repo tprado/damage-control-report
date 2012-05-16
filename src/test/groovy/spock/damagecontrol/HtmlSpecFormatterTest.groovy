@@ -1,6 +1,6 @@
 package spock.damagecontrol
 
-class HtmlSpecDefinitionFormatterTest extends BaseSpec {
+class HtmlSpecFormatterTest extends BaseSpec {
 
     private static final String code = """package samples.definitions
 
@@ -35,11 +35,11 @@ class SampleSpecTest extends Specification {
 
     private SpecDefinition specDefinition = new SpecDefinition(code)
 
-    private HtmlSpecDefinitionFormatter formatter
+    private HtmlSpecFormatter formatter
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
-        formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+        formatter = new HtmlSpecFormatter(spec, specDefinition)
     }
 
     def 'should name HTML file based on spec name'() {
