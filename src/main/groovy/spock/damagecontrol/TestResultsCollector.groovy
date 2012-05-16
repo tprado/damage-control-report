@@ -36,16 +36,20 @@ class TestResultsCollector {
     }
 
     private void collectSpecs(File file, TestResults results) {
-        parse(file).testcase.each { testCase ->
-            Feature feature = results.addFeature testCase.'@classname', testCase.'@name'
+        Node testSuite = parse(file)
+
+        SpecOutput output = new SpecOutput(testSuite.'system-out'[0].text(), testSuite.'system-err'[0].text())
+
+        testSuite.'testcase'.each { testCase ->
+            Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
 
             if (testCase.failure) {
                 feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
             }
         }
 
-        parse(file).'ignored-testcase'.each { testCase ->
-            Feature feature = results.addFeature testCase.'@classname', testCase.'@name'
+        testSuite.'ignored-testcase'.each { testCase ->
+            Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
             feature.ignored = true
         }
     }

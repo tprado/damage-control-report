@@ -4,10 +4,11 @@ class TestResults {
 
     def specs = [:]
 
-    def addFeature(specName, featureName) {
+    def addFeature(specName, featureName, output) {
 
         if (!specs[specName]) {
             Spec newSpec = new Spec(specName)
+            newSpec.output = output
             specs[specName] = newSpec
         }
 
