@@ -37,7 +37,11 @@ class HtmlSpecFormatter {
         result = stringLiteral.denormalize(result, { "<span class='string-literal'>${it}</span>" })
         result = comments.denormalize(result, { "<span class='comments'>${it}</span>" })
 
-        return specHtmlTemplate.make([spec_definition: result]).toString()
+        return specHtmlTemplate.make([
+                spec_definition: result,
+                spec_standard_output: spec.output.standard,
+                spec_error_output: spec.output.error
+        ]).toString()
     }
 
     private String lineNumbers(String result) {

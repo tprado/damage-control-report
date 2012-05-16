@@ -39,6 +39,7 @@ class SampleSpecTest extends Specification {
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
+        spec.output = new SpecOutput('standard output message', 'error output message')
         formatter = new HtmlSpecFormatter(spec, specDefinition)
     }
 
@@ -56,6 +57,22 @@ class SampleSpecTest extends Specification {
 
         then:
         html =~ /(?s)<div id='spec-definition'>.*(SampleSpecTest).*<\/div>/
+    }
+
+    def 'should surround standard output with div'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s)<div id='spec-standard-output'>.*(standard output message).*<\/div>/
+    }
+
+    def 'should surround error output with div'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s)<div id='spec-error-output'>.*(error output message).*<\/div>/
     }
 
     def 'should identify "class" as reserved word'() {

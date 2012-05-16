@@ -1,4 +1,6 @@
-#spec-definition {
+#spec-definition,
+#spec-standard-output,
+#spec-error-output {
     font-family: monospace;
     font-size: large;
     border-style: solid;
