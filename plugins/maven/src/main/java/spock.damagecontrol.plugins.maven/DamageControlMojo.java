@@ -1,15 +1,13 @@
 package spock.damagecontrol.plugins.maven;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import spock.damagecontrol.Report;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
-import static org.apache.commons.io.FileUtils.iterateFiles;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @goal report
@@ -17,32 +15,32 @@ import static org.apache.commons.io.FileUtils.iterateFiles;
 public class DamageControlMojo extends AbstractMojo {
 
     /**
+     * @parameter default-value="target/surefire-reports"
+     */
+    private File testResultsFolder;
+
+    /**
      * @parameter default-value="src/test/groovy"
      */
-    private File specsSourceFolder;
+    private File specDefinitionsFolder;
 
     /**
      * @parameter default-value="target/damage-control-reports"
      */
-    private File reportsTargetFolder;
+    private File outputFolder;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info("Damage Control, report:");
-        getLog().info("specs source folder=" + specsSourceFolder);
-        getLog().info("reports target folder=" + reportsTargetFolder);
+        getLog().info("test results folder=" + testResultsFolder);
+        getLog().info("specs definition folder=" + specDefinitionsFolder);
+        getLog().info("reports target folder=" + outputFolder);
 
+        Map<String, File> config = new HashMap<String, File>();
+        config.put("testResultsFolder", testResultsFolder);
+        config.put("specDefinitionsFolder", specDefinitionsFolder);
+        config.put("outputFolder", outputFolder);
 
-        Iterator iterator = iterateFiles(specsSourceFolder, new String[]{"groovy"}, true);
-        while (iterator.hasNext()) {
-            File srcFile = (File) iterator.next();
-            File destFile = new File(reportsTargetFolder.getAbsoluteFile() + "/" + srcFile.getName().replaceAll("\\.groovy", ".html"));
-
-            try {
-                FileUtils.copyFile(srcFile, destFile);
-            } catch (IOException e) {
-                new MojoExecutionException("error copying files", e);
-            }
-        }
+        new Report(config).run();
     }
 }
