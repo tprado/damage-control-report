@@ -1,7 +1,7 @@
 package spock.damagecontrol
 
+import groovy.text.GStringTemplateEngine
 import groovy.text.Template
-import groovy.text.SimpleTemplateEngine
 
 class HtmlSpecFormatter {
 
@@ -14,7 +14,7 @@ class HtmlSpecFormatter {
     HtmlSpecFormatter(spec, specDefinition) {
         this.spec = spec
         this.specDefinition = specDefinition
-        this.specHtmlTemplate = new SimpleTemplateEngine().createTemplate(SPEC_HTML_URL)
+        this.specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
     }
 
     def file(baseFolder) {
@@ -40,7 +40,8 @@ class HtmlSpecFormatter {
         return specHtmlTemplate.make([
                 spec_definition: result,
                 spec_standard_output: spec.output.standard,
-                spec_error_output: spec.output.error
+                spec_error_output: spec.output.error,
+                features: spec.features
         ]).toString()
     }
 

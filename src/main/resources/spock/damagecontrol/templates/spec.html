@@ -1,22 +1,44 @@
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
-    </head>
+<head>
+    <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
+</head>
 
-    <body>
-        <h3>Spec Definition</h3>
-        <div id='spec-definition'>
-            <pre>${spec_definition}</pre>
-        </div>
+<body>
+<h3>Features</h3>
 
-        <h3>System Out</h3>
-        <div id='spec-standard-output'>
-            <pre>${spec_standard_output}</pre>
-        </div>
+<div id='features-list'>
+    <table>
+        <thead>
+        <tr>
+            <th>Feature</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% features.each{ feature_name, feature -> %>
+        <tr>
+            <td> <%= feature_name %></td>
+        </tr>
+        <%} %>
+        </tbody>
+    </table>
+</div>
 
-        <h3>System Error</h3>
-        <div id='spec-error-output'>
-            <pre>${spec_error_output}</pre>
-        </div>
-    </body>
+<h3>Spec Definition</h3>
+
+<div id='spec-definition'>
+    <pre>${spec_definition}</pre>
+</div>
+
+<h3>System Out</h3>
+
+<div id='spec-standard-output'>
+    <pre>${spec_standard_output}</pre>
+</div>
+
+<h3>System Error</h3>
+
+<div id='spec-error-output'>
+    <pre>${spec_error_output}</pre>
+</div>
+</body>
 </html>
