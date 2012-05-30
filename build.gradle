@@ -1,4 +1,8 @@
 apply plugin: 'groovy'
+apply plugin: 'maven'
+
+project.group = 'org.spockframework.damage-control'
+project.version = '1.0.0'
 
 repositories {
     mavenCentral()
@@ -6,6 +10,7 @@ repositories {
 
 dependencies {
     groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
+    compile         group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
     compile         group: 'commons-io',            name: 'commons-io',     version: '1.3.2'
     testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
 }
