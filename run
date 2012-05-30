@@ -72,8 +72,8 @@ if [ $RUN_FUNCTIONAL_TESTS ]
 then
     echo -n "Running functional tests... "
     cd functional-test/sample-spock-project
-    mvn clean test &> /tmp/gradle.run-functional-tests.out
-    mvn damage-control:report &>> /tmp/gradle.run-functional-tests.out
+    mvn clean test &> /tmp/gradle.run-functional-tests.test.out
+    mvn damage-control:report &> /tmp/gradle.run-functional-tests.report.out
     print_result $? /tmp/gradle.run-functional-tests.out
     cd ../..
 fi
