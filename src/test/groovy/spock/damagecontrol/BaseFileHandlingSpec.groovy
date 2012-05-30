@@ -13,8 +13,4 @@ class BaseFileHandlingSpec extends BaseSpec {
         deleteDirectory(testFolder);
         testFolder.mkdirs()
     }
-
-    def cleanup() {
-        deleteDirectory(testFolder);
-    }
 }
