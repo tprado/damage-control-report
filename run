@@ -1,0 +1,79 @@
+#!/bin/bash
+
+OUT_PREFIX=damage.control.
+OPTS="bmfh"
+
+function usage {
+    echo "usage: run -$OPTS"
+    echo "  b      builds"
+    echo "  m      builds maven plugin"
+    echo "  f      runs functional tests"
+    echo "  h      prints this message"
+    echo
+
+    exit -1
+}
+
+function print_result {
+    RC=$1
+    OUTFILE=$2
+
+    if [ "$RC" -eq "0" ]
+    then
+        echo -e "\033[01;32m OK \033[00m"
+    else
+        echo -e "\033[01;31m FAILED \033[00m"
+        echo "See $OUTFILE for details."
+        exit -1
+    fi
+}
+
+if [ $# -eq "0" ]
+then
+    usage
+fi
+
+while getopts $OPTS OPT
+do
+    case $OPT in
+        b)
+            BUILD=yes
+            ;;
+        m)
+            MVN_PLUGIN=yes
+            ;;
+        f)
+            RUN_FUNCTIONAL_TESTS=yes
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+
+if [ $BUILD ]
+then
+    echo -n "Building... "
+    gradle clean install &> /tmp/gradle.out
+    print_result $? /tmp/gradle.out
+fi
+
+if [ $MVN_PLUGIN ]
+then
+    echo -n "Building Maven Plugin... "
+    cd plugins/maven
+    mvn clean install &> /tmp/mvn-plugin.out
+    print_result $? /tmp/mvn-plugin.out
+    cd ../..
+fi
+
+if [ $RUN_FUNCTIONAL_TESTS ]
+then
+    echo -n "Running functional tests... "
+    cd functional-test/sample-spock-project
+    mvn clean test &> /tmp/gradle.run-functional-tests.out
+    mvn damage-control:report &>> /tmp/gradle.run-functional-tests.out
+    print_result $? /tmp/gradle.run-functional-tests.out
+    cd ../..
+fi
