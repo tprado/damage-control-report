@@ -5,7 +5,7 @@ import spock.lang.Specification
 class HelloSpockTest extends Specification {
 
     def "length of Spock's and his friends' names"() {
-        expect:
+        expect: "name lenght is correct"
         name.size() == length
 
         where:

@@ -3,13 +3,14 @@ import spock.lang.Specification
 class HiSpockTest extends Specification {
 
     def "length of Spock's and his friends' names"() {
-        expect:
-        name.size() == length
+        given: "Spock have 3 friends"
+        def spockFriends = ["Kirk", "Sulu","McCoy"]
 
-        where:
-        name     | length
-        "Spock"  | 4
-        "Kirk"   | 4
-        "Scotty" | 6
+        when: "He meets another friend"
+        spockFriends.add("Scotty")
+
+        then: "Spock now have 4 friends"
+        spockFriends.size()==4
+
     }
 }
