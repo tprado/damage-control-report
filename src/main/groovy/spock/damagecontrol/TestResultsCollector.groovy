@@ -38,7 +38,10 @@ class TestResultsCollector {
     private void collectSpecs(File file, TestResults results) {
         Node testSuite = parse(file)
 
-        SpecOutput output = new SpecOutput(testSuite.'system-out'[0].text(), testSuite.'system-err'[0].text())
+        def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
+        def syserr = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
+        
+        SpecOutput output = new SpecOutput(sysout, syserr)
 
         testSuite.'testcase'.each { testCase ->
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output

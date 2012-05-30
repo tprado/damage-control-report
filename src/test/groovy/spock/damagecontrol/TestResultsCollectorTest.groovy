@@ -11,6 +11,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
     private static final File XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
     private static final File XML_WITH_ONE_IGNORED_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith1IgnoredTestCase.xml')
     private static final File XML_WITH_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
+    private static final File XML_WITHOUT_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
     private static final File EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
 
     private Map specs = [:]
@@ -104,6 +105,17 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.standard == 'standard output message'
     }
 
+    def 'should collect results without standard output'() {
+        given:
+        copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
+
+        when:
+        collector.forEach(toSpecsMap);
+
+        then:
+        specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.standard == ''
+    }
+
     def 'should collect error output for spec'() {
         given:
         copyFileToDirectory(XML_WITH_SYS_OUT, testFolder)
@@ -113,6 +125,17 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
         then:
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.error == 'error output message'
+    }
+
+    def 'should collect results without error output'() {
+        given:
+        copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
+
+        when:
+        collector.forEach(toSpecsMap);
+
+        then:
+        specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.error == ''
     }
 
     def 'should collect anything when result file has no test cases'() {
