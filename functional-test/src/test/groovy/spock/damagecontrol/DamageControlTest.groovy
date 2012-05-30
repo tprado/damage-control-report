@@ -1,11 +1,13 @@
 package spock.damagecontrol
 
 import spock.lang.Specification
+import spock.lang.Ignore
 
 class DamageControlTest extends Specification {
 
     private static final File SAMPLE_MVN_PROJECT = new File("functional-test/sample-spock-project")
 
+    @Ignore
     def "should generate reports using Spock specifications"() {
         when: "I run my Maven build"
         def mvn = "mvn clean test damage-control:report".execute(["JAVA_HOME=${System.getenv("JAVA_HOME")}"], SAMPLE_MVN_PROJECT)

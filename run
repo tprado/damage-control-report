@@ -55,7 +55,7 @@ done
 if [ $BUILD ]
 then
     echo -n "Building... "
-    gradle clean install &> /tmp/gradle.out
+    gradle test install &> /tmp/gradle.out
     print_result $? /tmp/gradle.out
 fi
 
