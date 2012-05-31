@@ -1,17 +1,37 @@
 #!/bin/bash
 
-OUT_PREFIX=damage.control.
-OPTS="bmfh"
+OUT_DIR=/tmp/damage-control
+OUT_EXT=.out
+
+OPTS="bmfFh"
 
 function usage {
     echo "usage: run -$OPTS"
     echo "  b      builds"
     echo "  m      builds maven plugin"
-    echo "  f      runs functional tests"
+    echo "  F      runs maven sample project and reports"
+    echo "  f      runs maven reports"
     echo "  h      prints this message"
     echo
 
     exit -1
+}
+
+function execute_command {
+    MSG=$1
+    CMD=$2
+    OUT=$OUT_DIR/$3$OUT_EXT
+
+    echo -n $MSG
+    $CMD &> $OUT
+    RC=$?
+
+    print_result $RC $OUT
+
+    if [ "$RC" -ne "0" ]
+    then
+        exit -1
+    fi
 }
 
 function print_result {
@@ -24,7 +44,6 @@ function print_result {
     else
         echo -e "\033[01;31m FAILED \033[00m"
         echo "See $OUTFILE for details."
-        exit -1
     fi
 }
 
@@ -43,7 +62,11 @@ do
             MVN_PLUGIN=yes
             ;;
         f)
-            RUN_FUNCTIONAL_TESTS=yes
+            RUN_MVN_SAMPLE_REPORT=yes
+            ;;
+        F)
+            RUN_MVN_SAMPLE_TESTS=yes
+            RUN_MVN_SAMPLE_REPORT=yes
             ;;
         *)
             usage
@@ -51,29 +74,34 @@ do
     esac
 done
 
+if [ -e $OUT_DIR ]
+then
+    rm -rf $OUT_DIR/*$OUT_EXT
+fi
+mkdir -p $OUT_DIR
 
 if [ $BUILD ]
 then
-    echo -n "Building... "
-    gradle test install &> /tmp/gradle.out
-    print_result $? /tmp/gradle.out
+    execute_command "Building... " "gradle test install" build
 fi
 
 if [ $MVN_PLUGIN ]
 then
-    echo -n "Building Maven Plugin... "
     cd plugins/maven
-    mvn clean install &> /tmp/mvn-plugin.out
-    print_result $? /tmp/mvn-plugin.out
+    execute_command "Building Maven Plugin... " "mvn clean install" mvn-plugin
     cd ../..
 fi
 
-if [ $RUN_FUNCTIONAL_TESTS ]
+if [ $RUN_MVN_SAMPLE_TESTS ]
 then
-    echo -n "Running functional tests... "
     cd functional-test/sample-spock-project
-    mvn clean test &> /tmp/gradle.run-functional-tests.test.out
-    mvn damage-control:report &> /tmp/gradle.run-functional-tests.report.out
-    print_result $? /tmp/gradle.run-functional-tests.out
+    execute_command "Running Maven sample project... " "mvn clean test" mvn-sample-project
+    cd ../..
+fi
+
+if [ $RUN_MVN_SAMPLE_REPORT ]
+then
+    cd functional-test/sample-spock-project
+    execute_command "Generating Maven reports... " "mvn damage-control:report" mvn-reports
     cd ../..
 fi
