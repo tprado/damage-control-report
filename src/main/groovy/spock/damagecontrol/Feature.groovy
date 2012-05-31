@@ -10,4 +10,11 @@ class Feature {
         failure.message = message
         failure.details = details
     }
+
+    def getResult() {
+        if (failure) {
+            return 'failed'
+        }
+        return 'passed'
+    }
 }

@@ -19,7 +19,7 @@ class MultipleFeaturesTest extends Specification {
 
         where:
         name     | length
-        "Spock"  | 5
+        "Spock"  | 6
         "Kirk"   | 4
         "Scotty" | 6
     }

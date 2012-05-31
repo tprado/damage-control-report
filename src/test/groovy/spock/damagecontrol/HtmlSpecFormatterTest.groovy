@@ -10,6 +10,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
+        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
         spec.features['feature 2'] = new Feature()
         spec.sourceCode = code
         spec.output = new SpecOutput('standard output message', 'error output message')
@@ -53,7 +54,23 @@ class HtmlSpecFormatterTest extends BaseSpec {
         String html = formatter.format()
 
         then:
-        html =~ /(?s).*<td>feature 1<\/td>.*/
-        html =~ /(?s).*<td>feature 2<\/td>.*/
+        html =~ /(?s).*<td class="feature-name">feature 1<\/td>.*/
+        html =~ /(?s).*<td class="feature-name">feature 2<\/td>.*/
+    }
+
+    def 'should show passed for successful feature'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<td class="feature-name">feature 2<\/td>\s*<td class="feature-result">passed<\/td>.*/
+    }
+
+    def 'should show failed for unsuccessful feature'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<td class="feature-name">feature 1<\/td>\s*<td class="feature-result">failed<\/td>.*/
     }
 }

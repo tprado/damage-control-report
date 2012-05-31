@@ -13,13 +13,15 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Feature</th>
+                    <th class="feature-name">Feature</th>
+                    <th class="feature-result">Result</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% features.each{ feature_name, feature -> %>
                 <tr>
-                    <td><%= feature_name %></td>
+                    <td class="feature-name"><%= feature_name %></td>
+                    <td class="feature-result"><%= feature.result %></td>
                 </tr>
                 <% } %>
                 </tbody>
