@@ -4,41 +4,53 @@
 </head>
 
 <body>
-<h3>Features</h3>
+<div id="content">
 
-<div id='features-list'>
-    <table>
-        <thead>
-        <tr>
-            <th>Feature</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% features.each{ feature_name, feature -> %>
-        <tr>
-            <td> <%= feature_name %></td>
-        </tr>
-        <%} %>
-        </tbody>
-    </table>
-</div>
+    <div id="features-section">
+        <h3>Features</h3>
 
-<h3>Spec Definition</h3>
+        <div id='features-list'>
+            <table>
+                <thead>
+                <tr>
+                    <th>Feature</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% features.each{ feature_name, feature -> %>
+                <tr>
+                    <td><%= feature_name %></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<div id='spec-definition'>
-    <pre>${spec_definition}</pre>
-</div>
+    <div id="spec-definition-section">
+        <h3>Spec Definition</h3>
 
-<h3>System Out</h3>
+        <div id='spec-definition'>
+            <pre>${spec_definition}</pre>
+        </div>
+    </div>
 
-<div id='spec-standard-output'>
-    <pre>${spec_standard_output}</pre>
-</div>
+    <div id="spec-standard-output-section">
+        <h3>System Out</h3>
 
-<h3>System Error</h3>
+        <div id='spec-standard-output'>
+            <pre>${spec_standard_output}</pre>
+        </div>
+    </div>
 
-<div id='spec-error-output'>
-    <pre>${spec_error_output}</pre>
+    <div id="spec-error-output-section">
+        <h3>System Error</h3>
+
+        <div id='spec-error-output'>
+            <pre>${spec_error_output}</pre>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
