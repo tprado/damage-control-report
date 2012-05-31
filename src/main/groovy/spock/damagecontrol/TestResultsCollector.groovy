@@ -46,6 +46,10 @@ class TestResultsCollector {
         testSuite.'testcase'.each { testCase ->
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
 
+            if (testCase.skipped) {
+                feature.ignored = true
+            }
+
             if (testCase.failure) {
                 feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
             }

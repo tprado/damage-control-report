@@ -18,4 +18,14 @@ class FeatureTest extends BaseSpec {
         expect:
         feature.result == 'failed'
     }
+
+    def 'should indicate "skipped" when the test is ignored'() {
+        given:
+        Feature feature = new Feature()
+        feature.ignored = true
+
+        expect:
+        feature.result == 'skipped'
+    }
+
 }

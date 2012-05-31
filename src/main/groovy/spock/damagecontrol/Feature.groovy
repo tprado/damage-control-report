@@ -12,6 +12,9 @@ class Feature {
     }
 
     def getResult() {
+        if (ignored) {
+            return 'skipped'
+        }
         if (failure) {
             return 'failed'
         }
