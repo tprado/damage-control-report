@@ -33,14 +33,13 @@ class SampleSpecTest extends Specification {
 
     private HtmlSpecDefinitionFormatter formatter
     private Spec spec
-    private SpecDefinition specDefinition = new SpecDefinition(code)
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-
-        formatter = new HtmlSpecDefinitionFormatter(spec, specDefinition)
+        spec.sourceCode = code
+        formatter = new HtmlSpecDefinitionFormatter(spec)
     }
 
     def 'should identify "class" as reserved word'() {

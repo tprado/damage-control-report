@@ -5,16 +5,15 @@ class HtmlSpecFormatterTest extends BaseSpec {
     private static final String code = "class SampleSpecTest extends Specification { }"
 
     private Spec spec
-    private SpecDefinition specDefinition = new SpecDefinition(code)
     private HtmlSpecFormatter formatter
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 2'] = new Feature()
-
+        spec.sourceCode = code
         spec.output = new SpecOutput('standard output message', 'error output message')
-        formatter = new HtmlSpecFormatter(spec, specDefinition)
+        formatter = new HtmlSpecFormatter(spec)
     }
 
     def 'should name HTML file based on spec name'() {

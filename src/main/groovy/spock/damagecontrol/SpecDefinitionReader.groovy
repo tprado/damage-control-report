@@ -11,7 +11,6 @@ class SpecDefinitionReader {
     }
 
     def read(spec) {
-        String contents = readFileToString(spec.file(specsFolder))
-        return new SpecDefinition(contents)
+        spec.sourceCode = readFileToString(spec.file(specsFolder))
     }
 }

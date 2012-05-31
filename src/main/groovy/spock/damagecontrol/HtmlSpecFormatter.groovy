@@ -8,12 +8,10 @@ class HtmlSpecFormatter {
     private static final URL SPEC_HTML_URL = HtmlSpecFormatter.class.getResource('/spock/damagecontrol/templates/spec.html')
 
     private final Spec spec
-    private final SpecDefinition specDefinition
     private final Template specHtmlTemplate
 
-    HtmlSpecFormatter(spec, specDefinition) {
+    HtmlSpecFormatter(spec) {
         this.spec = spec
-        this.specDefinition = specDefinition
         this.specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
     }
 
@@ -22,7 +20,7 @@ class HtmlSpecFormatter {
     }
 
     def format() {
-        String specDefinitionHtml = new HtmlSpecDefinitionFormatter(spec, specDefinition).format()
+        String specDefinitionHtml = new HtmlSpecDefinitionFormatter(spec).format()
 
         return specHtmlTemplate.make([
                 spec_definition: specDefinitionHtml,

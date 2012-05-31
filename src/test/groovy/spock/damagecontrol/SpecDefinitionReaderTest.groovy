@@ -19,10 +19,10 @@ class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
         Spec spec = new Spec('samples.definitions.SampleSpecDefinitionTest')
 
         when:
-        SpecDefinition specDefinition = new SpecDefinitionReader(testFolder).read(spec)
+        new SpecDefinitionReader(testFolder).read(spec)
 
         then:
-        specDefinition.sourceCode.contains('class SampleSpecDefinitionTest')
+        spec.sourceCode.contains('class SampleSpecDefinitionTest')
     }
 
     def 'should read spec definition inside the default package'() {
@@ -31,9 +31,9 @@ class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
         Spec spec = new Spec('SampleSpecDefinitionTest')
 
         when:
-        SpecDefinition specDefinition = new SpecDefinitionReader(testFolder).read(spec)
+        new SpecDefinitionReader(testFolder).read(spec)
 
         then:
-        specDefinition.sourceCode.contains('class SampleSpecDefinitionTest')
+        spec.sourceCode.contains('class SampleSpecDefinitionTest')
     }
 }

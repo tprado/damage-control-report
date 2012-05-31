@@ -19,9 +19,9 @@ class Report {
 
     def run() {
         resultsCollector.forEach({ spec ->
-            SpecDefinition specDefinition = definitionReader.read(spec)
+            definitionReader.read(spec)
 
-            HtmlSpecFormatter formatter = new HtmlSpecFormatter(spec, specDefinition)
+            HtmlSpecFormatter formatter = new HtmlSpecFormatter(spec)
 
             writeStringToFile(formatter.file(outputFolder), formatter.format());
         })

@@ -5,6 +5,7 @@ class Spec {
     def name
     def features = [:]
     def output
+    def sourceCode = ''
 
     private final String shortNameRegex
 

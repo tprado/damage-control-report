@@ -3,15 +3,13 @@ package spock.damagecontrol
 class HtmlSpecDefinitionFormatter {
 
     private final Spec spec
-    private final SpecDefinition specDefinition
 
-    HtmlSpecDefinitionFormatter(spec, specDefinition) {
+    HtmlSpecDefinitionFormatter(spec) {
         this.spec = spec
-        this.specDefinition = specDefinition
     }
 
     def format() {
-        String specDefinitionHtml = specDefinition.sourceCode
+        String specDefinitionHtml = spec.sourceCode
 
         SourceCodeNormalizer stringLiteral = new SourceCodeNormalizer(/('.*')|(".*")/, 'string_literal')
         SourceCodeNormalizer comments = new SourceCodeNormalizer(/\/\*(.*)\*\//, 'comments')
