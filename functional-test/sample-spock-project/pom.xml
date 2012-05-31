@@ -65,7 +65,7 @@
             </plugin>
 
             <plugin>
-                <groupId>spock.damagecontrol.plugins</groupId>
+                <groupId>org.spockframework.damage-control.plugins</groupId>
                 <artifactId>damage-control-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
                 <executions>

@@ -3,14 +3,13 @@
 OUT_DIR=/tmp/damage-control
 OUT_EXT=.out
 
-OPTS="bmfFh"
+OPTS="bmfh"
 
 function usage {
     echo "usage: run -$OPTS"
     echo "  b      builds"
     echo "  m      builds maven plugin"
-    echo "  F      runs maven sample project and reports"
-    echo "  f      runs maven reports"
+    echo "  f      runs maven sample project"
     echo "  h      prints this message"
     echo
 
@@ -62,11 +61,7 @@ do
             MVN_PLUGIN=yes
             ;;
         f)
-            RUN_MVN_SAMPLE_REPORT=yes
-            ;;
-        F)
-            RUN_MVN_SAMPLE_TESTS=yes
-            RUN_MVN_SAMPLE_REPORT=yes
+            RUN_MVN_SAMPLE_PROJECT=yes
             ;;
         *)
             usage
@@ -92,16 +87,9 @@ then
     cd ../..
 fi
 
-if [ $RUN_MVN_SAMPLE_TESTS ]
+if [ $RUN_MVN_SAMPLE_PROJECT ]
 then
     cd functional-test/sample-spock-project
     execute_command "Running Maven sample project... " "mvn clean test" mvn-sample-project
-    cd ../..
-fi
-
-if [ $RUN_MVN_SAMPLE_REPORT ]
-then
-    cd functional-test/sample-spock-project
-    execute_command "Generating Maven reports... " "mvn damage-control:report" mvn-reports
     cd ../..
 fi

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>spock.damagecontrol.plugins</groupId>
+    <groupId>org.spockframework.damage-control.plugins</groupId>
     <artifactId>damage-control-maven-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.spockframework.damage-control</groupId>
             <artifactId>damage-control</artifactId>
-            <version>1.0.0</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

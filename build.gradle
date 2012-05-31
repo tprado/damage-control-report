@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 project.group = 'org.spockframework.damage-control'
-project.version = '1.0.0'
+project.version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
