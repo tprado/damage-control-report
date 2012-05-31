@@ -39,6 +39,10 @@ class SampleSpecTest extends Specification {
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
+        spec.features['feature 1'] = new Feature()
+        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+        spec.features['feature 2'] = new Feature()
+
         spec.output = new SpecOutput('standard output message', 'error output message')
         formatter = new HtmlSpecFormatter(spec, specDefinition)
     }
@@ -141,14 +145,19 @@ class SampleSpecTest extends Specification {
     }
 
     def 'should indicate line where error occurred'() {
-        given:
-        spec.features['feature 1'] = new Feature()
-        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-
         when:
         String html = formatter.format()
 
         then:
         html =~ /(?m)<span class='error'>.*'some condition'.*<\/span>$/
+    }
+
+    def 'should list all features'() {
+        when:
+        String html = formatter.format()
+
+        then:
+        html =~ /(?s).*<td>feature 1<\/td>.*/
+        html =~ /(?s).*<td>feature 2<\/td>.*/
     }
 }
