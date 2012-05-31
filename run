@@ -89,7 +89,7 @@ fi
 
 if [ $RUN_MVN_SAMPLE_PROJECT ]
 then
-    cd functional-test/sample-spock-project
-    execute_command "Running Maven sample project... " "mvn clean test" mvn-sample-project
-    cd ../..
+    cd functional-test
+    execute_command "Running functional tests... " "gradle clean test" functional-test
+    cd ..
 fi
