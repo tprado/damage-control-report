@@ -146,7 +146,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.error == ''
     }
 
-    def 'should collect anything when result file has no test cases'() {
+    def 'should collect nothing when result file has no test cases'() {
         given:
         copyFileToDirectory(XML_WITH_NO_TEST_CASE, testFolder)
 
@@ -157,7 +157,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         specs.size() == 0
     }
 
-    def 'should collect anything when result file is empty'() {
+    def 'should collect nothing when result file is empty'() {
         given:
         copyFileToDirectory(EMPTY, testFolder)
 
