@@ -4,6 +4,7 @@ class Feature {
 
     def failure
     def ignored = false
+    def duration
 
     def fail(message, details) {
         failure = new Failure()

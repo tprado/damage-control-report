@@ -60,6 +60,20 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
     }
 
+    def 'should collect duration for each feature'() {
+        given:
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+
+        when:
+        Map specs = collector.collectSpecs()
+
+        and:
+        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+
+        then:
+        feature.duration == '0.001'
+    }
+
     def 'should collect specification duration time'() {
         given:
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)

@@ -47,6 +47,7 @@ class TestResultsCollector {
 
         testSuite.'testcase'.each { testCase ->
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
+            feature.duration = testCase.'@time'
 
             if (testCase.skipped) {
                 feature.ignore()

@@ -14,6 +14,7 @@
                 <thead>
                 <tr>
                     <th class="feature-name">Feature</th>
+                    <th>Duration</th>
                     <th class="feature-result">Result</th>
                 </tr>
                 </thead>
@@ -21,7 +22,8 @@
                 <% features.each{ feature_name, feature -> %>
                 <tr>
                     <td class="feature-name"><%= feature_name %></td>
-                    <td class="feature-result"><%= feature.result %></td>
+                    <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
+                    <td class="feature-result" id="<%= feature_name %>_result"><%= feature.result %></td>
                 </tr>
                 <% } %>
                 </tbody>
