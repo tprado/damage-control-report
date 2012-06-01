@@ -4,10 +4,18 @@ import static org.apache.commons.io.FilenameUtils.separatorsToSystem
 
 class SpecTest extends BaseSpec {
 
+    def spec
+    def feature
+
+    def setup() {
+        spec = new Spec('samples.SampleSpecificationTest')
+        feature = new Feature()
+        spec.features['some feature'] = feature
+    }
+
     def 'should compose spec file name based on the spec name'() {
         given:
         File baseFolder = new File('src/test/resources')
-        Spec spec = new Spec('samples.SampleSpecificationTest')
 
         when:
         File specFile = spec.file(baseFolder)
@@ -17,11 +25,6 @@ class SpecTest extends BaseSpec {
     }
 
     def 'should indicate no line number if there is no error'() {
-        given:
-        Feature feature = new Feature()
-        Spec spec = new Spec('samples.definitions.SampleSpecificationTest')
-        spec.features['some feature'] = feature
-
         when:
         def lines = spec.errorLines()
 
@@ -31,10 +34,7 @@ class SpecTest extends BaseSpec {
 
     def 'should indicate the line numbers where an error occurred'() {
         given:
-        Feature feature = new Feature()
-        feature.fail('error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
-        Spec spec = new Spec('samples.definitions.SampleSpecificationTest')
-        spec.features['some feature'] = feature
+        feature.fail 'error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
 
         when:
         def lines = spec.errorLines()
@@ -45,10 +45,7 @@ class SpecTest extends BaseSpec {
 
     def 'should indicate the line numbers where an error occurred for spec in the default package'() {
         given:
-        Feature feature = new Feature()
-        feature.fail('error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
-        Spec spec = new Spec('SampleSpecificationTest')
-        spec.features['some feature'] = feature
+        feature.fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
 
         when:
         def lines = spec.errorLines()
@@ -58,19 +55,13 @@ class SpecTest extends BaseSpec {
     }
 
     def 'should count number of features'() {
-        given:
-        Spec spec = new Spec('spec name')
-        spec.features['some feature'] = new Feature()
-
         expect:
         spec.featureCount == 1
     }
 
     def 'should count number of failed features'() {
         given:
-        Spec spec = new Spec('spec name')
-        spec.features['some feature'] = new Feature()
-        spec.features['some feature'].fail 'error','error detail'
+        feature.fail 'error', 'error detail'
 
         expect:
         spec.failedFeatureCount == 1
@@ -78,11 +69,30 @@ class SpecTest extends BaseSpec {
 
     def 'should count number of skipped features'() {
         given:
-        Spec spec = new Spec('spec name')
-        spec.features['some feature'] = new Feature()
-        spec.features['some feature'].ignore()
+        feature.ignore()
 
         expect:
         spec.skippedFeatureCount == 1
+    }
+
+    def 'should show "failed" for specification with at least 1 failed feature'() {
+        when:
+        feature.fail 'error', 'error details'
+
+        then:
+        spec.result == 'failed'
+    }
+
+    def 'should show "skipped" for specification with all skipped features'() {
+        when:
+        feature.ignore()
+
+        then:
+        spec.result == 'skipped'
+    }
+
+    def 'should show "passed" for specification with no failures and at least 1 success feature'() {
+        expect:
+        spec.result == 'passed'
     }
 }

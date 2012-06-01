@@ -49,4 +49,12 @@ class HtmlIndexTemplateTest extends BaseSpec {
         then:
         html =~ /(?s)<td id="Spec1_skippedFeatureCount">1<\/td>/
     }
+
+    def 'should show result for each specification'() {
+        when:
+        String html = new HtmlIndexTemplate(specs).generate()
+
+        then:
+        html =~ /(?s)<td id="Spec1_result">failed<\/td>/
+    }
 }

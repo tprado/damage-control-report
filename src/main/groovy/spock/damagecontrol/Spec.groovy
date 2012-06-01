@@ -54,4 +54,14 @@ class Spec {
         }
         return count
     }
+
+    def getResult() {
+        if (failedFeatureCount > 0) {
+            return 'failed'
+        }
+        if (skippedFeatureCount == featureCount) {
+            return 'skipped'
+        }
+        return 'passed'
+    }
 }

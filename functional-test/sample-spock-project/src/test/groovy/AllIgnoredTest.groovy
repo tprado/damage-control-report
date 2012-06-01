@@ -1,6 +1,8 @@
 import spock.lang.Specification
+import spock.lang.Ignore
 
-class HiSpockTest extends Specification {
+@Ignore
+class AllIgnoredTest extends Specification {
 
     def "length of Spock's and his friends' names"() {
         given: "Spock have 3 friends"
