@@ -44,4 +44,14 @@ class Spec {
         }
         return count
     }
+
+    def getSkippedFeatureCount() {
+        int count = 0
+        features.each {featureName, feature ->
+            if (feature.ignored) {
+                count += 1
+            }
+        }
+        return count
+    }
 }

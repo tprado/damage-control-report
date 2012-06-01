@@ -4,10 +4,14 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     private List specs
 
-    def setup(){
+    def setup() {
         given:
         Spec spec1 = new Spec('Spec1')
         spec1.features['feature 1'] = new Feature()
+        spec1.features['feature 2'] = new Feature()
+        spec1.features['feature 2'].fail 'error', 'error detail'
+        spec1.features['feature 3'] = new Feature()
+        spec1.features['feature 3'].ignore()
         Spec spec2 = new Spec('Spec2')
         specs = [spec1, spec2]
 
@@ -27,7 +31,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td id="Spec1_featureCount">1<\/td>/
+        html =~ /(?s)<td id="Spec1_featureCount">3<\/td>/
     }
 
     def 'should show number of failed features for each specification'() {
@@ -35,6 +39,14 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td id="Spec1_failedFeatureCount">0<\/td>/
+        html =~ /(?s)<td id="Spec1_failedFeatureCount">1<\/td>/
+    }
+
+    def 'should show number of skipped features for each specification'() {
+        when:
+        String html = new HtmlIndexTemplate(specs).generate()
+
+        then:
+        html =~ /(?s)<td id="Spec1_skippedFeatureCount">1<\/td>/
     }
 }

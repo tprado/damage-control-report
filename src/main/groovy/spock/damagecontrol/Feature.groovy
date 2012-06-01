@@ -3,12 +3,16 @@ package spock.damagecontrol
 class Feature {
 
     def failure
-    def ignored
+    def ignored = false
 
     def fail(message, details) {
         failure = new Failure()
         failure.message = message
         failure.details = details
+    }
+
+    def ignore() {
+        ignored = true
     }
 
     def getResult() {

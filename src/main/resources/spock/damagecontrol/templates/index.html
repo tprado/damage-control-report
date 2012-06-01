@@ -16,6 +16,7 @@
                     <th class="feature-name">Specification</th>
                     <th>Features</th>
                     <th>Failures</th>
+                    <th>Skipped</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,7 @@
                     <td class="feature-name"><%= spec.name %></td>
                     <td id="<%= spec.name %>_featureCount"><%= spec.featureCount %></td>
                     <td id="<%= spec.name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
+                    <td id="<%= spec.name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>
                 </tr>
                 <% } %>
 

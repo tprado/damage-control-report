@@ -75,4 +75,14 @@ class SpecTest extends BaseSpec {
         expect:
         spec.failedFeatureCount == 1
     }
+
+    def 'should count number of skipped features'() {
+        given:
+        Spec spec = new Spec('spec name')
+        spec.features['some feature'] = new Feature()
+        spec.features['some feature'].ignore()
+
+        expect:
+        spec.skippedFeatureCount == 1
+    }
 }

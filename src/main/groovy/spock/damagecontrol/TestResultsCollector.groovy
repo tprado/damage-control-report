@@ -49,7 +49,7 @@ class TestResultsCollector {
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
 
             if (testCase.skipped) {
-                feature.ignored = true
+                feature.ignore()
             }
 
             if (testCase.failure) {
@@ -59,7 +59,7 @@ class TestResultsCollector {
 
         testSuite.'ignored-testcase'.each { testCase ->
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
-            feature.ignored = true
+            feature.ignore()
         }
     }
 
