@@ -7,6 +7,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
     def setup() {
         given:
         Spec spec1 = new Spec('Spec1')
+        spec1.duration = '0.155'
         spec1.features['feature 1'] = new Feature()
         spec1.features['feature 2'] = new Feature()
         spec1.features['feature 2'].fail 'error', 'error detail'
@@ -56,5 +57,13 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
         then:
         html =~ /(?s)<td id="Spec1_result">failed<\/td>/
+    }
+
+    def 'should show duration for each specification'() {
+        when:
+        String html = new HtmlIndexTemplate(specs).generate()
+
+        then:
+        html =~ /(?s)<td id="Spec1_duration">0.155s<\/td>/
     }
 }

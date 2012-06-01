@@ -61,6 +61,8 @@ class TestResultsCollector {
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
             feature.ignore()
         }
+
+        results.specs[testSuite.'@name'].duration = testSuite.'@time'
     }
 
     private Node parse(File file) {

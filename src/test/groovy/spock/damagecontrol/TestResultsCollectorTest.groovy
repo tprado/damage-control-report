@@ -60,6 +60,17 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
     }
 
+    def 'should collect specification duration time'() {
+        given:
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+
+        when:
+        Map specs = collector.collectSpecs()
+
+        then:
+        specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].duration == '0.005'
+    }
+
     def 'should collect ignored features'() {
         given:
         copyFileToDirectory(XML_WITH_IGNORED_TEST_CASE, testFolder)
@@ -167,6 +178,4 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         then:
         specs.size() == 0
     }
-
-
 }

@@ -6,6 +6,7 @@ class Spec {
     def features = [:]
     def output
     def sourceCode = ''
+    def duration
 
     private final String shortNameRegex
 
