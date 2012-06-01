@@ -10,7 +10,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
-        spec.features['feature 1'].failed 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+        spec.features['feature 1'].fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
         spec.features['feature 2'] = new Feature()
         spec.sourceCode = code
         spec.output = new SpecOutput('standard output message', 'error output message')

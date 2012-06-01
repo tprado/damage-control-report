@@ -5,7 +5,7 @@ class Feature {
     def failure
     def ignored
 
-    def failed(message, details) {
+    def fail(message, details) {
         failure = new Failure()
         failure.message = message
         failure.details = details
@@ -19,5 +19,9 @@ class Feature {
             return 'failed'
         }
         return 'passed'
+    }
+
+    def getFailed() {
+        result == 'failed'
     }
 }

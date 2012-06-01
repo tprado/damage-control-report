@@ -53,7 +53,7 @@ class TestResultsCollector {
             }
 
             if (testCase.failure) {
-                feature.failed testCase.failure[0].'@message', testCase.failure[0].text()
+                feature.fail testCase.failure[0].'@message', testCase.failure[0].text()
             }
         }
 
@@ -65,9 +65,5 @@ class TestResultsCollector {
 
     private Node parse(File file) {
         new XmlParser().parse(file)
-    }
-
-    def getSpecList() {
-
     }
 }

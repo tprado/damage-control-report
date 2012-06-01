@@ -21,7 +21,7 @@ class Spec {
     def errorLines() {
         List lines = []
 
-        features.each{ featureName, feature ->
+        features.each { featureName, feature ->
             if (feature.failure) {
                 def match = feature.failure.details =~ shortNameRegex
                 match.each { lines.add it[1].toInteger() }
@@ -33,5 +33,15 @@ class Spec {
 
     def getFeatureCount() {
         features.size()
+    }
+
+    def getFailedFeatureCount() {
+        int count = 0
+        features.each {featureName, feature ->
+            if (feature.failed) {
+                count += 1
+            }
+        }
+        return count
     }
 }

@@ -32,7 +32,7 @@ class SpecTest extends BaseSpec {
     def 'should indicate the line numbers where an error occurred'() {
         given:
         Feature feature = new Feature()
-        feature.failed('error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
+        feature.fail('error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
         Spec spec = new Spec('samples.definitions.SampleSpecificationTest')
         spec.features['some feature'] = feature
 
@@ -46,7 +46,7 @@ class SpecTest extends BaseSpec {
     def 'should indicate the line numbers where an error occurred for spec in the default package'() {
         given:
         Feature feature = new Feature()
-        feature.failed('error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
+        feature.fail('error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)')
         Spec spec = new Spec('SampleSpecificationTest')
         spec.features['some feature'] = feature
 
@@ -64,5 +64,15 @@ class SpecTest extends BaseSpec {
 
         expect:
         spec.featureCount == 1
+    }
+
+    def 'should count number of failed features'() {
+        given:
+        Spec spec = new Spec('spec name')
+        spec.features['some feature'] = new Feature()
+        spec.features['some feature'].fail 'error','error detail'
+
+        expect:
+        spec.failedFeatureCount == 1
     }
 }

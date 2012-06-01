@@ -6,9 +6,9 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def setup(){
         given:
-        Spec spec1 = new Spec('spec 1')
+        Spec spec1 = new Spec('Spec1')
         spec1.features['feature 1'] = new Feature()
-        Spec spec2 = new Spec('spec 2')
+        Spec spec2 = new Spec('Spec2')
         specs = [spec1, spec2]
 
     }
@@ -18,8 +18,8 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td class="feature-name">spec 1<\/td>/
-        html =~ /(?s)<td class="feature-name">spec 2<\/td>/
+        html =~ /(?s)<td class="feature-name">Spec1<\/td>/
+        html =~ /(?s)<td class="feature-name">Spec2<\/td>/
     }
 
     def 'should show number of features for each specification'() {
@@ -27,6 +27,14 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td class="feature-name">spec 1<\/td>\s*<td>1<\/td>/
+        html =~ /(?s)<td id="Spec1_featureCount">1<\/td>/
+    }
+
+    def 'should show number of failed features for each specification'() {
+        when:
+        String html = new HtmlIndexTemplate(specs).generate()
+
+        then:
+        html =~ /(?s)<td id="Spec1_failedFeatureCount">0<\/td>/
     }
 }
