@@ -3,14 +3,14 @@ package spock.damagecontrol
 import groovy.text.GStringTemplateEngine
 import groovy.text.Template
 
-class HtmlSpecFormatter {
+class HtmlSpecTemplate {
 
-    private static final URL SPEC_HTML_URL = HtmlSpecFormatter.class.getResource('/spock/damagecontrol/templates/spec.html')
+    private static final URL SPEC_HTML_URL = HtmlSpecTemplate.class.getResource('/spock/damagecontrol/templates/spec.html')
 
     private final Spec spec
     private final Template specHtmlTemplate
 
-    HtmlSpecFormatter(spec) {
+    HtmlSpecTemplate(spec) {
         this.spec = spec
         this.specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
     }
@@ -19,7 +19,7 @@ class HtmlSpecFormatter {
         return new File(baseFolder.absolutePath + '/' + spec.name + '.html')
     }
 
-    def format() {
+    def generate() {
         String specDefinitionHtml = new HtmlSpecDefinitionFormatter(spec).format()
 
         return specHtmlTemplate.make([

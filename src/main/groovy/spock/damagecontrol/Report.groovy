@@ -25,8 +25,8 @@ class Report {
 
         specs.each {specName, spec ->
             definitionReader.read(spec)
-            HtmlSpecFormatter formatter = new HtmlSpecFormatter(spec)
-            writeStringToFile(formatter.file(outputFolder), formatter.format());
+            HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec)
+            writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
         }
 
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))

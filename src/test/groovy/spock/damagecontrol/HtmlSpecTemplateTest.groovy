@@ -1,11 +1,11 @@
 package spock.damagecontrol
 
-class HtmlSpecFormatterTest extends BaseSpec {
+class HtmlSpecTemplateTest extends BaseSpec {
 
     private static final String code = "class SampleSpecTest extends Specification { }"
 
     private Spec spec
-    private HtmlSpecFormatter formatter
+    private HtmlSpecTemplate template
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
@@ -15,12 +15,12 @@ class HtmlSpecFormatterTest extends BaseSpec {
         spec.features['feature 2'] = new Feature()
         spec.sourceCode = code
         spec.output = new SpecOutput('standard output message', 'error output message')
-        formatter = new HtmlSpecFormatter(spec)
+        template = new HtmlSpecTemplate(spec)
     }
 
     def 'should name HTML file based on spec name'() {
         when:
-        File htmlFile = formatter.file(new File('.'))
+        File htmlFile = template.file(new File('.'))
 
         then:
         htmlFile.name == 'samples.definitions.SampleSpecTest.html'
@@ -28,7 +28,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should surround spec definition with div'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s)<div id='spec-definition'>.*(SampleSpecTest).*<\/div>/
@@ -36,7 +36,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should surround standard output with div'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s)<div id='spec-standard-output'>.*(standard output message).*<\/div>/
@@ -44,7 +44,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should surround error output with div'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s)<div id='spec-error-output'>.*(error output message).*<\/div>/
@@ -52,7 +52,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should list all features'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s).*<td class="feature-name">feature 1<\/td>.*/
@@ -61,7 +61,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should show result for feature'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s).*<td class="feature-result" id="feature 1_result">failed<\/td>.*/
@@ -69,7 +69,7 @@ class HtmlSpecFormatterTest extends BaseSpec {
 
     def 'should show spec duration'() {
         when:
-        String html = formatter.format()
+        String html = template.generate()
 
         then:
         html =~ /(?s).*<td id="feature 1_duration">0.250s<\/td>.*/
