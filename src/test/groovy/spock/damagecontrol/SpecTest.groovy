@@ -56,4 +56,13 @@ class SpecTest extends BaseSpec {
         then:
         lines == [19]
     }
+
+    def 'should count number of features'() {
+        given:
+        Spec spec = new Spec('spec name')
+        spec.features['some feature'] = new Feature()
+
+        expect:
+        spec.featureCount == 1
+    }
 }

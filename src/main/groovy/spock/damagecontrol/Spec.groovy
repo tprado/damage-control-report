@@ -30,4 +30,8 @@ class Spec {
 
         return lines
     }
+
+    def getFeatureCount() {
+        features.size()
+    }
 }

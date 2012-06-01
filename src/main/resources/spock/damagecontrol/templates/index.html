@@ -14,7 +14,7 @@
                 <thead>
                 <tr>
                     <th class="feature-name">Specification</th>
-                    <th class="feature-result">Result</th>
+                    <th>Features</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,7 +22,7 @@
                 <% specs.each{ spec -> %>
                 <tr>
                     <td class="feature-name"><%= spec.name %></td>
-                    <td class="feature-result">result 1</td>
+                    <td><%= spec.featureCount %></td>
                 </tr>
                 <% } %>
 
