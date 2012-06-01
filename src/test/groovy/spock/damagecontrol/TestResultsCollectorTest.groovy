@@ -14,13 +14,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
     private static final File XML_WITHOUT_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
     private static final File EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
 
-    private Map specs = [:]
-
     private TestResultsCollector collector
-
-    private Closure toSpecsMap = { spec ->
-        specs[spec.name] = spec
-    }
 
     def setup() {
         collector = new TestResultsCollector(testFolder)
@@ -32,7 +26,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.TestResultsCollectorTest1']
@@ -45,7 +39,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
@@ -57,7 +51,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         and:
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
@@ -71,7 +65,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_IGNORED_TEST_CASE, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         and:
         Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['ignored feature']
@@ -85,7 +79,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_IGNORED_TEST_CASE, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         and:
         Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['skipped feature']
@@ -99,7 +93,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         and:
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
@@ -113,7 +107,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_SYS_OUT, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.standard == 'standard output message'
@@ -124,7 +118,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.standard == ''
@@ -135,7 +129,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_SYS_OUT, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.error == 'error output message'
@@ -146,7 +140,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.error == ''
@@ -157,7 +151,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(XML_WITH_NO_TEST_CASE, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs.size() == 0
@@ -168,9 +162,11 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         copyFileToDirectory(EMPTY, testFolder)
 
         when:
-        collector.forEach(toSpecsMap);
+        Map specs = collector.collectSpecs()
 
         then:
         specs.size() == 0
     }
+
+
 }

@@ -37,6 +37,14 @@ class ReportTest extends BaseFileHandlingSpec {
         new File(outputFolder.absolutePath + '/style/damage-control.css').exists()
     }
 
+    def 'should create index file'() {
+        when:
+        report.run()
+
+        then:
+        new File(outputFolder.absolutePath + '/index.html').exists()
+    }
+
     def 'should create html file for each spec'() {
         given:
         copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)

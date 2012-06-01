@@ -21,7 +21,10 @@ class MavenPluginTest extends Specification {
         mvn.waitFor()
         println standardOutput
 
-        then: "I see a nice HTML report"
+        then: "I see an index page"
+        new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/index.html").exists()
+
+        and: "I see a nice HTML report for a specification"
         new File(SAMPLE_MVN_PROJECT.absolutePath + "/target/damage-control-reports/MultipleFeaturesTest.html").exists()
     }
 }

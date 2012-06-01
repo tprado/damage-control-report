@@ -18,13 +18,16 @@ class Report {
     }
 
     def run() {
-        resultsCollector.forEach({ spec ->
+        Map specs = resultsCollector.collectSpecs()
+
+        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(new ArrayList(specs.values()))
+        writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
+
+        specs.each {specName, spec ->
             definitionReader.read(spec)
-
             HtmlSpecFormatter formatter = new HtmlSpecFormatter(spec)
-
             writeStringToFile(formatter.file(outputFolder), formatter.format());
-        })
+        }
 
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))
     }

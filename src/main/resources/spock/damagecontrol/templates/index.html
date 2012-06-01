@@ -1,0 +1,36 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
+</head>
+
+<body>
+<div id="content">
+
+    <div id="features-section">
+        <h3>Specifications</h3>
+
+        <div id='features-list'>
+            <table>
+                <thead>
+                <tr>
+                    <th class="feature-name">Specification</th>
+                    <th class="feature-result">Result</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% specs.each{ spec -> %>
+                <tr>
+                    <td class="feature-name"><%= spec.name %></td>
+                    <td class="feature-result">result 1</td>
+                </tr>
+                <% } %>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

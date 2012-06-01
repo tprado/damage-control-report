@@ -13,12 +13,14 @@ class TestResultsCollector {
         this.resultsFolder = resultsFolder
     }
 
-    def forEach(closure) {
+    def collectSpecs() {
         TestResults results = collect()
 
+        Map specs = [:]
         results.specs.values().each({ spec ->
-            closure(spec)
+            specs[spec.name] = spec
         })
+        return specs
     }
 
     private TestResults collect() {
@@ -63,5 +65,9 @@ class TestResultsCollector {
 
     private Node parse(File file) {
         new XmlParser().parse(file)
+    }
+
+    def getSpecList() {
+
     }
 }
