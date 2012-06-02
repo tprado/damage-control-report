@@ -1,8 +1,8 @@
-package spock.damagecontrol;
+package spock.damagecontrol
 
-public class HtmlSpecDefinitionFormatterTest extends BaseSpec {
+class HtmlSpecDefinitionFormatterTest extends BaseSpec {
 
-    def static final CODE = """package samples.definitions
+    static final CODE = """package samples.definitions
 
 /* Comments */
 class SampleSpecTest extends Specification {
@@ -37,7 +37,7 @@ class SampleSpecTest extends Specification {
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
-        spec.features['feature 1'].fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+        spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
         spec.sourceCode = CODE
         formatter = new HtmlSpecDefinitionFormatter(spec)
     }

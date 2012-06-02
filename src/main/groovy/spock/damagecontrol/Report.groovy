@@ -5,11 +5,11 @@ import static org.apache.commons.io.FileUtils.writeStringToFile
 
 class Report {
 
-    def static final CSS_URL = Report.class.getResource('/spock/damagecontrol/statics/style/damage-control.css')
+    static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
 
-    def final resultsCollector
-    def final definitionReader
-    def final outputFolder
+    final resultsCollector
+    final definitionReader
+    final outputFolder
 
     Report(config) {
         resultsCollector = new TestResultsCollector(config.testResultsFolder)

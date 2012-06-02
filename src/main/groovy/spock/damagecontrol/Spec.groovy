@@ -2,13 +2,15 @@ package spock.damagecontrol
 
 class Spec {
 
+    static final String FILE_SEPARATOR = System.getProperty('file.separator')
+
     def name
     def features = [:]
     def output
     def sourceCode = ''
     def duration
 
-    def final shortNameRegex
+    final shortNameRegex
 
     Spec(name) {
         this.name = name
@@ -16,7 +18,7 @@ class Spec {
     }
 
     def file(baseFolder) {
-        return new File(baseFolder.absolutePath + '/' + name.replaceAll(/\./, '/') + '.groovy')
+        new File(baseFolder.absolutePath + FILE_SEPARATOR + name.replaceAll(/\./, FILE_SEPARATOR) + '.groovy')
     }
 
     def errorLines() {
@@ -29,7 +31,7 @@ class Spec {
             }
         }
 
-        return lines
+        lines
     }
 
     def getFeatureCount() {
@@ -38,22 +40,22 @@ class Spec {
 
     def getFailedFeatureCount() {
         int count = 0
-        features.each {featureName, feature ->
+        features.each { featureName, feature ->
             if (feature.failed) {
                 count += 1
             }
         }
-        return count
+        count
     }
 
     def getSkippedFeatureCount() {
         int count = 0
-        features.each {featureName, feature ->
+        features.each { featureName, feature ->
             if (feature.ignored) {
                 count += 1
             }
         }
-        return count
+        count
     }
 
     def getResult() {
@@ -63,6 +65,6 @@ class Spec {
         if (skippedFeatureCount == featureCount) {
             return 'skipped'
         }
-        return 'passed'
+        'passed'
     }
 }

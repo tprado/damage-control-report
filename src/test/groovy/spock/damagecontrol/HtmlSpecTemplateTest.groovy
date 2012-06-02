@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class HtmlSpecTemplateTest extends BaseSpec {
 
-    def static final CODE = "class SampleSpecTest extends Specification { }"
+    static final CODE = 'class SampleSpecTest extends Specification { }'
 
     def spec
     def template
@@ -11,7 +11,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].duration = '0.250'
-        spec.features['feature 1'].fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+        spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
         spec.features['feature 2'] = new Feature()
         spec.sourceCode = CODE
         spec.output = new SpecOutput('standard output message', 'error output message')

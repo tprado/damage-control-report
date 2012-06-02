@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class TestResults {
 
-    def final specs = [:]
+    final specs = [:]
 
     def getSpecList() {
         specs.values().toList()
@@ -16,10 +16,8 @@ class TestResults {
             specs[specName] = newSpec
         }
 
-        if (!specs[specName].features[featureName]) {
-            specs[specName].features[featureName] = new Feature()
-        }
+        specs[specName].features[featureName] = specs[specName].features[featureName] ?: new Feature()
 
-        return specs[specName].features[featureName]
+        specs[specName].features[featureName]
     }
 }

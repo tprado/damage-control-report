@@ -34,7 +34,7 @@ class SpecTest extends BaseSpec {
 
     def 'should indicate the line numbers where an error occurred'() {
         given:
-        feature.fail 'error message', 'at samples.definitions.SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
+        feature.fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
 
         when:
         def lines = spec.errorLines()

@@ -4,9 +4,9 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class ReportTest extends BaseFileHandlingSpec {
 
-    def static final SAMPLE_FOLDER = 'src/test/resources/samples'
-    def static final SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/definitions/SampleSpecDefinitionTest.groovy')
-    def static final SPEC_RESULT = new File(SAMPLE_FOLDER + '/results/TEST-samples.definitions.SampleSpecDefinitionTest.xml')
+    static final SAMPLES = 'src/test/resources/samples'
+    static final SPEC_DEFINITION = new File(SAMPLES + '/definitions/SampleSpecDefinitionTest.groovy')
+    static final SPEC_RESULT = new File(SAMPLES + '/results/TEST-samples.definitions.SampleSpecDefinitionTest.xml')
 
     def specsDefinitionPackage
     def report
@@ -24,7 +24,7 @@ class ReportTest extends BaseFileHandlingSpec {
         ])
     }
 
-    def 'should copy static resources'() {
+    def 'should copy resources'() {
         given:
         copyFileToDirectory(SPEC_DEFINITION, specsDefinitionPackage)
         copyFileToDirectory(SPEC_RESULT, testFolder)

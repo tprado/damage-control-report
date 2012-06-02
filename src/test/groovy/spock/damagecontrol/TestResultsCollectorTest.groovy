@@ -4,15 +4,17 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
-    def static final SAMPLE_FOLDER = 'src/test/resources/samples/results'
+    static final SAMPLES = 'src/test/resources/samples/results'
 
-    def static final XML_WITH_ONE_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
-    def static final XML_WITH_TWO_TEST_CASES = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
-    def static final XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
-    def static final XML_WITH_IGNORED_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithIgnoredTestCase.xml')
-    def static final XML_WITH_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
-    def static final XML_WITHOUT_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
-    def static final EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
+    static final XML_WITH_ONE_TEST_CASE = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
+    static final XML_WITH_TWO_TEST_CASES = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
+    static final XML_WITH_NO_TEST_CASE = new File(SAMPLES + '/TEST-no-test-case.xml')
+    static final XML_WITH_IGNORED_TEST_CASE = new File(
+            SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithIgnoredTestCase.xml'
+    )
+    static final XML_WITH_SYS_OUT = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
+    static final XML_WITHOUT_SYS_OUT = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
+    static final EMPTY = new File(SAMPLES + '/empty.xml')
 
     def collector
 
@@ -124,7 +126,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
-        feature.failure.details.contains('at spock.damagecontrol.TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
+        feature.failure.details.contains('TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
     }
 
     def 'should collect standard output for spec'() {

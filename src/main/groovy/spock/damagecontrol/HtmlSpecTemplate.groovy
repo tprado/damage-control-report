@@ -4,10 +4,10 @@ import groovy.text.GStringTemplateEngine
 
 class HtmlSpecTemplate {
 
-    def static final SPEC_HTML_URL = HtmlSpecTemplate.class.getResource('/spock/damagecontrol/templates/spec.html')
+    static final SPEC_HTML_URL = HtmlSpecTemplate.getResource('/spock/damagecontrol/templates/spec.html')
 
-    def final spec
-    def final specHtmlTemplate
+    final spec
+    final specHtmlTemplate
 
     HtmlSpecTemplate(spec) {
         this.spec = spec
@@ -15,13 +15,13 @@ class HtmlSpecTemplate {
     }
 
     def file(baseFolder) {
-        return new File(baseFolder.absolutePath + '/' + spec.name + '.html')
+        new File(baseFolder.absolutePath + '/' + spec.name + '.html')
     }
 
     def generate() {
         String specDefinitionHtml = new HtmlSpecDefinitionFormatter(spec).format()
 
-        return specHtmlTemplate.make([
+        specHtmlTemplate.make([
                 spec_definition: specDefinitionHtml,
                 spec_standard_output: spec.output.standard,
                 spec_error_output: spec.output.error,

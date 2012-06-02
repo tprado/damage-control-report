@@ -2,6 +2,8 @@ package spock.damagecontrol
 
 class Feature {
 
+    static final FAILED = 'failed'
+
     def failure
     def ignored = false
     def duration
@@ -21,12 +23,12 @@ class Feature {
             return 'skipped'
         }
         if (failure) {
-            return 'failed'
+            return FAILED
         }
-        return 'passed'
+        'passed'
     }
 
     def getFailed() {
-        result == 'failed'
+        result == FAILED
     }
 }

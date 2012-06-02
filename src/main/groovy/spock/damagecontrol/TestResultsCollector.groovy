@@ -4,15 +4,17 @@ import static org.apache.commons.io.FileUtils.iterateFiles
 
 class TestResultsCollector {
 
-    def static final boolean INCLUDE_SUB_FOLDERS = true
-    def static final String[] XML = ['xml']
+    static final boolean INCLUDE_SUB_FOLDERS = true
+    static final String[] XML = ['xml']
 
-    def final resultsFolder
+    final resultsFolder
 
     TestResultsCollector(resultsFolder) {
         this.resultsFolder = resultsFolder
     }
 
+    @SuppressWarnings('CatchException')
+    @SuppressWarnings('Println')
     def collect() {
         TestResults results = new TestResults()
 
@@ -24,7 +26,7 @@ class TestResultsCollector {
             }
         }
 
-        return results
+        results
     }
 
     def collectSpecs(file, results) {
