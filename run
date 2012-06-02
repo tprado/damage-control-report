@@ -77,7 +77,7 @@ mkdir -p $OUT_DIR
 
 if [ $BUILD ]
 then
-    execute_command "Building... " "gradle clean test install" build
+    execute_command "Building... " "gradle clean test check install" build
 fi
 
 if [ $MVN_PLUGIN ]
