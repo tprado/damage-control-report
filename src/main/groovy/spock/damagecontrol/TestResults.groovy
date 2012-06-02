@@ -4,6 +4,10 @@ class TestResults {
 
     def final specs = [:]
 
+    def getSpecList() {
+        specs.values().toList()
+    }
+
     def addFeature(specName, featureName, output) {
 
         if (!specs[specName]) {

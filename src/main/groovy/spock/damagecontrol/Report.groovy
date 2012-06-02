@@ -18,12 +18,12 @@ class Report {
     }
 
     def run() {
-        Map specs = resultsCollector.collect().specs
+        List specs = resultsCollector.collect().specList
 
-        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(new ArrayList(specs.values()))
+        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(specs)
         writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
 
-        specs.each {specName, spec ->
+        specs.each { spec ->
             definitionReader.read(spec)
             HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec)
             writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
