@@ -13,16 +13,6 @@ class TestResultsCollector {
         this.resultsFolder = resultsFolder
     }
 
-    def collectSpecs() {
-        TestResults results = collect()
-
-        Map specs = [:]
-        results.specs.values().each({ spec ->
-            specs[spec.name] = spec
-        })
-        return specs
-    }
-
     def collect() {
         TestResults results = new TestResults()
 

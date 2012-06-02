@@ -18,7 +18,7 @@ class Report {
     }
 
     def run() {
-        Map specs = resultsCollector.collectSpecs()
+        Map specs = resultsCollector.collect().specs
 
         HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(new ArrayList(specs.values()))
         writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
