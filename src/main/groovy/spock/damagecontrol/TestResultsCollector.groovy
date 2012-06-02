@@ -4,10 +4,10 @@ import static org.apache.commons.io.FileUtils.iterateFiles
 
 class TestResultsCollector {
 
-    private static final boolean INCLUDE_SUB_FOLDERS = true
-    private static final String[] XML = ['xml']
+    def static final boolean INCLUDE_SUB_FOLDERS = true
+    def static final String[] XML = ['xml']
 
-    private final File resultsFolder
+    def final resultsFolder
 
     TestResultsCollector(resultsFolder) {
         this.resultsFolder = resultsFolder
@@ -23,7 +23,7 @@ class TestResultsCollector {
         return specs
     }
 
-    private TestResults collect() {
+    def collect() {
         TestResults results = new TestResults()
 
         iterateFiles(resultsFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
@@ -37,7 +37,7 @@ class TestResultsCollector {
         return results
     }
 
-    private void collectSpecs(File file, TestResults results) {
+    def collectSpecs(file, results) {
         Node testSuite = parse(file)
 
         def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
@@ -66,7 +66,7 @@ class TestResultsCollector {
         results.specs[testSuite.'@name'].duration = testSuite.'@time'
     }
 
-    private Node parse(File file) {
+    def parse(file) {
         new XmlParser().parse(file)
     }
 }

@@ -4,17 +4,17 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
-    private static final String SAMPLE_FOLDER = 'src/test/resources/samples/results'
+    def static final SAMPLE_FOLDER = 'src/test/resources/samples/results'
 
-    private static final File XML_WITH_ONE_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
-    private static final File XML_WITH_TWO_TEST_CASES = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
-    private static final File XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
-    private static final File XML_WITH_IGNORED_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithIgnoredTestCase.xml')
-    private static final File XML_WITH_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
-    private static final File XML_WITHOUT_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
-    private static final File EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
+    def static final XML_WITH_ONE_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
+    def static final XML_WITH_TWO_TEST_CASES = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
+    def static final XML_WITH_NO_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-no-test-case.xml')
+    def static final XML_WITH_IGNORED_TEST_CASE = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithIgnoredTestCase.xml')
+    def static final XML_WITH_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
+    def static final XML_WITHOUT_SYS_OUT = new File(SAMPLE_FOLDER + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
+    def static final EMPTY = new File(SAMPLE_FOLDER + '/empty.xml')
 
-    private TestResultsCollector collector
+    def collector
 
     def setup() {
         collector = new TestResultsCollector(testFolder)

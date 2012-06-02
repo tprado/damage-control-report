@@ -4,7 +4,7 @@ import static org.apache.commons.io.FileUtils.readFileToString
 
 class SpecDefinitionReader {
 
-    private final File specsFolder
+    def final specsFolder
 
     SpecDefinitionReader(folder) {
         specsFolder = folder

@@ -2,9 +2,9 @@ package spock.damagecontrol
 
 class SourceCodeNormalizer {
 
-    private final String regex
-    private final String token
-    private final Map originalValues = [:]
+    def final regex
+    def final token
+    def final originalValues = [:]
 
     SourceCodeNormalizer(regex, token) {
         this.regex = regex

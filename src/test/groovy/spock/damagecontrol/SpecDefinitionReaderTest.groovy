@@ -4,10 +4,10 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
 
-    private static final String SAMPLE_FOLDER = 'src/test/resources'
-    private static final File SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/samples/definitions/SampleSpecDefinitionTest.groovy')
+    def static final SAMPLE_FOLDER = 'src/test/resources'
+    def static final SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/samples/definitions/SampleSpecDefinitionTest.groovy')
 
-    private File specsDefinitionPackage
+    def specsDefinitionPackage
 
     def setup() {
         specsDefinitionPackage = new File(testFolder.absolutePath + '/samples/definitions')

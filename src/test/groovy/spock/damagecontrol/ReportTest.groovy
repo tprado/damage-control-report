@@ -4,14 +4,13 @@ import static org.apache.commons.io.FileUtils.copyFileToDirectory
 
 class ReportTest extends BaseFileHandlingSpec {
 
-    private static final String SAMPLE_FOLDER = 'src/test/resources/samples'
-    private static final File SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/definitions/SampleSpecDefinitionTest.groovy')
-    private static final File SPEC_RESULT = new File(SAMPLE_FOLDER + '/results/TEST-samples.definitions.SampleSpecDefinitionTest.xml')
+    def static final SAMPLE_FOLDER = 'src/test/resources/samples'
+    def static final SPEC_DEFINITION = new File(SAMPLE_FOLDER + '/definitions/SampleSpecDefinitionTest.groovy')
+    def static final SPEC_RESULT = new File(SAMPLE_FOLDER + '/results/TEST-samples.definitions.SampleSpecDefinitionTest.xml')
 
-    private File specsDefinitionPackage
-
-    private Report report
-    private File outputFolder
+    def specsDefinitionPackage
+    def report
+    def outputFolder
 
     def setup() {
         specsDefinitionPackage = new File(testFolder.absolutePath + '/samples/definitions')

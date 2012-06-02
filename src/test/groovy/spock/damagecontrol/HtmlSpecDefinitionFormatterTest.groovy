@@ -2,7 +2,7 @@ package spock.damagecontrol;
 
 public class HtmlSpecDefinitionFormatterTest extends BaseSpec {
 
-    private static final String code = """package samples.definitions
+    def static final CODE = """package samples.definitions
 
 /* Comments */
 class SampleSpecTest extends Specification {
@@ -31,14 +31,14 @@ class SampleSpecTest extends Specification {
 }
 """
 
-    private HtmlSpecDefinitionFormatter formatter
-    private Spec spec
+    def formatter
+    def spec
 
     def setup() {
         spec = new Spec('samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.sourceCode = code
+        spec.sourceCode = CODE
         formatter = new HtmlSpecDefinitionFormatter(spec)
     }
 

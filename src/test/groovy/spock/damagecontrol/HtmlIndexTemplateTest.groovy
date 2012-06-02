@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class HtmlIndexTemplateTest extends BaseSpec {
 
-    private List specs
+    def specs
 
     def setup() {
         given:

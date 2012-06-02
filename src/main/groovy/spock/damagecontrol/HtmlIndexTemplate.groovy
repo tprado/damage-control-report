@@ -1,14 +1,13 @@
 package spock.damagecontrol
 
-import groovy.text.Template
 import groovy.text.GStringTemplateEngine
 
 class HtmlIndexTemplate {
 
-    private static final URL INDEX_URL = Report.class.getResource('/spock/damagecontrol/templates/index.html')
+    def static final INDEX_URL = Report.class.getResource('/spock/damagecontrol/templates/index.html')
 
-    private final Template indexTemplate
-    private final List specs
+    def final indexTemplate
+    def final specs
 
     HtmlIndexTemplate(specs) {
         this.specs = specs

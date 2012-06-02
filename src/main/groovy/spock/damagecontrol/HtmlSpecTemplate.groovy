@@ -1,14 +1,13 @@
 package spock.damagecontrol
 
 import groovy.text.GStringTemplateEngine
-import groovy.text.Template
 
 class HtmlSpecTemplate {
 
-    private static final URL SPEC_HTML_URL = HtmlSpecTemplate.class.getResource('/spock/damagecontrol/templates/spec.html')
+    def static final SPEC_HTML_URL = HtmlSpecTemplate.class.getResource('/spock/damagecontrol/templates/spec.html')
 
-    private final Spec spec
-    private final Template specHtmlTemplate
+    def final spec
+    def final specHtmlTemplate
 
     HtmlSpecTemplate(spec) {
         this.spec = spec

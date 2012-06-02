@@ -8,7 +8,7 @@ class Spec {
     def sourceCode = ''
     def duration
 
-    private final String shortNameRegex
+    def final shortNameRegex
 
     Spec(name) {
         this.name = name

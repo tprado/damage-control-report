@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class HtmlSpecDefinitionFormatter {
 
-    private final Spec spec
+    def final spec
 
     HtmlSpecDefinitionFormatter(spec) {
         this.spec = spec
@@ -27,18 +27,18 @@ class HtmlSpecDefinitionFormatter {
         return specDefinitionHtml
     }
 
-    private String lineNumbers(String result) {
+    def lineNumbers(result) {
         int lineCount = 1
         return result.replaceAll(/(?m)^.*$/, { "<span class='line-number'>${lineCount++}</span>${it}" })
     }
 
-    private String errorLines(String result) {
+    def errorLines(result) {
         List errorLines = spec.errorLines()
         int lineCount = 1
         return result.replaceAll(/(?m)^.*$/, { errorLines.contains(lineCount++) ? "<span class='error'>${it}</span>" : it })
     }
 
-    private String reservedWords(String result) {
+    def reservedWords(result) {
         return result.replaceAll(/((package)|(class)|(extends)|(def))[\s]+/, {
             "<span class='reserved'>${it[1]}</span> "
         })

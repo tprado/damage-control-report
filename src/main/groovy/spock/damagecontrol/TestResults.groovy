@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class TestResults {
 
-    def specs = [:]
+    def final specs = [:]
 
     def addFeature(specName, featureName, output) {
 
