@@ -2,7 +2,7 @@ package spock.damagecontrol
 
 class Spec {
 
-    static final String FILE_SEPARATOR = System.getProperty('file.separator')
+    static final String FILE_SEPARATOR = '/'
 
     def name
     def features = [:]
