@@ -25,7 +25,8 @@ class HtmlSpecTemplate {
                 spec_definition: specDefinitionHtml,
                 spec_standard_output: spec.output.standard,
                 spec_error_output: spec.output.error,
-                features: spec.features
+                features: spec.features,
+                spec: spec
         ]).toString()
     }
 }

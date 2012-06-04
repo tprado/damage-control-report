@@ -15,6 +15,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.features['feature 2'] = new Feature()
         spec.sourceCode = CODE
         spec.output = new SpecOutput('standard output message', 'error output message')
+        spec.duration = '0.355'
         template = new HtmlSpecTemplate(spec)
     }
 
@@ -73,5 +74,37 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
         then:
         html =~ /(?s).*<td id="feature 1_duration">0.250s<\/td>.*/
+    }
+
+    def 'should show number of features'() {
+        when:
+        String html = template.generate()
+
+        then:
+        html =~ /(?s).*<div class="summaryCounter" id="featureCount">2.*<\/div>/
+    }
+
+    def 'should show number of failed features'() {
+        when:
+        String html = template.generate()
+
+        then:
+        html =~ /(?s).*<div class="summaryCounter" id="failedFeatureCount">1.*<\/div>/
+    }
+
+    def 'should show number of skipped features'() {
+        when:
+        String html = template.generate()
+
+        then:
+        html =~ /(?s).*<div class="summaryCounter" id="skippedFeatureCount">0.*<\/div>/
+    }
+
+    def 'should show duration for specification'() {
+        when:
+        String html = template.generate()
+
+        then:
+        html =~ /(?s).*<div class="summaryCounter" id="specDuration">0.355s.*<\/div>/
     }
 }
