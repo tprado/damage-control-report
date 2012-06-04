@@ -18,13 +18,13 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     }
 
-    def 'should generate list of specifications'() {
+    def 'should generate list of specifications as links'() {
         when:
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td class="spec-name">Spec1<\/td>/
-        html =~ /(?s)<td class="spec-name">Spec2<\/td>/
+        html =~ /(?s)<td class="spec-name"><a href='Spec1.html'>Spec1<\/a><\/td>/
+        html =~ /(?s)<td class="spec-name"><a href='Spec2.html'>Spec2<\/a><\/td>/
     }
 
     def 'should show number of features for each specification'() {
