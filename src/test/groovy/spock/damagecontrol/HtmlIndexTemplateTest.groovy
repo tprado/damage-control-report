@@ -23,8 +23,8 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td class="feature-name">Spec1<\/td>/
-        html =~ /(?s)<td class="feature-name">Spec2<\/td>/
+        html =~ /(?s)<td class="spec-name">Spec1<\/td>/
+        html =~ /(?s)<td class="spec-name">Spec2<\/td>/
     }
 
     def 'should show number of features for each specification'() {

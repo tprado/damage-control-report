@@ -13,7 +13,7 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="feature-name">Specification</th>
+                    <th>Specification</th>
                     <th>Features</th>
                     <th>Failures</th>
                     <th>Skipped</th>
@@ -25,7 +25,7 @@
 
                 <% specs.each{ spec -> %>
                 <tr>
-                    <td class="feature-name"><%= spec.name %></td>
+                    <td class="spec-name"><%= spec.name %></td>
                     <td id="<%= spec.name %>_featureCount"><%= spec.featureCount %></td>
                     <td id="<%= spec.name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
                     <td id="<%= spec.name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>

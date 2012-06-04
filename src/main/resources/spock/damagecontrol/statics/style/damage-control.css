@@ -18,6 +18,13 @@ table {
 th {
     border-bottom: solid #D0D0D0 1px;
     white-space: nowrap;
+    text-align: right;
+    padding-left: 6em;
+}
+
+th:first-child {
+    padding-left: 0;
+    text-align: left;
 }
 
 td {
@@ -26,18 +33,13 @@ td {
     padding-bottom: 5px;
     display: table-cell;
     vertical-align: inherit;
-}
-
-th.feature-name,
-td.feature-name {
-    text-align: left;
-    padding-left: 0;
-}
-
-th.feature-result,
-td.feature-result {
     text-align: right;
     padding-left: 6em;
+}
+
+td:first-child {
+    padding-left: 0;
+    text-align: left;
 }
 
 #spec-definition,

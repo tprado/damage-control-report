@@ -13,9 +13,9 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="feature-name">Feature</th>
+                    <th>Feature</th>
                     <th>Duration</th>
-                    <th class="feature-result">Result</th>
+                    <th>Result</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                 <tr>
                     <td class="feature-name"><%= feature_name %></td>
                     <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
-                    <td class="feature-result" id="<%= feature_name %>_result"><%= feature.result %></td>
+                    <td id="<%= feature_name %>_result"><%= feature.result %></td>
                 </tr>
                 <% } %>
                 </tbody>

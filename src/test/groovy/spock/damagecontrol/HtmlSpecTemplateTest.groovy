@@ -64,7 +64,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate()
 
         then:
-        html =~ /(?s).*<td class="feature-result" id="feature 1_result">failed<\/td>.*/
+        html =~ /(?s).*<td id="feature 1_result">failed<\/td>.*/
     }
 
     def 'should show spec duration'() {
