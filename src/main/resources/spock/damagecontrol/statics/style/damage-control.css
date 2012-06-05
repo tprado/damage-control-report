@@ -5,6 +5,10 @@ body {
     font-size: 12pt;
 }
 
+h1 {
+font-size: 160%;
+}
+
 #content {
     padding: 15px 30px;
 }
@@ -42,26 +46,6 @@ body {
     text-align: left;
 }
 
-#spec-definition,
-#spec-standard-output,
-#spec-error-output {
-    font-family: monospace;
-    font-size: large;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #a9a9a9;
-}
-
-.summaryCounter {
-    font-size: 120%;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.infoBox {
-    text-align: center;
-}
-
 #summary{
     border: solid 2px #D0D0D0;
     border-radius: 10px;
@@ -77,6 +61,22 @@ body {
     padding-bottom: 15px;
     text-align: center;
     padding-left: 3em;
+}
+
+.summaryCounter {
+    font-size: 120%;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#spec-definition,
+#spec-standard-output,
+#spec-error-output {
+    font-family: monospace;
+    font-size: large;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #a9a9a9;
 }
 
 .line-number {

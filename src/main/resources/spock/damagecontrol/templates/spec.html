@@ -6,37 +6,40 @@
 <body>
 <div id="content">
 
-    <div id="summary">
-        <table>
-            <tbody>
-            <tr>
-                <td>
-                    <div class="infoBox">
-                    <div class="summaryCounter" id="featureCount"><%= spec.featureCount%></div>
-                        <p>features</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="infoBox">
-                    <div class="summaryCounter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
-                        <p>failures</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="infoBox">
-                    <div class="summaryCounter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
-                        <p>skipped</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="infoBox">
-                    <div class="summaryCounter" id="specDuration"><%= spec.duration%>s</div>
-                        <p>duration</p>
-                    </div>
-                </td>
-                </tr>
-            </tbody>
-        </table>
+    <div id="summary-section">
+        <h1><%= spec.name %></h1>
+        <div id="summary">
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="infoBox">
+                        <div class="summaryCounter" id="featureCount"><%= spec.featureCount%></div>
+                            <p>features</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="infoBox">
+                        <div class="summaryCounter" id="failedFeatureCount"><%= spec.failedFeatureCount %></div>
+                            <p>failures</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="infoBox">
+                        <div class="summaryCounter" id="skippedFeatureCount"><%= spec.skippedFeatureCount%></div>
+                            <p>skipped</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="infoBox">
+                        <div class="summaryCounter" id="specDuration"><%= spec.duration%>s</div>
+                            <p>duration</p>
+                        </div>
+                    </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div id="features-section">
