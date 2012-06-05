@@ -107,4 +107,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
         then:
         html =~ /(?s).*<div class="summaryCounter" id="specDuration">0.355s.*<\/div>/
     }
+
+    def 'should show success percentage'() {
+        when:
+        String html = template.generate()
+
+        then:
+        html =~ /(?s).*<div id="successPercentage">50%.*<\/div>/
+    }
 }

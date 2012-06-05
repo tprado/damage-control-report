@@ -95,4 +95,28 @@ class SpecTest extends BaseSpec {
         expect:
         spec.result == 'passed'
     }
+
+    def 'should indicate 100% successful features for no failures'() {
+        expect:
+        spec.successPercentage == 100
+    }
+
+    def 'should indicate 33% successful features'() {
+        when:
+        spec.features['a failed feature'] = new Feature()
+        spec.features['a failed feature'].fail 'error', 'error details'
+        spec.features['another failed feature'] = new Feature()
+        spec.features['another failed feature'].fail 'error', 'error details'
+
+        then:
+        spec.successPercentage == 33
+    }
+
+    def 'should indicate 0% successful features for all features failed'() {
+        when:
+        feature.fail 'error', 'error details'
+
+        then:
+        spec.successPercentage == 0
+    }
 }

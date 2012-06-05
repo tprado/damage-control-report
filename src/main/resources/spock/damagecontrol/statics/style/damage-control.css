@@ -46,21 +46,40 @@ font-size: 160%;
     text-align: left;
 }
 
-#summary{
+#infoBoxGroup{
     border: solid 2px #D0D0D0;
     border-radius: 10px;
     width: 480px;
 }
 
-#summary table {
+#infoBoxGroup table {
     border-collapse: collapse;
 }
 
-#summary td {
+#infoBoxGroup td {
     padding-top: 15px;
     padding-bottom: 15px;
     text-align: center;
     padding-left: 3em;
+}
+
+#successRate{
+    border: solid 2px #D0D0D0;
+    border-radius: 10px;
+    padding-top: 15px;
+    text-align: center;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-left: 2em;
+}
+
+#successPercentage{
+    font-size: 180%;
+    font-weight: bold;
+}
+
+#summary td{
+    vertical-align: top;
 }
 
 .summaryCounter {
