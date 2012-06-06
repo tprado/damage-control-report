@@ -75,9 +75,9 @@
                 <tbody>
                 <% features.each{ feature_name, feature -> %>
                 <tr>
-                    <td id="<%= feature_name %>" class="featureResult_<%= feature.result %>"><%= feature_name %></td>
+                    <td id="<%= feature_name %>" class="result_<%= feature.result %>"><%= feature_name %></td>
                     <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
-                    <td id="<%= feature_name %>_result" class="featureResult_<%= feature.result %>"><%= feature.result %></td>
+                    <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result %></td>
                 </tr>
                 <% } %>
                 </tbody>

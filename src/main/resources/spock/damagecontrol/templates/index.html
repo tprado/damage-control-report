@@ -25,12 +25,12 @@
 
                 <% specs.each{ spec -> %>
                 <tr>
-                    <td class="spec-name"><a href='<%= spec.name %>.html'><%= spec.name %></a></td>
+                    <td id="<%= spec.name %>"><a href="<%= spec.name %>.html" class="result_<%= spec.result %>"><%= spec.name %></a></td>
                     <td id="<%= spec.name %>_featureCount"><%= spec.featureCount %></td>
                     <td id="<%= spec.name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
                     <td id="<%= spec.name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>
                     <td id="<%= spec.name %>_duration"><%= spec.duration %>s</td>
-                    <td id="<%= spec.name %>_result"><%= spec.result %></td>
+                    <td id="<%= spec.name %>_result" class="result_<%= spec.result %>"><%= spec.result %></td>
                 </tr>
                 <% } %>
 

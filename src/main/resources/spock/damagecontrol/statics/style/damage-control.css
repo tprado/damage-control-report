@@ -6,7 +6,11 @@ body {
 }
 
 h1 {
-font-size: 160%;
+    font-size: 160%;
+}
+
+a {
+    color: #000000;
 }
 
 #content {
@@ -88,11 +92,11 @@ font-size: 160%;
     margin-bottom: 8px;
 }
 
-.featureResult_passed {
+.result_passed {
     color: green;
 }
 
-.featureResult_failed {
+.result_failed {
     color: #B60808;
 }
 

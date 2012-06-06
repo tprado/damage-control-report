@@ -23,8 +23,9 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td class="spec-name"><a href='Spec1.html'>Spec1<\/a><\/td>/
-        html =~ /(?s)<td class="spec-name"><a href='Spec2.html'>Spec2<\/a><\/td>/
+        //TODO remove class and ignore this part in the regular expression
+        html =~ /(?s)<td id="Spec1"><a href="Spec1.html" class="result_failed">Spec1<\/a><\/td>/
+        html =~ /(?s)<td id="Spec2"><a href="Spec2.html" class="result_skipped">Spec2<\/a><\/td>/
     }
 
     def 'should show number of features for each specification'() {
@@ -56,7 +57,8 @@ class HtmlIndexTemplateTest extends BaseSpec {
         String html = new HtmlIndexTemplate(specs).generate()
 
         then:
-        html =~ /(?s)<td id="Spec1_result">failed<\/td>/
+        //TODO remove class and ignore this part in the regular expression
+        html =~ /(?s)<td id="Spec1_result" class="result_failed">failed<\/td>/
     }
 
     def 'should show duration for each specification'() {
