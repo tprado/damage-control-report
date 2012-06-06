@@ -69,8 +69,32 @@ class Spec {
     }
 
     int getSuccessPercentage() {
-        def successfulFeatures = featureCount - failedFeatureCount
-        float successPercentage = successfulFeatures/featureCount * 100
+        def successfulFeatureCount = featureCount - failedFeatureCount
+        float successPercentage = successfulFeatureCount/featureCount * 100
         successPercentage.round(0)
+    }
+
+    def parseFeatureDefinition(sourceCode) {
+        features.each {featureName, feature ->
+
+            def match = sourceCode =~ "(?s)def\\s?('|\")${featureName}('|\")\\s*\\(\\s*\\)\\s*\\{(.*)"
+
+            StringBuilder featureSourceCode = new StringBuilder()
+            String partialSourceCode = match[0][3]
+            int curlyBracketsToClose = 1
+
+            for (int i = 0; i < partialSourceCode.length() && curlyBracketsToClose > 0; i++) {
+                char c = partialSourceCode.charAt(i)
+                if (c == '}') {
+                    curlyBracketsToClose--
+                } else if (c == '{') {
+                    curlyBracketsToClose++
+                } else {
+                    featureSourceCode.append(c)
+                }
+            }
+
+            feature.sourceCode = featureSourceCode.toString()
+        }
     }
 }

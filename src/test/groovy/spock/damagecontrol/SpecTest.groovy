@@ -4,7 +4,7 @@ import static org.apache.commons.io.FilenameUtils.separatorsToSystem
 
 class SpecTest extends BaseSpec {
 
-    def spec
+    Spec spec
     def feature
 
     def setup() {
@@ -119,4 +119,25 @@ class SpecTest extends BaseSpec {
         then:
         spec.successPercentage == 0
     }
+
+    def 'should parse feature definition'() {
+        given:
+        String sourceCode = '''
+class Spec1 {
+    def 'some feature'() {
+        for (;;) {}
+        // some blocks
+    }
+    def 'other feature'() {
+        // other blocks
+    }
+}
+'''
+        when:
+        spec.parseFeatureDefinition(sourceCode)
+
+        then:
+        spec.features['some feature'].sourceCode =~ /\/\/ some blocks/
+    }
+
 }
