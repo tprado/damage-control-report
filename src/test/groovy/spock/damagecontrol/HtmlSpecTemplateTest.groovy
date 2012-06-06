@@ -56,8 +56,9 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate()
 
         then:
-        html =~ /(?s).*<td class="feature-name">feature 1<\/td>.*/
-        html =~ /(?s).*<td class="feature-name">feature 2<\/td>.*/
+        //TODO remove class and ignore this part in the regular expression
+        html =~ /(?s).*<td id="feature 1" class="featureResult_failed">feature 1<\/td>.*/
+        html =~ /(?s).*<td id="feature 2" class="featureResult_passed">feature 2<\/td>.*/
     }
 
     def 'should show result for feature'() {
@@ -65,7 +66,8 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate()
 
         then:
-        html =~ /(?s).*<td id="feature 1_result">failed<\/td>.*/
+        //TODO remove class and ignore this part in the regular expression
+        html =~ /(?s).*<td id="feature 1_result" class="featureResult_failed">failed<\/td>.*/
     }
 
     def 'should show spec duration'() {

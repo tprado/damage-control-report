@@ -88,6 +88,26 @@ font-size: 160%;
     margin-bottom: 8px;
 }
 
+.featureResult_passed {
+    color: green;
+}
+
+.featureResult_failed {
+    color: #B60808;
+}
+
+#successRate.specResult_passed {
+    color: green;
+    border-color: green;
+    background-color: #BBD9BB;
+}
+
+#successRate.specResult_failed {
+    color: #B60808;
+    border-color: #B60808;
+    background-color: #ECDADA;
+}
+
 #spec-definition,
 #spec-standard-output,
 #spec-error-output {
