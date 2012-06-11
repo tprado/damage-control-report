@@ -1,8 +1,8 @@
-package hello
+package ThisIsAPackage
 
 import spock.lang.Specification
 
-class HelloSpockTest extends Specification {
+class InsideOfPackageTest extends Specification {
 
     def "length of Spocks and his friends names"() {
         expect: "name lenght is correct"
