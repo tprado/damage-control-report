@@ -3,7 +3,7 @@ import spock.lang.Specification
 
 class MultipleFeaturesTest extends Specification {
 
-    def "length of Spock's and his friends' names"() {
+    def "length of Spocks and his friends names"() {
         expect: "name lengh is correct"
         name.size() == length
 
@@ -14,7 +14,7 @@ class MultipleFeaturesTest extends Specification {
         "Scotty" | 6
     }
 
-    def "length of Spock's and his friends' names FAILED"() {
+    def "length of Spocks and his friends names FAILED"() {
         expect: "name lengh is correct"
         name.size() == length
 
@@ -26,7 +26,7 @@ class MultipleFeaturesTest extends Specification {
     }
 
     @Ignore
-    def "length of Spock's and his friends' names SKIPPED"() {
+    def "length of Spocks and his friends names SKIPPED"() {
         expect: "name lengh is correct"
         name.size() == length
 
