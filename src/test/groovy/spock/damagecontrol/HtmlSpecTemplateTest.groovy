@@ -27,14 +27,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
         htmlFile.name == 'samples.definitions.SampleSpecTest.html'
     }
 
-    def 'should surround spec definition with div'() {
-        when:
-        String html = template.generate()
-
-        then:
-        html =~ /(?s)<div id='spec-definition'>.*(SampleSpecTest).*<\/div>/
-    }
-
     def 'should surround standard output with div'() {
         when:
         String html = template.generate()

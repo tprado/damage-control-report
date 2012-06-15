@@ -19,10 +19,8 @@ class HtmlSpecTemplate {
     }
 
     def generate() {
-        String specDefinitionHtml = new HtmlSpecDefinitionFormatter(spec).format()
 
         specHtmlTemplate.make([
-                spec_definition: specDefinitionHtml,
                 spec_standard_output: spec.output.standard,
                 spec_error_output: spec.output.error,
                 features: spec.features,

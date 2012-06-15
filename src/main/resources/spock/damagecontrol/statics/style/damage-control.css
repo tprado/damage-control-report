@@ -112,7 +112,6 @@ a {
     background-color: #ECDADA;
 }
 
-#spec-definition,
 #spec-standard-output,
 #spec-error-output {
     font-family: monospace;
@@ -122,59 +121,3 @@ a {
     border-color: #a9a9a9;
 }
 
-.line-number {
-    color: #8b0000;
-    background-color: #f0f0f0;
-    border-color: black;
-    width: 25px;
-    float: left;
-    text-align: right;
-    margin-right: 5px;
-    padding-right: 2px;
-    border-style: hidden dotted hidden hidden;
-    border-width: 1px;
-}
-
-.string-literal {
-    color: green;
-}
-
-.reserved {
-    color: #00008b;
-    font-weight: bold;
-}
-
-.error {
-    background-color: #f09d9d;
-}
-
-.literal {
-    color: blue;
-}
-
-.code {
-    font-family: monospace;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #a9a9a9;
-}
-
-.line {
-}
-
-.content {
-
-}
-
-.control {
-    color: #8b0000;
-    background-color: #f0f0f0;
-    border-color: black;
-    width: 10px;
-    float: left;
-    text-align: right;
-    margin-right: 5px;
-    padding-right: 2px;
-    border-style: hidden dotted hidden hidden;
-    border-width: 1px;
-}
