@@ -230,7 +230,7 @@ ruleset {
     }
     CyclomaticComplexity
     MethodCount {
-        maxMethods = 15
+        maxMethods = 20
     }
     MethodSize {
         maxLines = 30
