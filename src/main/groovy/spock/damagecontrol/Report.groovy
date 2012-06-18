@@ -8,10 +8,12 @@ class Report {
     static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
 
     final resultsCollector
+    final definitionReader
     final outputFolder
 
     Report(config) {
         resultsCollector = new TestResultsCollector(config.testResultsFolder)
+        definitionReader = new SpecDefinitionReader(config.specDefinitionsFolder)
         outputFolder = config.outputFolder
     }
 
@@ -22,6 +24,7 @@ class Report {
         writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
 
         specs.each { spec ->
+            definitionReader.read(spec)
             HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec)
             writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
         }

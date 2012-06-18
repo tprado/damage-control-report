@@ -3,7 +3,6 @@ package spock.damagecontrol
 class Spec {
 
     static final String FILE_SEPARATOR = '/'
-
     def name
     def features = [:]
     def output
@@ -78,6 +77,9 @@ class Spec {
         features.each {featureName, feature ->
 
             def match = sourceCode =~ "(?s)def\\s?('|\")${featureName}('|\")\\s*\\(\\s*\\)\\s*\\{(.*)"
+            if (match.size() == 0) {
+                return
+            }
 
             StringBuilder featureSourceCode = new StringBuilder()
             String partialSourceCode = match[0][3]

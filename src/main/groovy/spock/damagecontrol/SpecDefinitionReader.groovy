@@ -12,5 +12,6 @@ class SpecDefinitionReader {
 
     def read(spec) {
         spec.sourceCode = readFileToString(spec.file(specsFolder))
+        spec.parseFeatureDefinition(readFileToString(spec.file(specsFolder)))
     }
 }

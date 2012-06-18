@@ -43,17 +43,6 @@ class SpecTest extends BaseSpec {
         lines == [19]
     }
 
-    def 'should indicate the line numbers where an error occurred for spec in the default package'() {
-        given:
-        feature.fail 'error message', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
-
-        when:
-        def lines = spec.errorLines()
-
-        then:
-        lines == [19]
-    }
-
     def 'should count number of features'() {
         expect:
         spec.featureCount == 1
@@ -140,4 +129,21 @@ class Spec1 {
         spec.features['some feature'].sourceCode =~ /\/\/ some blocks/
     }
 
+    def 'should ignore feature if it is not defined in the source code'() {
+        given:
+        String sourceCode = '''
+class Spec1 {
+    def 'some feature that does not match'() {
+        for (;;) {}
+        // some blocks
+    }
+}
+'''
+
+        when:
+        spec.parseFeatureDefinition(sourceCode)
+
+        then:
+        spec.features['some feature'].sourceCode == ''
+    }
 }

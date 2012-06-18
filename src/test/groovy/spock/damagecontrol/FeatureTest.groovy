@@ -63,4 +63,9 @@ class FeatureTest extends BaseSpec {
         expect:
         feature.failed
     }
+
+    def 'should have empty source code by default'() {
+        expect:
+        new Feature().sourceCode == ''
+    }
 }

@@ -79,6 +79,9 @@
                     <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
                     <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result %></td>
                 </tr>
+                <tr>
+                    <td colspan="3" class="feature_sourceCode"><pre><%= feature.sourceCode %></pre></td>
+                </tr>
                 <% } %>
                 </tbody>
             </table>

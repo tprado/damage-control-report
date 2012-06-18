@@ -7,7 +7,7 @@ class Feature {
     def failure
     def ignored = false
     def duration
-    def sourceCode
+    def sourceCode = ''
 
     def fail(message, details) {
         failure = new Failure()
