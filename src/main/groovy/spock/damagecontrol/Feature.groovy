@@ -8,6 +8,7 @@ class Feature {
     def ignored = false
     def duration
     def sourceCode = ''
+    def blocks = []
 
     def fail(message, details) {
         failure = new Failure()
@@ -31,5 +32,10 @@ class Feature {
 
     def getFailed() {
         result == FAILED
+    }
+
+    def readBlocks() {
+        def match = sourceCode =~ /(?m)(given|when|then|and|expect|setup|cleanup)\s*:\s.*/
+        match.each {blocks.add(it[0])}
     }
 }
