@@ -61,112 +61,110 @@ class FeatureTest extends BaseSpec {
         new Feature().sourceCode == ''
     }
 
-    def 'should have a given statement in blocks'() {
-
+    def 'should handle a step with no description'() {
+        when:
+        feature.sourceCode = '''
         given:
+        // some steps
+'''
+
+        then:
+        feature.steps[0].type == 'given'
+        and:
+        feature.steps[0].description == ''
+    }
+
+    def 'should have a "given" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         given: 'something'
         // some steps
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("given: 'something'")
+        feature.steps[0].type == 'given'
+        and:
+        feature.steps[0].description == "'something'"
     }
 
-    def 'should have a when statement in blocks'() {
-
-        given:
+    def 'should have a "when" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         when: 'I do something'
         //other steps
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("when: 'I do something'")
+        feature.steps[0].type == 'when'
+        and:
+        feature.steps[0].description == "'I do something'"
     }
 
-    def 'should have a then statement in blocks'() {
-
-        given:
+    def 'should have a "then" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         then: 'something happens'
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("then: 'something happens'")
+        feature.steps[0].type == 'then'
+        and:
+        feature.steps[0].description == "'something happens'"
     }
 
-    def 'should have an and statement in blocks'() {
-
-        given:
+    def 'should have an "and" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         and: 'something else happens'
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("and: 'something else happens'")
+        feature.steps[0].type == 'and'
+        and:
+        feature.steps[0].description == "'something else happens'"
     }
 
-    def 'should have a expect statement in blocks'() {
-
-        given:
+    def 'should have an "expect" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         expect: ''
         // some steps
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("expect: ''")
+        feature.steps[0].type =='expect'
+        and:
+        feature.steps[0].description == "''"
     }
 
-    def 'should have a setup statement in blocks'() {
-
-        given:
+    def 'should have a "setup" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         setup: 'something'
         // some steps
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("setup: 'something'")
+        feature.steps[0].type == 'setup'
+        and:
+        feature.steps[0].description == "'something'"
     }
 
-    def 'should have a cleanup statement in blocks'() {
-
-        given:
+    def 'should have a "cleanup" statement in blocks'() {
+        when:
         feature.sourceCode = '''
         cleanup: 'something'
         // some steps
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        feature.blocks.contains("cleanup: 'something'")
+        feature.steps[0].type == 'cleanup'
+        and:
+        feature.steps[0].description == "'something'"
     }
 
     def 'should have all the blocks in the correct order'() {
-
-        given:
+        when:
         feature.sourceCode = '''
         given: 'something'
         // some steps
@@ -178,16 +176,11 @@ class FeatureTest extends BaseSpec {
         and: 'something else happens'
 '''
 
-        when:
-        feature.readBlocks()
-
         then:
-        def expectedBlocks = ["given: 'something'",
-                "when: 'I do something'",
-                "and: 'I do something else'",
-                "then: 'something happens'",
-                "and: 'something else happens'"]
-        feature.blocks == expectedBlocks
-
+        feature.steps[0].type == 'given'
+        feature.steps[1].type == 'when'
+        feature.steps[2].type == 'and'
+        feature.steps[3].type == 'then'
+        feature.steps[4].type == 'and'
     }
 }

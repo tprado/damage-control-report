@@ -80,7 +80,11 @@
                     <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result %></td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="feature_sourceCode"><pre><%= feature.sourceCode %></pre></td>
+                    <td colspan="3" class="feature_sourceCode">
+                        <% feature.steps.each{ step -> %>
+                            <%= step.type %>: <%= step.description %><br/>
+                        <% } %>
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>

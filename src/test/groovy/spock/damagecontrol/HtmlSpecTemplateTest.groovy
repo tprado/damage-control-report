@@ -12,7 +12,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].duration = '0.250'
         spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.features['feature 1'].sourceCode = 'expect: "something"'
+        spec.features['feature 1'].sourceCode = ' expect: "something" '
         spec.features['feature 2'] = new Feature()
         spec.output = new SpecOutput('standard output message', 'error output message')
         spec.duration = '0.355'
@@ -115,6 +115,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate()
 
         then:
-        html =~ /(?s).*<td colspan="3" class="feature_sourceCode"><pre>expect: "something"<\/pre><\/td>/
+        html =~ /(?s).*<td colspan="3" class="feature_sourceCode">\s*expect: "something"<br\/>\s*<\/td>/
     }
 }

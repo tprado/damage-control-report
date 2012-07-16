@@ -8,7 +8,7 @@ class Feature {
     def ignored = false
     def duration
     def sourceCode = ''
-    def blocks = []
+    def steps = []
 
     def fail(message, details) {
         failure = new Failure()
@@ -34,8 +34,18 @@ class Feature {
         result == FAILED
     }
 
+    def setSourceCode(sourceCode) {
+        this.sourceCode = sourceCode
+        readBlocks()
+    }
+
     def readBlocks() {
-        def match = sourceCode =~ /(?m)(given|when|then|and|expect|setup|cleanup)\s*:\s.*/
-        match.each {blocks.add(it[0])}
+        def match = sourceCode =~ /(?m)^\s*(given|when|then|and|expect|setup|cleanup)\s*:\s*('[^\n]*'|"[^\n]*"|$)/
+        match.each {
+            Step step = new Step()
+            step.type = it[1]
+            step.description = it[2]
+            steps.add(step)
+        }
     }
 }

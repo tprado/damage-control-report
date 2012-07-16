@@ -25,6 +25,19 @@ class MultipleFeaturesTest extends Specification {
         "Scotty" | 6
     }
 
+    def "feature with several steps FAILED"() {
+        given: "given description"
+        // some code
+        when: "when description"
+        // some code
+        and:
+        // some code
+        then: 'then description'
+        1 == 2
+        and: 'and description'
+        // some code
+    }
+
     @Ignore
     def "length of Spocks and his friends names SKIPPED"() {
         expect: "name lengh is correct"
