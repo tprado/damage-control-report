@@ -20,7 +20,7 @@ class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
         spec.features['should do something'] = new Feature()
 
         when:
-        new SpecDefinitionReader(testFolder).read(spec)
+        new SpecDefinitionReader(specsFolder: testFolder).read(spec)
 
         then:
         spec.features['should do something'].sourceCode.contains('I did something')

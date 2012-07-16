@@ -13,7 +13,7 @@ class Report {
 
     Report(config) {
         resultsCollector = new TestResultsCollector(resultsFolder: config.testResultsFolder)
-        definitionReader = new SpecDefinitionReader(config.specDefinitionsFolder)
+        definitionReader = new SpecDefinitionReader(specsFolder: config.specDefinitionsFolder)
         outputFolder = config.outputFolder
     }
 
