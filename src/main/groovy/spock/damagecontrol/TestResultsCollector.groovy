@@ -31,7 +31,7 @@ class TestResultsCollector {
         def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
         def syserr = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
         
-        SpecOutput output = new SpecOutput(sysout, syserr)
+        SpecOutput output = new SpecOutput(standard: sysout, error: syserr)
 
         testSuite.'testcase'.each { testCase ->
             Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
