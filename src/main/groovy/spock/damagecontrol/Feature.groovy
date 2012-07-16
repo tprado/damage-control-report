@@ -4,6 +4,7 @@ class Feature {
 
     static final FAILED = 'failed'
 
+    def name
     def failure
     def ignored = false
     def duration

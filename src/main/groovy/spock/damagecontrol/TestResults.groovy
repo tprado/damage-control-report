@@ -16,6 +16,6 @@ class TestResults {
             specs[specName] = spec
         }
 
-        spec.features[featureName] = spec.features[featureName] ?: new Feature()
+        spec.features[featureName] = spec.features[featureName] ?: new Feature(name: featureName)
     }
 }

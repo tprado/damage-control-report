@@ -76,6 +76,17 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
         feature.duration == '0.001'
     }
 
+    def 'should collect feature name'() {
+        given:
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+
+        when:
+        Map specs = collector.collect().specs
+
+        then:
+        specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail'].name == 'shouldFail'
+    }
+
     def 'should collect specification duration time'() {
         given:
         copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)

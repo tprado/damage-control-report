@@ -4,9 +4,14 @@ class FeatureTest extends BaseSpec {
 
     def feature
 
-    def setup(){
+    def setup() {
         given:
-        feature = new Feature()
+        feature = new Feature(name: 'feature name')
+    }
+
+    def 'should have a name'() {
+        expect:
+        feature.name == 'feature name'
     }
 
     def 'should fail the feature'() {
@@ -132,7 +137,7 @@ class FeatureTest extends BaseSpec {
 '''
 
         then:
-        feature.steps[0].type =='expect'
+        feature.steps[0].type == 'expect'
         and:
         feature.steps[0].description == "''"
     }
