@@ -115,6 +115,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate()
 
         then:
-        html =~ /(?s).*<td colspan="3" class="feature_sourceCode">\s*expect: "something"<br\/>\s*<\/td>/
+        html =~ /(?s).*<td colspan="3" class="steps">\s*expect: "something"<br\/>\s*<\/td>/
     }
 }

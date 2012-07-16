@@ -121,3 +121,6 @@ a {
     border-color: #a9a9a9;
 }
 
+td.steps {
+    font-family: monospace;
+}
