@@ -9,15 +9,13 @@ class TestResults {
     }
 
     def addFeature(specName, featureName, output) {
+        def spec = specs[specName]
 
-        if (!specs[specName]) {
-            Spec newSpec = new Spec(specName)
-            newSpec.output = output
-            specs[specName] = newSpec
+        if (!spec) {
+            spec = new Spec(name: specName, output: output)
+            specs[specName] = spec
         }
 
-        specs[specName].features[featureName] = specs[specName].features[featureName] ?: new Feature()
-
-        specs[specName].features[featureName]
+        spec.features[featureName] = spec.features[featureName] ?: new Feature()
     }
 }

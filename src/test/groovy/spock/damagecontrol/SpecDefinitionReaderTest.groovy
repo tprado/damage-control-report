@@ -16,7 +16,7 @@ class SpecDefinitionReaderTest extends BaseFileHandlingSpec {
     def 'should read spec and feature definition inside the default package'() {
         given:
         copyFileToDirectory(SPEC_DEFINITION, testFolder)
-        Spec spec = new Spec('SampleSpecDefinitionTest')
+        Spec spec = new Spec(name: 'SampleSpecDefinitionTest')
         spec.features['should do something'] = new Feature()
 
         when:

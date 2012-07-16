@@ -8,7 +8,7 @@ class SpecTest extends BaseSpec {
     def feature
 
     def setup() {
-        spec = new Spec('samples.SampleSpecificationTest')
+        spec = new Spec(name: 'samples.SampleSpecificationTest')
         feature = new Feature()
         spec.features['some feature'] = feature
     }

@@ -6,16 +6,15 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def setup() {
         given:
-        Spec spec1 = new Spec('Spec1')
+        Spec spec1 = new Spec(name: 'Spec1')
         spec1.duration = '0.155'
         spec1.features['feature 1'] = new Feature()
         spec1.features['feature 2'] = new Feature()
         spec1.features['feature 2'].fail 'error', 'error detail'
         spec1.features['feature 3'] = new Feature()
         spec1.features['feature 3'].ignore()
-        Spec spec2 = new Spec('Spec2')
+        Spec spec2 = new Spec(name: 'Spec2')
         specs = [spec1, spec2]
-
     }
 
     def 'should generate list of specifications as links'() {

@@ -8,7 +8,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
     def template
 
     def setup() {
-        spec = new Spec('samples.definitions.SampleSpecTest')
+        spec = new Spec(name: 'samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].duration = '0.250'
         spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'

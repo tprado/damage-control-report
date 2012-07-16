@@ -8,18 +8,12 @@ class Spec {
     def output
     def duration
 
-    final shortNameRegex
-
-    Spec(name) {
-        this.name = name
-        this.shortNameRegex = '.*\\(' + this.name.split('\\.').last() + '\\.groovy\\:([0-9]+)\\)'
-    }
-
     def file(baseFolder) {
         new File(baseFolder.absolutePath + FILE_SEPARATOR + name.replaceAll(/\./, FILE_SEPARATOR) + '.groovy')
     }
 
     def errorLines() {
+        def shortNameRegex = '.*\\(' + name.split('\\.').last() + '\\.groovy\\:([0-9]+)\\)'
         List lines = []
 
         features.each { featureName, feature ->
