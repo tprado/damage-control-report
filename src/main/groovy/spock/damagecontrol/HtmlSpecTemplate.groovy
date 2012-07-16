@@ -6,19 +6,14 @@ class HtmlSpecTemplate {
 
     static final SPEC_HTML_URL = HtmlSpecTemplate.getResource('/spock/damagecontrol/templates/spec.html')
 
-    final spec
-    final specHtmlTemplate
-
-    HtmlSpecTemplate(spec) {
-        this.spec = spec
-        this.specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
-    }
+    def spec
 
     def file(baseFolder) {
         new File(baseFolder.absolutePath + '/' + spec.name + '.html')
     }
 
     def generate() {
+        def specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
 
         specHtmlTemplate.make([
                 spec_standard_output: spec.output.standard,

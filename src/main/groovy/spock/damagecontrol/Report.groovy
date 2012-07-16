@@ -25,7 +25,7 @@ class Report {
 
         specs.each { spec ->
             definitionReader.read(spec)
-            HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec)
+            HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec: spec)
             writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
         }
 
