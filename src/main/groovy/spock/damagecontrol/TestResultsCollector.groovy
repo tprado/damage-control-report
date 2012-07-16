@@ -7,11 +7,7 @@ class TestResultsCollector {
     static final boolean INCLUDE_SUB_FOLDERS = true
     static final String[] XML = ['xml']
 
-    final resultsFolder
-
-    TestResultsCollector(resultsFolder) {
-        this.resultsFolder = resultsFolder
-    }
+    def resultsFolder
 
     @SuppressWarnings('CatchException')
     @SuppressWarnings('Println')

@@ -12,7 +12,7 @@ class Report {
     final outputFolder
 
     Report(config) {
-        resultsCollector = new TestResultsCollector(config.testResultsFolder)
+        resultsCollector = new TestResultsCollector(resultsFolder: config.testResultsFolder)
         definitionReader = new SpecDefinitionReader(config.specDefinitionsFolder)
         outputFolder = config.outputFolder
     }

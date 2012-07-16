@@ -19,7 +19,7 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
     def collector
 
     def setup() {
-        collector = new TestResultsCollector(testFolder)
+        collector = new TestResultsCollector(resultsFolder: testFolder)
     }
 
     def 'should collect all specification names in the folder'() {
