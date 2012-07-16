@@ -20,7 +20,7 @@ class Report {
     def run() {
         List specs = resultsCollector.collect().specList
 
-        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(specs)
+        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(specs: specs)
         writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
 
         specs.each { spec ->
