@@ -4,7 +4,7 @@ import groovy.text.GStringTemplateEngine
 
 class HtmlIndexTemplate {
 
-    static final INDEX_URL = Report.getResource('/spock/damagecontrol/templates/index.html')
+    static final INDEX_URL = HtmlIndexTemplate.getResource('/spock/damagecontrol/templates/index.html')
 
     def specs
 

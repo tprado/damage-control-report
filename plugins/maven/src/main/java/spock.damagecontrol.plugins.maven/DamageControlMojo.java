@@ -6,8 +6,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import spock.damagecontrol.Report;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @goal report
@@ -36,11 +34,10 @@ public class DamageControlMojo extends AbstractMojo {
         getLog().info("specs definition folder=" + specDefinitionsFolder);
         getLog().info("reports target folder=" + outputFolder);
 
-        Map<String, File> config = new HashMap<String, File>();
-        config.put("testResultsFolder", testResultsFolder);
-        config.put("specDefinitionsFolder", specDefinitionsFolder);
-        config.put("outputFolder", outputFolder);
-
-        new Report(config).run();
+        Report report = new Report();
+        report.setTestResultsFolder(testResultsFolder);
+        report.setSpecDefinitionsFolder(specDefinitionsFolder);
+        report.setOutputFolder(outputFolder);
+        report.run();
     }
 }

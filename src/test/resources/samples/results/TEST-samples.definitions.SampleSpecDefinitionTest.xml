@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="1" hostname="rivendell" name="spock.damagecontrol.TestResultsCollectorTest" tests="1" time="0.005" timestamp="2012-04-26T02:43:19">
+<testsuite errors="0" failures="1" hostname="rivendell" name="samples.definitions.SampleSpecDefinitionTest" tests="1" time="0.005" timestamp="2012-04-26T02:43:19">
   <properties />
   <testcase classname="samples.definitions.SampleSpecDefinitionTest" name="should do something" time="0.001">
     <failure message="java.lang.AssertionError: &#xa;Expected: is &lt;true&gt;&#xa;     got: &lt;false&gt;&#xa;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError:

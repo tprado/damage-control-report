@@ -17,11 +17,11 @@ class ReportTest extends BaseFileHandlingSpec {
 
         outputFolder = new File(testFolder.absolutePath + '/report')
 
-        report = new Report([
+        report = new Report(
                 testResultsFolder: testFolder,
                 specDefinitionsFolder: testFolder,
                 outputFolder: outputFolder
-        ])
+        )
     }
 
     def 'should copy resources'() {
