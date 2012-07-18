@@ -10,13 +10,14 @@ class Report {
     def specDefinitionsFolder
     def outputFolder
 
+    def indexTemplate = new HtmlIndexTemplate()
+
     def run() {
         List specs = new TestResultsCollector(resultsFolder: testResultsFolder).collect().specList
 
         HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
 
-        HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(specs: specs)
-        writer.write('index', indexTemplate.generate())
+        writer.write('index', indexTemplate.generate(specs))
 
         specs.each { spec ->
             spec.readDefinitionFrom specDefinitionsFolder

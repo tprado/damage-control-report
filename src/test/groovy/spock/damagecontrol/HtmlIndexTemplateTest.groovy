@@ -3,6 +3,7 @@ package spock.damagecontrol
 class HtmlIndexTemplateTest extends BaseSpec {
 
     HtmlIndexTemplate indexTemplate
+    def specs
 
     def setup() {
         given:
@@ -16,12 +17,14 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
         Spec spec2 = new Spec(name: 'Spec2')
 
-        indexTemplate = new HtmlIndexTemplate(specs: [spec1, spec2])
+        specs = [spec1, spec2]
+
+        indexTemplate = new HtmlIndexTemplate()
     }
 
     def 'should generate list of specifications as links'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         //TODO remove class and ignore this part in the regular expression
@@ -31,7 +34,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def 'should show number of features for each specification'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         html =~ /(?s)<td id="Spec1_featureCount">3<\/td>/
@@ -39,7 +42,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def 'should show number of failed features for each specification'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         html =~ /(?s)<td id="Spec1_failedFeatureCount">1<\/td>/
@@ -47,7 +50,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def 'should show number of skipped features for each specification'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         html =~ /(?s)<td id="Spec1_skippedFeatureCount">1<\/td>/
@@ -55,7 +58,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def 'should show result for each specification'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         //TODO remove class and ignore this part in the regular expression
@@ -64,7 +67,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
 
     def 'should show duration for each specification'() {
         when:
-        String html = indexTemplate.generate()
+        String html = indexTemplate.generate(specs)
 
         then:
         html =~ /(?s)<td id="Spec1_duration">0.155s<\/td>/

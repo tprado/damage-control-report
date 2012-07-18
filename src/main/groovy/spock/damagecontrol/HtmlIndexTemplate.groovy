@@ -5,10 +5,9 @@ import groovy.text.GStringTemplateEngine
 class HtmlIndexTemplate {
 
     static final INDEX_URL = HtmlIndexTemplate.getResource('/spock/damagecontrol/templates/index.html')
+    static final TEMPLATE = new GStringTemplateEngine().createTemplate(INDEX_URL)
 
-    def specs
-
-    def generate() {
-        new GStringTemplateEngine().createTemplate(INDEX_URL).make([specs: specs]).toString()
+    def generate(specs) {
+        TEMPLATE.make([specs: specs]).toString()
     }
 }
