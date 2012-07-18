@@ -1,31 +1,18 @@
 package spock.damagecontrol
 
-import static org.apache.commons.io.FileUtils.iterateFiles
-
 class TestResultsCollector {
 
-    static final boolean INCLUDE_SUB_FOLDERS = true
-    static final String[] XML = ['xml']
+    final results = new TestResults()
 
     def resultsFolder
 
-    @SuppressWarnings('CatchException')
-    @SuppressWarnings('Println')
     def collect() {
-        TestResults results = new TestResults()
-
-        iterateFiles(resultsFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
-            try {
-                collectSpecs(new FileReader(file), results)
-            } catch (Exception e) {
-                println "Error reading file '${file}': ${e.message}"
-            }
-        }
+        new XmlFileReader(inputFolder: resultsFolder).forEach { collectSpecs(it) }
 
         results
     }
 
-    def collectSpecs(reader, results) {
+    def collectSpecs(reader) {
         Node testSuite = new XmlParser().parse(reader)
 
         def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
