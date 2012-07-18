@@ -5,13 +5,13 @@ import spock.lang.Specification
 class SampleSpecDefinitionTest extends Specification {
 
     def 'should do something'() {
-        given:
+        given: 'I did something'
         println 'I did something'
 
-        when:
+        when: 'I do something'
         println 'I do something'
 
-        then:
+        then: 'something should happen'
         'something should happen'
     }
 }

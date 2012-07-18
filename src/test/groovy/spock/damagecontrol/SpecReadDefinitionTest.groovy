@@ -30,13 +30,15 @@ class SpecReadDefinitionTest extends BaseFileHandlingSpec {
         given:
         copyFileToDirectory(SPEC_DEFINITION, testFolder)
         Spec spec = new Spec(name: 'SampleSpecDefinitionTest')
-        spec.features['should do something'] = new Feature()
+        spec.features['should do something'] = new Feature(name: 'should do something')
 
         when:
         spec.readDefinitionFrom testFolder
 
         then:
-        spec.features['should do something'].sourceCode.contains('I did something')
+        spec.features['should do something'].steps[0].type == 'given'
+        and:
+        spec.features['should do something'].steps[0].description == "'I did something'"
     }
 
 }

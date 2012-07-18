@@ -61,131 +61,25 @@ class FeatureTest extends BaseSpec {
         feature.failed
     }
 
-    def 'should have empty source code by default'() {
+    def 'should have empty step list by default'() {
         expect:
-        new Feature().sourceCode == ''
+        new Feature().steps == []
     }
 
-    def 'should handle a step with no description'() {
-        when:
-        feature.sourceCode = '''
+    def 'should parse feature definition'() {
         given:
-        // some steps
-'''
-
-        then:
-        feature.steps[0].type == 'given'
-        and:
-        feature.steps[0].description == ''
+        String sourceCode = '''
+class Spec1 {
+    def 'feature name'() {
+        expect: 'some block'
+        // some blocks
     }
-
-    def 'should have a "given" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        given: 'something'
-        // some steps
+}
 '''
-
-        then:
-        feature.steps[0].type == 'given'
-        and:
-        feature.steps[0].description == "'something'"
-    }
-
-    def 'should have a "when" statement in blocks'() {
         when:
-        feature.sourceCode = '''
-        when: 'I do something'
-        //other steps
-'''
-
-        then:
-        feature.steps[0].type == 'when'
-        and:
-        feature.steps[0].description == "'I do something'"
-    }
-
-    def 'should have a "then" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        then: 'something happens'
-'''
-
-        then:
-        feature.steps[0].type == 'then'
-        and:
-        feature.steps[0].description == "'something happens'"
-    }
-
-    def 'should have an "and" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        and: 'something else happens'
-'''
-
-        then:
-        feature.steps[0].type == 'and'
-        and:
-        feature.steps[0].description == "'something else happens'"
-    }
-
-    def 'should have an "expect" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        expect: ''
-        // some steps
-'''
+        feature.parseDefinition(sourceCode)
 
         then:
         feature.steps[0].type == 'expect'
-        and:
-        feature.steps[0].description == "''"
-    }
-
-    def 'should have a "setup" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        setup: 'something'
-        // some steps
-'''
-
-        then:
-        feature.steps[0].type == 'setup'
-        and:
-        feature.steps[0].description == "'something'"
-    }
-
-    def 'should have a "cleanup" statement in blocks'() {
-        when:
-        feature.sourceCode = '''
-        cleanup: 'something'
-        // some steps
-'''
-
-        then:
-        feature.steps[0].type == 'cleanup'
-        and:
-        feature.steps[0].description == "'something'"
-    }
-
-    def 'should have all the blocks in the correct order'() {
-        when:
-        feature.sourceCode = '''
-        given: 'something'
-        // some steps
-        when: 'I do something'
-        //other steps
-        and: 'I do something else'
-        //other steps
-        then: 'something happens'
-        and: 'something else happens'
-'''
-
-        then:
-        feature.steps[0].type == 'given'
-        feature.steps[1].type == 'when'
-        feature.steps[2].type == 'and'
-        feature.steps[3].type == 'then'
-        feature.steps[4].type == 'and'
     }
 }

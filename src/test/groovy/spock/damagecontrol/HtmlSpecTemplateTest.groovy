@@ -10,7 +10,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].duration = '0.250'
         spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.features['feature 1'].sourceCode = ' expect: "something" '
+        spec.features['feature 1'].steps.add(new Step(type: 'expect', description: '"something"'))
         spec.features['feature 2'] = new Feature()
         spec.output = new SpecOutput(standard: 'standard output message', error: 'error output message')
         spec.duration = '0.355'

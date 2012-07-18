@@ -11,11 +11,17 @@ class Spec {
     def duration
 
     def readDefinitionFrom(specsFolder) {
-        parseFeatureDefinition(readFileToString(groovyFile(specsFolder)))
+        parseEachFeatureDefinition(readFileToString(groovyFile(specsFolder)))
     }
 
     def groovyFile(baseFolder) {
         new File(baseFolder.absolutePath + FILE_SEPARATOR + name.replaceAll(/\./, FILE_SEPARATOR) + '.groovy')
+    }
+
+    def parseEachFeatureDefinition(sourceCode) {
+        features.each {featureName, feature ->
+            feature.parseDefinition(sourceCode)
+        }
     }
 
     def errorLines() {
@@ -70,32 +76,5 @@ class Spec {
         def successfulFeatureCount = featureCount - failedFeatureCount
         float successPercentage = successfulFeatureCount/featureCount * 100
         successPercentage.round(0)
-    }
-
-    def parseFeatureDefinition(sourceCode) {
-        features.each {featureName, feature ->
-
-            def match = sourceCode =~ "(?s)def\\s?('|\")${featureName}('|\")\\s*\\(\\s*\\)\\s*\\{(.*)"
-            if (match.size() == 0) {
-                return
-            }
-
-            StringBuilder featureSourceCode = new StringBuilder()
-            String partialSourceCode = match[0][3]
-            int curlyBracketsToClose = 1
-
-            for (int i = 0; i < partialSourceCode.length() && curlyBracketsToClose > 0; i++) {
-                char c = partialSourceCode.charAt(i)
-                if (c == '}') {
-                    curlyBracketsToClose--
-                } else if (c == '{') {
-                    curlyBracketsToClose++
-                } else {
-                    featureSourceCode.append(c)
-                }
-            }
-
-            feature.sourceCode = featureSourceCode.toString()
-        }
     }
 }

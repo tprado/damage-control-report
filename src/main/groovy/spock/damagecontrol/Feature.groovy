@@ -4,11 +4,13 @@ class Feature {
 
     static final FAILED = 'failed'
 
+    final featureDefinitionParser = new FeatureDefinitionParser()
+    final featureStepsParser = new StepDefinitionParser()
+
     def name
     def failure
     def ignored = false
     def duration
-    def sourceCode = ''
     def steps = []
 
     def fail(message, details) {
@@ -35,18 +37,7 @@ class Feature {
         result == FAILED
     }
 
-    def setSourceCode(sourceCode) {
-        this.sourceCode = sourceCode
-        readBlocks()
-    }
-
-    def readBlocks() {
-        def match = sourceCode =~ /(?m)^\s*(given|when|then|and|expect|setup|cleanup)\s*:\s*('[^\n]*'|"[^\n]*"|$)/
-        match.each {
-            Step step = new Step()
-            step.type = it[1]
-            step.description = it[2]
-            steps.add(step)
-        }
+    def parseDefinition(specSourceCode) {
+        steps = featureStepsParser.parse(featureDefinitionParser.parse(name, specSourceCode))
     }
 }

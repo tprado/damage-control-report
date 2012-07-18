@@ -7,7 +7,7 @@ class SpecTest extends BaseSpec {
 
     def setup() {
         spec = new Spec(name: 'samples.SampleSpecificationTest')
-        feature = new Feature()
+        feature = new Feature(name:  'some feature')
         spec.features['some feature'] = feature
     }
 
@@ -96,41 +96,20 @@ class SpecTest extends BaseSpec {
         spec.successPercentage == 0
     }
 
-    def 'should parse feature definition'() {
+    def 'should parse definition for all features'() {
         given:
         String sourceCode = '''
 class Spec1 {
     def 'some feature'() {
-        for (;;) {}
-        // some blocks
-    }
-    def 'other feature'() {
-        // other blocks
-    }
-}
-'''
-        when:
-        spec.parseFeatureDefinition(sourceCode)
-
-        then:
-        spec.features['some feature'].sourceCode =~ /\/\/ some blocks/
-    }
-
-    def 'should ignore feature if it is not defined in the source code'() {
-        given:
-        String sourceCode = '''
-class Spec1 {
-    def 'some feature that does not match'() {
-        for (;;) {}
+        expect: 'some block'
         // some blocks
     }
 }
 '''
-
         when:
-        spec.parseFeatureDefinition(sourceCode)
+        spec.parseEachFeatureDefinition(sourceCode)
 
         then:
-        spec.features['some feature'].sourceCode == ''
+        feature.steps[0].type == 'expect'
     }
 }
