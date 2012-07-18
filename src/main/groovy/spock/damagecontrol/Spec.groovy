@@ -2,11 +2,15 @@ package spock.damagecontrol
 
 class Spec {
 
+    final output = new SpecOutput()
+    final features = [:]
 
     def name
-    def features = [:]
-    def output
     def duration
+
+    def feature(featureName) {
+        features[featureName] = features[featureName] ?: new Feature(name: featureName)
+    }
 
     def parseEachFeatureDefinition(sourceCode) {
         features.each {featureName, feature ->

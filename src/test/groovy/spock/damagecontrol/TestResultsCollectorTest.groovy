@@ -215,7 +215,7 @@ class TestResultsCollectorTest extends BaseSpec {
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.error == ''
     }
 
-    def 'should collect nothing when result file has no test cases'() {
+    def 'should collect no feature when result file has no test cases'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
             <testsuite name="spock.damagecontrol.NoTests" time="0.005">
@@ -223,9 +223,8 @@ class TestResultsCollectorTest extends BaseSpec {
 
         when:
         collector.collect(new StringReader(xml))
-        Map specs = collector.results.specs
 
         then:
-        specs.size() == 0
+        collector.results.spec('spock.damagecontrol.NoTests').features.size() == 0
     }
 }

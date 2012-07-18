@@ -7,31 +7,25 @@ class TestResultsCollector {
     def collect(reader) {
         Node testSuite = new XmlParser().parse(reader)
 
-        def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
-        def syserr = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
-        
-        SpecOutput output = new SpecOutput(standard: sysout, error: syserr)
+        Spec spec = results.spec(testSuite.'@name')
 
+        spec.duration = testSuite.'@time'
+        spec.output.standard = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
+        spec.output.error = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
+        
         testSuite.'testcase'.each { testCase ->
-            Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
+            Feature feature = results.spec(testCase.'@classname').feature(testCase.'@name')
             feature.duration = testCase.'@time'
 
-            if (testCase.skipped) {
-                feature.ignore()
-            }
-
             if (testCase.failure) {
-                feature.fail testCase.failure[0].'@message', testCase.failure[0].text()
+                feature.fail(testCase.failure[0].'@message', testCase.failure[0].text())
+            } else if (testCase.skipped) {
+                feature.ignore()
             }
         }
 
         testSuite.'ignored-testcase'.each { testCase ->
-            Feature feature = results.addFeature testCase.'@classname', testCase.'@name', output
-            feature.ignore()
-        }
-
-        if (results.specs[testSuite.'@name']) {
-            results.specs[testSuite.'@name'].duration = testSuite.'@time'
+            results.spec(testCase.'@classname').feature(testCase.'@name').ignore()
         }
     }
 }

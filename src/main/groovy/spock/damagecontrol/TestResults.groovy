@@ -8,14 +8,7 @@ class TestResults {
         specs.values().toList()
     }
 
-    def addFeature(specName, featureName, output) {
-        def spec = specs[specName]
-
-        if (!spec) {
-            spec = new Spec(name: specName, output: output)
-            specs[specName] = spec
-        }
-
-        spec.features[featureName] = spec.features[featureName] ?: new Feature(name: featureName)
+    def spec(specName) {
+        specs[specName] = specs[specName] ?: new Spec(name: specName)
     }
 }

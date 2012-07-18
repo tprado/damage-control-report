@@ -11,6 +11,30 @@ class SpecTest extends BaseSpec {
         spec.features['some feature'] = feature
     }
 
+    def 'should create new feature if not present'() {
+        when:
+        def feature = spec.feature('feature name')
+
+        then:
+        feature.name == 'feature name'
+    }
+
+    def 'should return feature if present'() {
+        given:
+        def feature1 = spec.feature('feature name')
+
+        when:
+        def feature2 = spec.feature('feature name')
+
+        then:
+        feature1 == feature2
+    }
+
+    def 'should have output by default'() {
+        expect:
+        new Spec().output
+    }
+
     def 'should indicate no line number if there is no error'() {
         when:
         def lines = spec.errorLines()
