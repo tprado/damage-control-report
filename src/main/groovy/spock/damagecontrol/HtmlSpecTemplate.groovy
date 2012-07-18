@@ -8,10 +8,6 @@ class HtmlSpecTemplate {
 
     def spec
 
-    def file(baseFolder) {
-        new File(baseFolder.absolutePath + '/' + spec.name + '.html')
-    }
-
     def generate() {
         def specHtmlTemplate = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
 

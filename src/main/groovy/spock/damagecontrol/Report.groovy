@@ -1,7 +1,6 @@
 package spock.damagecontrol
 
 import static org.apache.commons.io.FileUtils.copyURLToFile
-import static org.apache.commons.io.FileUtils.writeStringToFile
 
 class Report {
 
@@ -14,13 +13,15 @@ class Report {
     def run() {
         List specs = new TestResultsCollector(resultsFolder: testResultsFolder).collect().specList
 
+        HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
+
         HtmlIndexTemplate indexTemplate = new HtmlIndexTemplate(specs: specs)
-        writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
+        writer.write('index', indexTemplate.generate())
 
         specs.each { spec ->
             spec.readDefinitionFrom specDefinitionsFolder
             HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec: spec)
-            writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
+            writer.write(spec.name, specTemplate.generate())
         }
 
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))

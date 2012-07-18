@@ -17,14 +17,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
         template = new HtmlSpecTemplate(spec: spec)
     }
 
-    def 'should name HTML file based on spec name'() {
-        when:
-        File htmlFile = template.file(new File('.'))
-
-        then:
-        htmlFile.name == 'samples.definitions.SampleSpecTest.html'
-    }
-
     def 'should surround standard output with div'() {
         when:
         String html = template.generate()
