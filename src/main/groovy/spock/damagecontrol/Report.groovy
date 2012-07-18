@@ -18,7 +18,7 @@ class Report {
         writeStringToFile(new File(outputFolder.absolutePath + '/index.html'), indexTemplate.generate())
 
         specs.each { spec ->
-            new SpecDefinitionReader(specsFolder: specDefinitionsFolder).read(spec)
+            spec.readDefinitionFrom specDefinitionsFolder
             HtmlSpecTemplate specTemplate = new HtmlSpecTemplate(spec: spec)
             writeStringToFile(specTemplate.file(outputFolder), specTemplate.generate());
         }

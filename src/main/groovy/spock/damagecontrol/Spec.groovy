@@ -1,5 +1,7 @@
 package spock.damagecontrol
 
+import static org.apache.commons.io.FileUtils.readFileToString
+
 class Spec {
 
     static final String FILE_SEPARATOR = '/'
@@ -8,7 +10,11 @@ class Spec {
     def output
     def duration
 
-    def file(baseFolder) {
+    def readDefinitionFrom(specsFolder) {
+        parseFeatureDefinition(readFileToString(groovyFile(specsFolder)))
+    }
+
+    def groovyFile(baseFolder) {
         new File(baseFolder.absolutePath + FILE_SEPARATOR + name.replaceAll(/\./, FILE_SEPARATOR) + '.groovy')
     }
 

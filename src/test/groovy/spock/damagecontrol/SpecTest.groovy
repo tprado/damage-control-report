@@ -1,7 +1,5 @@
 package spock.damagecontrol
 
-import static org.apache.commons.io.FilenameUtils.separatorsToSystem
-
 class SpecTest extends BaseSpec {
 
     Spec spec
@@ -11,17 +9,6 @@ class SpecTest extends BaseSpec {
         spec = new Spec(name: 'samples.SampleSpecificationTest')
         feature = new Feature()
         spec.features['some feature'] = feature
-    }
-
-    def 'should compose spec file name based on the spec name'() {
-        given:
-        File baseFolder = new File('src/test/resources')
-
-        when:
-        File specFile = spec.file(baseFolder)
-
-        then:
-        specFile.absolutePath.contains(separatorsToSystem('src/test/resources/samples/SampleSpecificationTest.groovy'))
     }
 
     def 'should indicate no line number if there is no error'() {
