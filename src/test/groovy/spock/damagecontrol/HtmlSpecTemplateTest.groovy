@@ -3,9 +3,10 @@ package spock.damagecontrol
 class HtmlSpecTemplateTest extends BaseSpec {
 
     def template
+    Spec spec
 
     def setup() {
-        Spec spec = new Spec(name: 'samples.definitions.SampleSpecTest')
+        spec = new Spec(name: 'samples.definitions.SampleSpecTest')
         spec.features['feature 1'] = new Feature()
         spec.features['feature 1'].duration = '0.250'
         spec.features['feature 1'].fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
@@ -14,12 +15,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.output = new SpecOutput(standard: 'standard output message', error: 'error output message')
         spec.duration = '0.355'
 
-        template = new HtmlSpecTemplate(spec: spec)
+        template = new HtmlSpecTemplate()
     }
 
     def 'should surround standard output with div'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s)<div id='spec-standard-output'>.*(standard output message).*<\/div>/
@@ -27,7 +28,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should surround error output with div'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s)<div id='spec-error-output'>.*(error output message).*<\/div>/
@@ -35,7 +36,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should list all features'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         //TODO remove class and ignore this part in the regular expression
@@ -45,7 +46,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show result for feature'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         //TODO remove class and ignore this part in the regular expression
@@ -54,7 +55,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show spec duration'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<td id="feature 1_duration">0.250s<\/td>.*/
@@ -62,7 +63,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show number of features'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<div class="summaryCounter" id="featureCount">2.*<\/div>/
@@ -70,7 +71,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show number of failed features'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<div class="summaryCounter" id="failedFeatureCount">1.*<\/div>/
@@ -78,7 +79,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show number of skipped features'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<div class="summaryCounter" id="skippedFeatureCount">0.*<\/div>/
@@ -86,7 +87,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show duration for specification'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<div class="summaryCounter" id="specDuration">0.355s.*<\/div>/
@@ -94,7 +95,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show success percentage'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<div id="successPercentage">50%.*<\/div>/
@@ -102,7 +103,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show feature source code'() {
         when:
-        String html = template.generate()
+        String html = template.generate(spec)
 
         then:
         html =~ /(?s).*<td colspan="3" class="steps">\s*expect: "something"<br\/>\s*<\/td>/
