@@ -4,15 +4,7 @@ class TestResultsCollector {
 
     final results = new TestResults()
 
-    def resultsFolder
-
-    def collect() {
-        new XmlFileReader(inputFolder: resultsFolder).forEach { collectSpecs(it) }
-
-        results
-    }
-
-    def collectSpecs(reader) {
+    def collect(reader) {
         Node testSuite = new XmlParser().parse(reader)
 
         def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
@@ -38,6 +30,8 @@ class TestResultsCollector {
             feature.ignore()
         }
 
-        results.specs[testSuite.'@name'].duration = testSuite.'@time'
+        if (results.specs[testSuite.'@name']) {
+            results.specs[testSuite.'@name'].duration = testSuite.'@time'
+        }
     }
 }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="0" hostname="rivendell" name="spock.damagecontrol.TestResultsWithSysOut" tests="1" time="0.005" timestamp="2012-04-26T02:43:19">
-  <properties />
-  <testcase classname="spock.damagecontrol.TestResultsWithSysOut" name="some feature" time="0.0" />
-  <system-out><![CDATA[standard output message]]></system-out>
-  <system-err><![CDATA[error output message]]></system-err>
-</testsuite>

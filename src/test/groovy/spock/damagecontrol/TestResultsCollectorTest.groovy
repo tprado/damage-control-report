@@ -1,47 +1,24 @@
 package spock.damagecontrol
 
-import static org.apache.commons.io.FileUtils.copyFileToDirectory
+class TestResultsCollectorTest extends BaseSpec {
 
-class TestResultsCollectorTest extends BaseFileHandlingSpec {
-
-    static final SAMPLES = 'src/test/resources/samples/results'
-
-    static final XML_WITH_ONE_TEST_CASE = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
-    static final XML_WITH_TWO_TEST_CASES = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
-    static final XML_WITH_NO_TEST_CASE = new File(SAMPLES + '/TEST-no-test-case.xml')
-    static final XML_WITH_IGNORED_TEST_CASE = new File(
-            SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithIgnoredTestCase.xml'
-    )
-    static final XML_WITH_SYS_OUT = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithSysOut.xml')
-    static final XML_WITHOUT_SYS_OUT = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWithoutSysOut.xml')
-    static final EMPTY = new File(SAMPLES + '/empty.xml')
-
-    def collector
+    TestResultsCollector collector
 
     def setup() {
-        collector = new TestResultsCollector(resultsFolder: testFolder)
-    }
-
-    def 'should collect all specification names in the folder'() {
-        given:
-        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testFolder)
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
-
-        when:
-        Map specs = collector.collect().specs
-
-        then:
-        specs['spock.damagecontrol.TestResultsCollectorTest1']
-        specs['spock.damagecontrol.TestResultsCollectorTest2']
-        specs['spock.damagecontrol.AnotherTestResultsCollectorTest']
+        collector = new TestResultsCollector()
     }
 
     def 'should collect all features for the same specification'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldParseXml" time="0.002" />
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001" />
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldParseXml']
@@ -50,24 +27,34 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect failure message for each feature'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
+                    <failure message="java.lang.AssertionError: Expected: is &lt;true&gt; got: &lt;false&gt;" />
+                </testcase>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         and:
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
-        feature.failure.message == 'java.lang.AssertionError: \nExpected: is <true>\n     got: <false>\n'
+        feature.failure.message == 'java.lang.AssertionError: Expected: is <true> got: <false>'
     }
 
     def 'should collect duration for each feature'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001"/>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         and:
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
@@ -78,10 +65,14 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect feature name'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001"/>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail'].name == 'shouldFail'
@@ -89,10 +80,14 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect specification duration time'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001"/>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].duration == '0.005'
@@ -100,10 +95,14 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect ignored features'() {
         given:
-        copyFileToDirectory(XML_WITH_IGNORED_TEST_CASE, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithIgnoredTestCase" time="0.005">
+                <ignored-testcase classname="spock.damagecontrol.TestResultsWithIgnoredTestCase" name="ignored feature" time="0.0" />
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         and:
         Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['ignored feature']
@@ -114,10 +113,16 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect skipped features'() {
         given:
-        copyFileToDirectory(XML_WITH_IGNORED_TEST_CASE, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithIgnoredTestCase" time="0.005">
+                <testcase classname="spock.damagecontrol.TestResultsWithIgnoredTestCase" name="skipped feature" time="0.126">
+                    <skipped/>
+                </testcase>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         and:
         Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['skipped feature']
@@ -128,24 +133,37 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect failure details for each feature'() {
         given:
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
+                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
+                    <failure message="failure message">
+                        <![CDATA[ TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19) ]]>
+                    </failure>
+                </testcase>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         and:
         Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
 
         then:
-        feature.failure.details.contains('TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)')
+        feature.failure.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
     }
 
     def 'should collect standard output for spec'() {
         given:
-        copyFileToDirectory(XML_WITH_SYS_OUT, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithSysOut" time="0.005">
+                <testcase classname="spock.damagecontrol.TestResultsWithSysOut" name="feature name" time="0.001"/>
+                <system-out><![CDATA[ standard output message ]]></system-out>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.standard == 'standard output message'
@@ -153,10 +171,14 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect results without standard output'() {
         given:
-        copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithoutSysOut" time="0.005">
+                <testcase classname="spock.damagecontrol.TestResultsWithoutSysOut" name="feature name" time="0.001"/>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.standard == ''
@@ -164,10 +186,15 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect error output for spec'() {
         given:
-        copyFileToDirectory(XML_WITH_SYS_OUT, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithSysOut" time="0.005">
+                <testcase classname="spock.damagecontrol.TestResultsWithSysOut" name="feature name" time="0.001"/>
+                <system-err><![CDATA[ error output message ]]></system-err>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.TestResultsWithSysOut'].output.error == 'error output message'
@@ -175,10 +202,14 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect results without error output'() {
         given:
-        copyFileToDirectory(XML_WITHOUT_SYS_OUT, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.TestResultsWithoutSysOut" time="0.005">
+                <testcase classname="spock.damagecontrol.TestResultsWithoutSysOut" name="feature name" time="0.001"/>
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs['spock.damagecontrol.TestResultsWithoutSysOut'].output.error == ''
@@ -186,21 +217,13 @@ class TestResultsCollectorTest extends BaseFileHandlingSpec {
 
     def 'should collect nothing when result file has no test cases'() {
         given:
-        copyFileToDirectory(XML_WITH_NO_TEST_CASE, testFolder)
+        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
+            <testsuite name="spock.damagecontrol.NoTests" time="0.005">
+            </testsuite>'''
 
         when:
-        Map specs = collector.collect().specs
-
-        then:
-        specs.size() == 0
-    }
-
-    def 'should collect nothing when result file is empty'() {
-        given:
-        copyFileToDirectory(EMPTY, testFolder)
-
-        when:
-        Map specs = collector.collect().specs
+        collector.collect(new StringReader(xml))
+        Map specs = collector.results.specs
 
         then:
         specs.size() == 0
