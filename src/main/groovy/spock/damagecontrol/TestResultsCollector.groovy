@@ -16,7 +16,7 @@ class TestResultsCollector {
 
         iterateFiles(resultsFolder, XML, INCLUDE_SUB_FOLDERS).each {file ->
             try {
-                collectSpecs(file, results)
+                collectSpecs(new FileReader(file), results)
             } catch (Exception e) {
                 println "Error reading file '${file}': ${e.message}"
             }
@@ -25,8 +25,8 @@ class TestResultsCollector {
         results
     }
 
-    def collectSpecs(file, results) {
-        Node testSuite = parse(file)
+    def collectSpecs(reader, results) {
+        Node testSuite = new XmlParser().parse(reader)
 
         def sysout = testSuite.'system-out' ? testSuite.'system-out'[0].text() : ''
         def syserr = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
@@ -52,9 +52,5 @@ class TestResultsCollector {
         }
 
         results.specs[testSuite.'@name'].duration = testSuite.'@time'
-    }
-
-    def parse(file) {
-        new XmlParser().parse(file)
     }
 }
