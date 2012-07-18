@@ -6,21 +6,23 @@ class Report {
 
     static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
 
+    final indexTemplate = new HtmlIndexTemplate()
+    final specTemplate = new HtmlSpecTemplate()
+
     def testResultsFolder
     def specDefinitionsFolder
     def outputFolder
-
-    def indexTemplate = new HtmlIndexTemplate()
-    def specTemplate = new HtmlSpecTemplate()
 
     def run() {
         List specs = new TestResultsCollector(resultsFolder: testResultsFolder).collect().specList
 
         HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
+        GroovyFileReader reader = new GroovyFileReader(inputFolder: specDefinitionsFolder)
+
         writer.write('index', indexTemplate.generate(specs))
 
         specs.each { spec ->
-            spec.readDefinitionFrom specDefinitionsFolder
+            spec.parseEachFeatureDefinition(reader.read(spec.name))
             writer.write(spec.name, specTemplate.generate(spec))
         }
 
