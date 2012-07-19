@@ -13,7 +13,7 @@ class MavenPluginTest extends Specification {
 
     def "should generate reports using Spock specifications"() {
         when: "I run a Maven build"
-        def mvn = ["$MVN", "clean", "test"].execute(["JAVA_HOME=${JAVA_HOME}", "M2_HOME=${M2_HOME}"], SAMPLE_MVN_PROJECT)
+        def mvn = ["$MVN", "-e", "clean", "test"].execute(["JAVA_HOME=${JAVA_HOME}", "M2_HOME=${M2_HOME}"], SAMPLE_MVN_PROJECT)
 
         def standardOutput = new StringBuffer()
         def errorOutput = new StringBuffer()
