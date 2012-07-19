@@ -81,7 +81,6 @@ ruleset {
 
     // rulesets/design.xml
     AbstractClassWithPublicConstructor
-    AbstractClassWithoutAbstractMethod
     BooleanMethodReturnsNull
     BuilderMethodWithSideEffects
     CloneableWithoutClone
@@ -200,7 +199,7 @@ ruleset {
     FieldName
     InterfaceName
     MethodName {
-        doNotApplyToClassNames = '*Test'
+        doNotApplyToClassNames = '*Test,*Spec'
     }
     ObjectOverrideMisspelledMethodName
     PackageName

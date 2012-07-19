@@ -8,8 +8,16 @@ class Spec {
     def name
     def duration
 
-    def feature(featureName) {
-        features[featureName] = features[featureName] ?: new Feature(name: featureName)
+    def passed(featureName) {
+        features[featureName] = new PassedFeature(name: featureName)
+    }
+
+    def skipped(featureName) {
+        features[featureName] = new SkippedFeature(name: featureName)
+    }
+
+    def failed(featureName) {
+        features[featureName] = new FailedFeature(name: featureName)
     }
 
     def parseEachFeatureDefinition(sourceCode) {
@@ -23,7 +31,7 @@ class Spec {
         List lines = []
 
         features.each { featureName, feature ->
-            if (feature.failure) {
+            if (feature.failed) {
                 def match = feature.failure.details =~ shortNameRegex
                 match.each { lines.add it[1].toInteger() }
             }

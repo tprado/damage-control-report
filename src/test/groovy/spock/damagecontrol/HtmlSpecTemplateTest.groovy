@@ -7,13 +7,17 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def setup() {
         spec = new Spec(name: 'samples.definitions.SampleSpecTest')
-        spec.feature('feature 1').duration = '0.250'
-        spec.feature('feature 1').fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.feature('feature 1').steps.add(new Step(type: 'expect', description: '"something"'))
-        spec.feature('feature 2')
         spec.output.standard = 'standard output message'
         spec.output.error = 'error output message'
         spec.duration = '0.355'
+
+        spec.failed('feature 1')
+        spec.features.'feature 1'.duration = '0.250'
+        spec.features.'feature 1'.failure.message = 'error'
+        spec.features.'feature 1'.failure.details = 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+        spec.features.'feature 1'.steps.add(new Step(type: 'expect', description: '"something"'))
+
+        spec.passed('feature 2')
 
         template = new HtmlSpecTemplate()
     }

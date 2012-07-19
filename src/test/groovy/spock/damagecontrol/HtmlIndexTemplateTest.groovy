@@ -9,11 +9,11 @@ class HtmlIndexTemplateTest extends BaseSpec {
         given:
         Spec spec1 = new Spec(name: 'Spec1')
         spec1.duration = '0.155'
-        spec1.features['feature 1'] = new Feature()
-        spec1.features['feature 2'] = new Feature()
-        spec1.features['feature 2'].fail 'error', 'error detail'
-        spec1.features['feature 3'] = new Feature()
-        spec1.features['feature 3'].ignore()
+        spec1.passed('feature 1')
+        spec1.failed('feature 2')
+        spec1.features.'feature 2'.failure.message = 'error'
+        spec1.features.'feature 2'.failure.details = 'error detail'
+        spec1.skipped('feature 3')
 
         Spec spec2 = new Spec(name: 'Spec2')
 

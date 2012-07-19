@@ -39,7 +39,7 @@ class TestResultsCollectorTest extends BaseSpec {
         Map specs = collector.results.specs
 
         and:
-        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        def feature = specs.'spock.damagecontrol.AnotherTestResultsCollectorTest'.features.'shouldFail'
 
         then:
         feature.failure.message == 'java.lang.AssertionError: Expected: is <true> got: <false>'
@@ -57,7 +57,7 @@ class TestResultsCollectorTest extends BaseSpec {
         Map specs = collector.results.specs
 
         and:
-        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        def feature = specs.'spock.damagecontrol.AnotherTestResultsCollectorTest'.features.'shouldFail'
 
         then:
         feature.duration == '0.001'
@@ -105,7 +105,7 @@ class TestResultsCollectorTest extends BaseSpec {
         Map specs = collector.results.specs
 
         and:
-        Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['ignored feature']
+        def feature = specs.'spock.damagecontrol.TestResultsWithIgnoredTestCase'.features.'ignored feature'
 
         then:
         feature.ignored
@@ -125,7 +125,7 @@ class TestResultsCollectorTest extends BaseSpec {
         Map specs = collector.results.specs
 
         and:
-        Feature feature = specs['spock.damagecontrol.TestResultsWithIgnoredTestCase'].features['skipped feature']
+        def feature = specs.'spock.damagecontrol.TestResultsWithIgnoredTestCase'.features.'skipped feature'
 
         then:
         feature.ignored
@@ -147,7 +147,7 @@ class TestResultsCollectorTest extends BaseSpec {
         Map specs = collector.results.specs
 
         and:
-        Feature feature = specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
+        def feature = specs.'spock.damagecontrol.AnotherTestResultsCollectorTest'.features.'shouldFail'
 
         then:
         feature.failure.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'

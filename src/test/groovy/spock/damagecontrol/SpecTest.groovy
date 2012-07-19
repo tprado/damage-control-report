@@ -3,49 +3,49 @@ package spock.damagecontrol
 class SpecTest extends BaseSpec {
 
     Spec spec
-    def feature
 
     def setup() {
         spec = new Spec(name: 'samples.SampleSpecificationTest')
-        feature = new Feature(name:  'some feature')
-        spec.features['some feature'] = feature
     }
 
-    def 'should create new feature if not present'() {
-        when:
-        def feature = spec.feature('feature name')
-
-        then:
-        feature.name == 'feature name'
-    }
-
-    def 'should return feature if present'() {
+    def 'should create new passed feature'() {
         given:
-        def feature1 = spec.feature('feature name')
+        spec.passed('feature name')
 
-        when:
-        def feature2 = spec.feature('feature name')
+        expect:
+        spec.features.'feature name'.result == 'passed'
+    }
 
-        then:
-        feature1 == feature2
+    def 'should create new skipped feature'() {
+        given:
+        spec.skipped('feature name')
+
+        expect:
+        spec.features.'feature name'.result == 'skipped'
+    }
+
+    def 'should create new failed feature'() {
+        given:
+        spec.failed('feature name')
+
+        expect:
+        spec.features.'feature name'.result == 'failed'
     }
 
     def 'should have output by default'() {
         expect:
-        new Spec().output
+        spec.output
     }
 
     def 'should indicate no line number if there is no error'() {
-        when:
-        def lines = spec.errorLines()
-
-        then:
-        lines == []
+        expect:
+        spec.errorLines() == []
     }
 
     def 'should indicate the line numbers where an error occurred'() {
         given:
-        feature.fail 'error', 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
+        def failedFeature = spec.failed('failed feature')
+        failedFeature.failure.details = 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
 
         when:
         def lines = spec.errorLines()
@@ -55,13 +55,16 @@ class SpecTest extends BaseSpec {
     }
 
     def 'should count number of features'() {
+        given:
+        spec.passed('feature name')
+
         expect:
         spec.featureCount == 1
     }
 
     def 'should count number of failed features'() {
         given:
-        feature.fail 'error', 'error detail'
+        spec.failed('failed feature')
 
         expect:
         spec.failedFeatureCount == 1
@@ -69,59 +72,66 @@ class SpecTest extends BaseSpec {
 
     def 'should count number of skipped features'() {
         given:
-        feature.ignore()
+        spec.skipped('feature name')
 
         expect:
         spec.skippedFeatureCount == 1
     }
 
     def 'should show "failed" for specification with at least 1 failed feature'() {
-        when:
-        feature.fail 'error', 'error details'
+        given:
+        spec.passed('feature 1')
+        spec.failed('feature 2')
 
-        then:
+        expect:
         spec.result == 'failed'
     }
 
     def 'should show "skipped" for specification with all skipped features'() {
-        when:
-        feature.ignore()
+        given:
+        spec.skipped('feature name')
 
-        then:
+        expect:
         spec.result == 'skipped'
     }
 
     def 'should show "passed" for specification with no failures and at least 1 success feature'() {
+        given:
+        spec.passed('feature 1')
+
         expect:
         spec.result == 'passed'
     }
 
     def 'should indicate 100% successful features for no failures'() {
+        given:
+        spec.passed('feature 1')
+
         expect:
         spec.successPercentage == 100
     }
 
     def 'should indicate 33% successful features'() {
-        when:
-        spec.features['a failed feature'] = new Feature()
-        spec.features['a failed feature'].fail 'error', 'error details'
-        spec.features['another failed feature'] = new Feature()
-        spec.features['another failed feature'].fail 'error', 'error details'
+        given:
+        spec.passed('passed feature')
+        spec.failed('a failed feature')
+        spec.failed('another failed feature')
 
-        then:
+        expect:
         spec.successPercentage == 33
     }
 
     def 'should indicate 0% successful features for all features failed'() {
-        when:
-        feature.fail 'error', 'error details'
+        given:
+        spec.failed('a failed feature')
 
-        then:
+        expect:
         spec.successPercentage == 0
     }
 
     def 'should parse definition for all features'() {
         given:
+        spec.passed('some feature')
         String sourceCode = '''
 class Spec1 {
     def 'some feature'() {
@@ -130,10 +140,11 @@ class Spec1 {
     }
 }
 '''
+
         when:
         spec.parseEachFeatureDefinition(sourceCode)
 
         then:
-        feature.steps[0].type == 'expect'
+        spec.features.'some feature'.steps[0].type == 'expect'
     }
 }

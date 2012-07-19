@@ -14,18 +14,23 @@ class TestResultsCollector {
         spec.output.error = testSuite.'system-err' ? testSuite.'system-err'[0].text() : ''
         
         testSuite.'testcase'.each { testCase ->
-            Feature feature = results.spec(testCase.'@classname').feature(testCase.'@name')
-            feature.duration = testCase.'@time'
+            def feature
 
             if (testCase.failure) {
-                feature.fail(testCase.failure[0].'@message', testCase.failure[0].text())
+                feature = results.spec(testCase.'@classname').failed(testCase.'@name')
+                feature.failure.message = testCase.failure[0].'@message'
+                feature.failure.details = testCase.failure[0].text()
             } else if (testCase.skipped) {
-                feature.ignore()
+                feature = results.spec(testCase.'@classname').skipped(testCase.'@name')
+            } else {
+                feature = results.spec(testCase.'@classname').passed(testCase.'@name')
             }
+
+            feature.duration = testCase.'@time'
         }
 
         testSuite.'ignored-testcase'.each { testCase ->
-            results.spec(testCase.'@classname').feature(testCase.'@name').ignore()
+            results.spec(testCase.'@classname').skipped(testCase.'@name')
         }
     }
 }
