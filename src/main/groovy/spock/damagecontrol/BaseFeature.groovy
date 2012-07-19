@@ -17,7 +17,7 @@ abstract class BaseFeature {
     def parseDefinition(lineNumberAnnotatedSourceCode) {
         String featureDefinition = featureDefinitionParser.parse(name, lineNumberAnnotatedSourceCode)
         setLineNumbers(featureDefinition)
-        steps.addAll(featureStepsParser.parse(featureDefinition))
+        setSteps(featureDefinition)
     }
 
     private setLineNumbers(featureDefinition) {
@@ -26,5 +26,10 @@ abstract class BaseFeature {
             startLineNumber = parseInt(match[0][1])
             endLineNumber = parseInt(match[match.count - 1][1])
         }
+    }
+
+    private setSteps(featureDefinition) {
+        steps.clear()
+        steps.addAll(featureStepsParser.parse(featureDefinition))
     }
 }

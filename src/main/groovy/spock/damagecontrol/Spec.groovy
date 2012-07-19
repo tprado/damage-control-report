@@ -24,6 +24,9 @@ class Spec {
         String annotatedSourceCode = new LineNumberAnnotator().annotate(sourceCode)
         features.each {featureName, feature ->
             feature.parseDefinition(annotatedSourceCode)
+            if (feature.failed) {
+                feature.identifyStepsResult(name)
+            }
         }
     }
 

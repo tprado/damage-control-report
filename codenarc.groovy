@@ -272,7 +272,6 @@ ruleset {
     UnnecessaryNullCheckBeforeInstanceOf
     UnnecessaryObjectReferences
     UnnecessaryOverridingMethod
-    UnnecessaryPackageReference
     UnnecessaryParenthesesForMethodCallWithClosure
     UnnecessaryPublicModifier
     UnnecessaryReturnKeyword

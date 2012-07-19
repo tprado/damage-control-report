@@ -1,8 +1,19 @@
 package spock.damagecontrol
 
+import static spock.damagecontrol.Results.FAILED
+
 class SpecTest extends BaseSpec {
 
-    Spec spec
+    private final sourceCode = '''package samples
+class SampleSpecificationTest {
+    def 'some feature'() {
+        expect: 'some block'
+        some.code()
+    }
+}
+'''
+
+    private Spec spec
 
     def setup() {
         spec = new Spec(name: 'samples.SampleSpecificationTest')
@@ -29,7 +40,7 @@ class SpecTest extends BaseSpec {
         spec.failed('feature name')
 
         expect:
-        spec.features.'feature name'.result == 'failed'
+        spec.features.'feature name'.result == FAILED
     }
 
     def 'should have output by default'() {
@@ -115,14 +126,6 @@ class SpecTest extends BaseSpec {
     def 'should parse definition for all features'() {
         given:
         spec.passed('some feature')
-        String sourceCode = '''
-class Spec1 {
-    def 'some feature'() {
-        expect: 'some block'
-        // some blocks
-    }
-}
-'''
 
         when:
         spec.parseEachFeatureDefinition(sourceCode)
@@ -131,5 +134,17 @@ class Spec1 {
         spec.features.'some feature'.steps[0].type == 'expect'
         and:
         spec.features.'some feature'.steps[0].lineNumber == 4
+    }
+
+    def 'should identify steps result for failed features'() {
+        given:
+        def feature = spec.failed('some feature')
+        feature.failure.details = 'at samples.SampleSpecificationTest.some feature(SampleSpecificationTest.groovy:5)'
+
+        when:
+        spec.parseEachFeatureDefinition(sourceCode)
+
+        then:
+        spec.features.'some feature'.steps[0].result == FAILED
     }
 }
