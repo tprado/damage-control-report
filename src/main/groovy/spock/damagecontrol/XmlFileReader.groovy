@@ -5,8 +5,8 @@ import static org.apache.commons.io.IOUtils.closeQuietly
 
 class XmlFileReader {
 
-    static final boolean INCLUDE_SUB_FOLDERS = true
-    static final String[] XML = ['xml']
+    private static final boolean INCLUDE_SUB_FOLDERS = true
+    private static final String[] XML = ['xml']
 
     def inputFolder
 

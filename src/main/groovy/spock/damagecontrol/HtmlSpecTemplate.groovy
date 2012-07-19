@@ -4,8 +4,8 @@ import groovy.text.GStringTemplateEngine
 
 class HtmlSpecTemplate {
 
-    static final SPEC_HTML_URL = HtmlSpecTemplate.getResource('/spock/damagecontrol/templates/spec.html')
-    static final TEMPLATE = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
+    private static final SPEC_HTML_URL = HtmlSpecTemplate.getResource('/spock/damagecontrol/templates/spec.html')
+    private static final TEMPLATE = new GStringTemplateEngine().createTemplate(SPEC_HTML_URL)
 
     def generate(spec) {
         TEMPLATE.make([

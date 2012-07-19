@@ -4,15 +4,15 @@ import static org.apache.commons.io.FileUtils.copyURLToFile
 
 class Report {
 
-    static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
-
-    final collector = new TestResultsCollector()
-    final indexTemplate = new HtmlIndexTemplate()
-    final specTemplate = new HtmlSpecTemplate()
+    private static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
 
     def testResultsFolder
     def specDefinitionsFolder
     def outputFolder
+
+    private final collector = new TestResultsCollector()
+    private final indexTemplate = new HtmlIndexTemplate()
+    private final specTemplate = new HtmlSpecTemplate()
 
     def run() {
         new XmlFileReader(inputFolder: testResultsFolder).forEach { collector.collect(it) }

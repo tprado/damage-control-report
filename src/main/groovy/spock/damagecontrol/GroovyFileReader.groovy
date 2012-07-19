@@ -4,7 +4,7 @@ import static org.apache.commons.io.FileUtils.readFileToString
 
 class GroovyFileReader {
 
-    static final String FILE_SEPARATOR = '/'
+    private static final String FILE_SEPARATOR = '/'
 
     def inputFolder
 
