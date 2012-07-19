@@ -9,7 +9,7 @@ abstract class BaseFeature {
     def name
     def duration
 
-    def parseDefinition(specSourceCode) {
-        steps.addAll(featureStepsParser.parse(featureDefinitionParser.parse(name, specSourceCode)))
+    def parseDefinition(lineAnnotatedSourceCode) {
+        steps.addAll(featureStepsParser.parse(featureDefinitionParser.parse(name, lineAnnotatedSourceCode)))
     }
 }

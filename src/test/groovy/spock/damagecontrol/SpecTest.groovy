@@ -129,5 +129,7 @@ class Spec1 {
 
         then:
         spec.features.'some feature'.steps[0].type == 'expect'
+        and:
+        spec.features.'some feature'.steps[0].lineNumber == 4
     }
 }

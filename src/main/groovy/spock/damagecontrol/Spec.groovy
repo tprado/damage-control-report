@@ -21,8 +21,9 @@ class Spec {
     }
 
     def parseEachFeatureDefinition(sourceCode) {
+        String annotatedSourceCode = new LineNumberAnnotator().annotate(sourceCode)
         features.each {featureName, feature ->
-            feature.parseDefinition(sourceCode)
+            feature.parseDefinition(annotatedSourceCode)
         }
     }
 

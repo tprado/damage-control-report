@@ -21,16 +21,16 @@ abstract class BaseFeatureSpec extends BaseSpec {
 
     def 'should parse feature definition'() {
         given:
-        String sourceCode = '''
-class Spec1 {
-    def 'feature name'() {
-        expect: 'some block'
-        // some blocks
-    }
-}
+        String lineAnnotatedSourceCode = '''#1#
+#2#class Spec1 {
+#3#    def 'feature name'() {
+#4#        expect: 'some block'
+#5#        // some blocks
+#6#    }
+#7#}
 '''
         when:
-        feature.parseDefinition(sourceCode)
+        feature.parseDefinition(lineAnnotatedSourceCode)
 
         then:
         feature.steps[0].type == 'expect'

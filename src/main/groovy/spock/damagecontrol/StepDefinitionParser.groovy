@@ -1,13 +1,17 @@
 package spock.damagecontrol
 
+import static java.lang.Integer.parseInt
+
 class StepDefinitionParser {
 
-    def parse(sourceCode) {
+    static final STEP = /(?m)^#([0-9]*)#\s*(given|when|then|and|expect|setup|cleanup)\s*:\s*('[^\n]*'|"[^\n]*"|$)/
+
+    def parse(lineNumberAnnotatedSourceCode) {
         def steps = []
 
-        def match = sourceCode =~ /(?m)^\s*(given|when|then|and|expect|setup|cleanup)\s*:\s*('[^\n]*'|"[^\n]*"|$)/
+        def match = lineNumberAnnotatedSourceCode =~ STEP
         match.each {
-            steps.add(new Step(type: it[1], description: it[2]))
+            steps.add(new Step(type: it[2], description: it[3], lineNumber: parseInt(it[1])))
         }
 
         steps
