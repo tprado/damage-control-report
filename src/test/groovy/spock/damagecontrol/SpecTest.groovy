@@ -37,23 +37,6 @@ class SpecTest extends BaseSpec {
         spec.output
     }
 
-    def 'should indicate no line number if there is no error'() {
-        expect:
-        spec.errorLines() == []
-    }
-
-    def 'should indicate the line numbers where an error occurred'() {
-        given:
-        def failedFeature = spec.failed('failed feature')
-        failedFeature.failure.details = 'at SampleSpecificationTest.shouldFail(SampleSpecificationTest.groovy:19)'
-
-        when:
-        def lines = spec.errorLines()
-
-        then:
-        lines == [19]
-    }
-
     def 'should count number of features'() {
         given:
         spec.passed('feature name')

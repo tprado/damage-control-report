@@ -26,20 +26,6 @@ class Spec {
         }
     }
 
-    def errorLines() {
-        def shortNameRegex = '.*\\(' + name.split('\\.').last() + '\\.groovy\\:([0-9]+)\\)'
-        List lines = []
-
-        features.each { featureName, feature ->
-            if (feature.failed) {
-                def match = feature.failure.details =~ shortNameRegex
-                match.each { lines.add it[1].toInteger() }
-            }
-        }
-
-        lines
-    }
-
     def getFeatureCount() {
         features.size()
     }
