@@ -1,5 +1,7 @@
 package spock.damagecontrol
 
+import static spock.damagecontrol.Results.PASSED
+
 class HtmlSpecTemplateTest extends BaseSpec {
 
     HtmlSpecTemplate template
@@ -15,7 +17,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.features.'feature 1'.duration = '0.250'
         spec.features.'feature 1'.failure.message = 'error'
         spec.features.'feature 1'.failure.details = 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.features.'feature 1'.steps.add(new Step(type: 'expect', description: '"something"'))
+        spec.features.'feature 1'.steps.add(new Step(type: 'expect', description: '"something"', result: PASSED))
 
         spec.passed('feature 2')
 
@@ -105,11 +107,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
         html =~ /(?s).*<div id="successPercentage">50%.*<\/div>/
     }
 
-    def 'should show feature source code'() {
+    @SuppressWarnings('LineLength')
+    def 'should show feature steps'() {
         when:
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s).*<td colspan="3" class="steps">\s*expect: "something"<br\/>\s*<\/td>/
+        html =~ /(?s)<td colspan="3" class="steps">\s*expect: "something" <span class="passed">passed<\/span><br\/>\s*<\/td>/
     }
 }

@@ -81,9 +81,9 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="steps">
-                        <% feature.steps.each{ step -> %>
-                            <%= step.type %>: <%= step.description %><br/>
-                        <% } %>
+                    <% feature.steps.each{ step -> %>
+                        <%= step.type %>: <%= step.description %> <span class="<%= step.result %>"><%= step.result %></span><br/>
+                    <% } %>
                     </td>
                 </tr>
                 <% } %>
