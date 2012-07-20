@@ -1,7 +1,7 @@
 package spock.damagecontrol
 
-import static spock.damagecontrol.Results.PASSED
 import static spock.damagecontrol.Results.FAILED
+import static spock.damagecontrol.Results.PASSED
 
 @SuppressWarnings('LineLength')
 class HtmlSpecTemplateTest extends BaseSpec {
@@ -48,8 +48,8 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
         then:
         //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s).*<td id="feature 1" class="result_FAILED">feature 1<\/td>.*/
-        html =~ /(?s).*<td id="feature 2" class="result_PASSED">feature 2<\/td>.*/
+        html =~ /(?s)<td id="feature 1" class="clickable result_FAILED" expand="feature_0_steps">feature 1<\/td>/
+        html =~ /(?s)<td id="feature 2" class="clickable result_PASSED" expand="feature_1_steps">feature 2<\/td>/
     }
 
     def 'should show result for feature'() {

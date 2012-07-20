@@ -149,3 +149,7 @@ div.steps span.NOT_PERFORMED {
     color: gray;
     font-style: italic;
 }
+
+.clickable:hover {
+    cursor: pointer;
+}

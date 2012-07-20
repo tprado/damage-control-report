@@ -77,13 +77,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% features.each{ feature_name, feature -> %>
+                <% features.eachWithIndex{ featureName, feature, featureIndex -> %>
                 <tr>
-                    <td id="<%= feature_name %>" class="result_<%= feature.result %>"><%= feature_name %></td>
-                    <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
-                    <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result.description %></td>
+                    <td id="<%= featureName %>" class="clickable result_<%= feature.result %>" expand="feature_<%= featureIndex %>_steps"><%= featureName %></td>
+                    <td id="<%= featureName %>_duration"><%= feature.duration %>s</td>
+                    <td id="<%= featureName %>_result" class="result_<%= feature.result %>"><%= feature.result.description %></td>
                 </tr>
-                <tr>
+                <tr expandable="feature_<%= featureIndex %>_steps">
                     <td colspan="3">
                         <div class="steps">
                         <% feature.steps.each{ step -> %>

@@ -2,6 +2,11 @@
     'use strict';
 
     $(document).ready(function () {
-        console.log('banana: ' + $('[expand]'));
+        $('[expand]').on('click', function (event) {
+            var expandable = $(event.target).attr('expand');
+            $('[expandable=' + expandable + ']').toggle();
+        });
+
+        $('[expandable]').hide();
     });
 }());
