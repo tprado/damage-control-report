@@ -18,6 +18,7 @@ class FailedFeature extends BaseFeature {
             steps.findAll { it.lineNumber > errorLine }.each { it.result = NOT_PERFORMED }
             steps.findAll { it.result == UNKNOWN && it.lineNumber < errorLine }.last().result = FAILED
             steps.findAll { it.result == UNKNOWN }.each { it.result = PASSED }
+            moveDetailsFromFeatureToStep()
         }
     }
 
@@ -29,5 +30,13 @@ class FailedFeature extends BaseFeature {
         match.each { lines.add(it[1].toInteger()) }
 
         lines
+    }
+
+    private moveDetailsFromFeatureToStep() {
+        def failedStep = steps.find { it.result == FAILED }
+        if (failedStep) {
+            failedStep.details = details
+            details = ''
+        }
     }
 }

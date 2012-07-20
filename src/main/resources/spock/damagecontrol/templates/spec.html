@@ -84,6 +84,9 @@
                         <div class="steps">
                         <% feature.steps.each{ step -> %>
                             <%= step.type %> <%= step.description %> <span class="<%= step.result %>"><%= step.result.description %></span><br/>
+                            <% if (step.details) { %>
+                                <div class="details"><pre><%= step.details %></pre></div>
+                            <% } %>
                         <% } %>
                         </div>
                         <% if (feature.details) { %>

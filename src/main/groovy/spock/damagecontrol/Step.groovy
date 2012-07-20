@@ -8,4 +8,5 @@ class Step {
     def description
     def lineNumber
     def result = UNKNOWN
+    def details
 }

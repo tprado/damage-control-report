@@ -1,6 +1,7 @@
 package spock.damagecontrol
 
 import static spock.damagecontrol.Results.PASSED
+import static spock.damagecontrol.Results.FAILED
 
 @SuppressWarnings('LineLength')
 class HtmlSpecTemplateTest extends BaseSpec {
@@ -17,9 +18,10 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.failed('feature 1')
         spec.features.'feature 1'.duration = '0.250'
         spec.features.'feature 1'.details = 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
-        spec.features.'feature 1'.steps.add(new Step(type: 'expect', description: '"something"', result: PASSED))
+        spec.features.'feature 1'.steps.add(new Step(type: 'expect', description: '"something"', result: FAILED, details: 'step failure details'))
 
         spec.passed('feature 2')
+        spec.features.'feature 2'.steps.add(new Step(type: 'expect', description: '"something"', result: PASSED))
 
         template = new HtmlSpecTemplate()
     }
@@ -115,7 +117,15 @@ class HtmlSpecTemplateTest extends BaseSpec {
         html =~ /(?s)<div class="steps">\s*expect "something" <span class="PASSED">passed<\/span><br\/>\s*<\/div>/
     }
 
-    def 'should show failure details'() {
+    def 'should show step failure details'() {
+        when:
+        String html = template.generate(spec)
+
+        then:
+        html =~ /(?s)<div class="details"><pre>step failure details<\/pre><\/div>/
+    }
+
+    def 'should show feature failure details'() {
         when:
         String html = template.generate(spec)
 
