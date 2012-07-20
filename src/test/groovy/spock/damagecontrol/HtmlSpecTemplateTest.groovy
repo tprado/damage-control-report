@@ -48,8 +48,8 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
         then:
         //TODO remove class and ignore this part in the regular expression
-        html =~ /(?s)<td id="feature 1" class="clickable result_FAILED" expand="feature_0_steps">feature 1<\/td>/
-        html =~ /(?s)<td id="feature 2" class="clickable result_PASSED" expand="feature_1_steps">feature 2<\/td>/
+        html =~ /(?s)<td id="feature 1" class="result_FAILED" expand="feature_0_steps">feature 1<\/td>/
+        html =~ /(?s)<td id="feature 2" class="result_PASSED" expand="feature_1_steps">feature 2<\/td>/
     }
 
     def 'should show result for feature'() {
@@ -114,7 +114,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s)<div class="steps">\s*expect "something" <span class="clickable PASSED" expand="feature_1_details">passed<\/span><br\/>\s*<\/div>/
+        html =~ /(?s)<div class="steps">\s*expect "something" <span class="PASSED" expand="feature_1_details">passed<\/span><br\/>\s*<\/div>/
     }
 
     def 'should show step failure details'() {
