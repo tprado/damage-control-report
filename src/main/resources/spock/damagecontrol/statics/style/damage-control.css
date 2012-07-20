@@ -122,5 +122,23 @@ a {
 }
 
 td.steps {
-    font-family: monospace;
+    font-size: 10pt;
+}
+
+td.steps span.passed {
+    font-size: 9pt;
+    color: green;
+    font-style: italic;
+}
+
+td.steps span.failed {
+    font-size: 9pt;
+    color: #B60808;
+    font-style: italic;
+}
+
+td.steps span.not_performed {
+    font-size: 9pt;
+    color: gray;
+    font-style: italic;
 }
