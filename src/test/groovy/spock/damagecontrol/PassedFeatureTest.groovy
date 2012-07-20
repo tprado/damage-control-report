@@ -1,5 +1,7 @@
 package spock.damagecontrol
 
+import static spock.damagecontrol.Results.PASSED
+
 class PassedFeatureTest extends BaseFeatureSpec {
 
     def setup() {
@@ -19,6 +21,6 @@ class PassedFeatureTest extends BaseFeatureSpec {
 
     def 'should indicate the result as "passed"'() {
         expect:
-        feature.result == 'passed'
+        feature.result == PASSED
     }
 }

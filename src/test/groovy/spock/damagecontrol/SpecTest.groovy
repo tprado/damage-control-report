@@ -1,6 +1,8 @@
 package spock.damagecontrol
 
 import static spock.damagecontrol.Results.FAILED
+import static spock.damagecontrol.Results.PASSED
+import static spock.damagecontrol.Results.SKIPPED
 
 class SpecTest extends BaseSpec {
 
@@ -24,7 +26,7 @@ class SampleSpecificationTest {
         spec.passed('feature name')
 
         expect:
-        spec.features.'feature name'.result == 'passed'
+        spec.features.'feature name'.result == PASSED
     }
 
     def 'should create new skipped feature'() {
@@ -32,7 +34,7 @@ class SampleSpecificationTest {
         spec.skipped('feature name')
 
         expect:
-        spec.features.'feature name'.result == 'skipped'
+        spec.features.'feature name'.result == SKIPPED
     }
 
     def 'should create new failed feature'() {

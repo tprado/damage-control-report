@@ -77,12 +77,12 @@
                 <tr>
                     <td id="<%= feature_name %>" class="result_<%= feature.result %>"><%= feature_name %></td>
                     <td id="<%= feature_name %>_duration"><%= feature.duration %>s</td>
-                    <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result %></td>
+                    <td id="<%= feature_name %>_result" class="result_<%= feature.result %>"><%= feature.result.description %></td>
                 </tr>
                 <tr>
                     <td colspan="3" class="steps">
                     <% feature.steps.each{ step -> %>
-                        <%= step.type %>: <%= step.description %> <span class="<%= step.result %>"><%= step.result %></span><br/>
+                        <%= step.type %> <%= step.description %> <span class="<%= step.result %>"><%= step.result.description %></span><br/>
                     <% } %>
                     </td>
                 </tr>

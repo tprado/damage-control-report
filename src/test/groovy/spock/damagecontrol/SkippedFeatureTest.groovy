@@ -1,5 +1,7 @@
 package spock.damagecontrol
 
+import static spock.damagecontrol.Results.SKIPPED
+
 class SkippedFeatureTest extends BaseFeatureSpec {
 
     def setup() {
@@ -19,6 +21,6 @@ class SkippedFeatureTest extends BaseFeatureSpec {
 
     def 'should indicate the result as "skipped"'() {
         expect:
-        feature.result == 'skipped'
+        feature.result == SKIPPED
     }
 }
