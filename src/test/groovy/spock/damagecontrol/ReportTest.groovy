@@ -34,6 +34,10 @@ class ReportTest extends BaseFileHandlingSpec {
 
         then:
         new File(outputFolder.absolutePath + '/style/damage-control.css').exists()
+        and:
+        new File(outputFolder.absolutePath + '/js/jquery.min.js').exists()
+        and:
+        new File(outputFolder.absolutePath + '/js/damage-control.js').exists()
     }
 
     def 'should create index file'() {

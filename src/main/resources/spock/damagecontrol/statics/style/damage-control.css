@@ -92,11 +92,11 @@ a {
     margin-bottom: 8px;
 }
 
-.result_passed {
+.result_PASSED {
     color: green;
 }
 
-.result_failed {
+.result_FAILED {
     color: #B60808;
 }
 
@@ -132,19 +132,19 @@ div.details {
     padding-left: 2px;
 }
 
-div.steps span.passed {
+div.steps span.PASSED {
     font-size: 9pt;
     color: green;
     font-style: italic;
 }
 
-div.steps span.failed {
+div.steps span.FAILED {
     font-size: 9pt;
     color: #B60808;
     font-style: italic;
 }
 
-div.steps span.not_performed {
+div.steps span.NOT_PERFORMED {
     font-size: 9pt;
     color: gray;
     font-style: italic;
