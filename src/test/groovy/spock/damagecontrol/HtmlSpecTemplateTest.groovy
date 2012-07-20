@@ -114,7 +114,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s)<div class="steps">\s*expect "something" <span class="PASSED">passed<\/span><br\/>\s*<\/div>/
+        html =~ /(?s)<div class="steps">\s*expect "something" <span class="clickable PASSED" expand="feature_1_details">passed<\/span><br\/>\s*<\/div>/
     }
 
     def 'should show step failure details'() {
@@ -122,7 +122,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s)<div class="details"><pre>step failure details<\/pre><\/div>/
+        html =~ /(?s)<div class="details" expandable="feature_0_details"><pre>step failure details<\/pre><\/div>/
     }
 
     def 'should show feature failure details'() {
@@ -130,6 +130,6 @@ class HtmlSpecTemplateTest extends BaseSpec {
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s)<div class="details"><pre>at SampleSpecificationTest.shouldFail\(SampleSpecTest.groovy:14\)<\/pre><\/div>/
+        html =~ /(?s)<div class="details" expandable="feature_0_details"><pre>at SampleSpecificationTest.shouldFail\(SampleSpecTest.groovy:14\)<\/pre><\/div>/
     }
 }

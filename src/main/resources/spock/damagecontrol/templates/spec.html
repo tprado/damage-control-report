@@ -87,14 +87,14 @@
                     <td colspan="3">
                         <div class="steps">
                         <% feature.steps.each{ step -> %>
-                            <%= step.type %> <%= step.description %> <span class="<%= step.result %>"><%= step.result.description %></span><br/>
+                            <%= step.type %> <%= step.description %> <span class="clickable <%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
                             <% if (step.details) { %>
-                                <div class="details"><pre><%= step.details %></pre></div>
+                                <div class="details" expandable="feature_<%= featureIndex %>_details"><pre><%= step.details %></pre></div>
                             <% } %>
                         <% } %>
                         </div>
                         <% if (feature.details) { %>
-                            <div class="details"><pre><%= feature.details %></pre></div>
+                            <div class="details" expandable="feature_<%= featureIndex %>_details"><pre><%= feature.details %></pre></div>
                         <% } %>
                     </td>
                 </tr>
