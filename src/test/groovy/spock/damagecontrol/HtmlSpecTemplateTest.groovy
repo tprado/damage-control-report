@@ -107,12 +107,11 @@ class HtmlSpecTemplateTest extends BaseSpec {
         html =~ /(?s).*<div id="successPercentage">50%.*<\/div>/
     }
 
-    @SuppressWarnings('LineLength')
     def 'should show feature steps'() {
         when:
         String html = template.generate(spec)
 
         then:
-        html =~ /(?s)<td colspan="3" class="steps">\s*expect "something" <span class="PASSED">passed<\/span><br\/>\s*<\/td>/
+        html =~ /(?s)<div class="steps">\s*expect "something" <span class="PASSED">passed<\/span><br\/>\s*<\/div>/
     }
 }

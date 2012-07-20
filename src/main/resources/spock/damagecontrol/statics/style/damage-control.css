@@ -121,23 +121,25 @@ a {
     border-color: #a9a9a9;
 }
 
-td.steps {
+div.steps {
+    font-family: monospace;
     font-size: 10pt;
+    padding-left: 10px;
 }
 
-td.steps span.passed {
+div.steps span.passed {
     font-size: 9pt;
     color: green;
     font-style: italic;
 }
 
-td.steps span.failed {
+div.steps span.failed {
     font-size: 9pt;
     color: #B60808;
     font-style: italic;
 }
 
-td.steps span.not_performed {
+div.steps span.not_performed {
     font-size: 9pt;
     color: gray;
     font-style: italic;
