@@ -10,6 +10,7 @@ abstract class BaseFeature {
     def duration
     def startLineNumber = 0
     def endLineNumber = 0
+    def details
 
     private final featureDefinitionParser = new FeatureDefinitionParser()
     private final featureStepsParser = new StepDefinitionParser()

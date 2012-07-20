@@ -10,7 +10,6 @@ class FailedFeature extends BaseFeature {
     final failed = true
     final ignored = false
     final result = FAILED
-    final failure = new Failure()
 
     def identifyStepsResult(specName) {
         def errorLine = errorLines(specName).find { startLineNumber <= it && it <= endLineNumber }
@@ -26,7 +25,7 @@ class FailedFeature extends BaseFeature {
         def lines = []
 
         def shortName = specName.split('\\.').last()
-        def match = failure.details =~ ".*\\(${shortName}\\.groovy\\:([0-9]+)\\)"
+        def match = details =~ ".*\\(${shortName}\\.groovy\\:([0-9]+)\\)"
         match.each { lines.add(it[1].toInteger()) }
 
         lines

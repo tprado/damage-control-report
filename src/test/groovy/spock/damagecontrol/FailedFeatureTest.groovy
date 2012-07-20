@@ -27,18 +27,13 @@ class FailedFeatureTest extends BaseFeatureSpec {
         feature.result == FAILED
     }
 
-    def 'should have failure details'() {
-        expect:
-        feature.failure
-    }
-
     def 'should identify which step failed'() {
         given:
         feature.startLineNumber = 5
         feature.endLineNumber = 25
         feature.steps[0] = new Step(lineNumber: 10)
         feature.steps[1] = new Step(lineNumber: 20)
-        feature.failure.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:21)'
+        feature.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:21)'
 
         when:
         feature.identifyStepsResult('spock.damagecontrol.SomeSpecTest')
@@ -53,7 +48,7 @@ class FailedFeatureTest extends BaseFeatureSpec {
         feature.endLineNumber = 25
         feature.steps[0] = new Step(lineNumber: 10)
         feature.steps[1] = new Step(lineNumber: 20)
-        feature.failure.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:21)'
+        feature.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:21)'
 
         when:
         feature.identifyStepsResult('spock.damagecontrol.SomeSpecTest')
@@ -68,7 +63,7 @@ class FailedFeatureTest extends BaseFeatureSpec {
         feature.endLineNumber = 25
         feature.steps[0] = new Step(lineNumber: 10)
         feature.steps[1] = new Step(lineNumber: 20)
-        feature.failure.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:15)'
+        feature.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:15)'
 
         when:
         feature.identifyStepsResult('spock.damagecontrol.SomeSpecTest')
@@ -83,7 +78,7 @@ class FailedFeatureTest extends BaseFeatureSpec {
         feature.endLineNumber = 25
         feature.steps[0] = new Step(lineNumber: 10)
         feature.steps[1] = new Step(lineNumber: 20)
-        feature.failure.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:30)'
+        feature.details = 'at spock.damagecontrol.SomeSpecTest.feature name(SomeSpecTest.groovy:30)'
 
         when:
         feature.identifyStepsResult('spock.damagecontrol.SomeSpecTest')

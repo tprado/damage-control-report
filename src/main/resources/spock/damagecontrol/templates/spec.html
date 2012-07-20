@@ -86,6 +86,9 @@
                             <%= step.type %> <%= step.description %> <span class="<%= step.result %>"><%= step.result.description %></span><br/>
                         <% } %>
                         </div>
+                        <% if (feature.details) { %>
+                            <div class="details"><pre><%= feature.details %></pre></div>
+                        <% } %>
                     </td>
                 </tr>
                 <% } %>

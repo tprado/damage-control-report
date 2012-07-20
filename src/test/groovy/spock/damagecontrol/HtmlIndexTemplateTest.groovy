@@ -11,8 +11,7 @@ class HtmlIndexTemplateTest extends BaseSpec {
         spec1.duration = '0.155'
         spec1.passed('feature 1')
         spec1.failed('feature 2')
-        spec1.features.'feature 2'.failure.message = 'error'
-        spec1.features.'feature 2'.failure.details = 'error detail'
+        spec1.features.'feature 2'.details = 'error detail'
         spec1.skipped('feature 3')
 
         Spec spec2 = new Spec(name: 'Spec2')

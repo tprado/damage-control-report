@@ -26,8 +26,7 @@ class TestResultsCollector {
 
             if (testCase.failure) {
                 feature = results.spec(testCase.'@classname').failed(testCase.'@name')
-                feature.failure.message = testCase.failure[0].'@message'
-                feature.failure.details = testCase.failure[0].text()
+                feature.details = testCase.failure[0].text()
             } else if (testCase.skipped) {
                 feature = results.spec(testCase.'@classname').skipped(testCase.'@name')
             } else {

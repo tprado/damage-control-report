@@ -25,26 +25,6 @@ class TestResultsCollectorTest extends BaseSpec {
         specs['spock.damagecontrol.AnotherTestResultsCollectorTest'].features['shouldFail']
     }
 
-    def 'should collect failure message for each feature'() {
-        given:
-        String xml = '''<?xml version="1.0" encoding="UTF-8"?>
-            <testsuite name="spock.damagecontrol.AnotherTestResultsCollectorTest" time="0.005">
-                <testcase classname="spock.damagecontrol.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
-                    <failure message="java.lang.AssertionError: Expected: is &lt;true&gt; got: &lt;false&gt;" />
-                </testcase>
-            </testsuite>'''
-
-        when:
-        collector.collect(new StringReader(xml))
-        Map specs = collector.results.specs
-
-        and:
-        def feature = specs.'spock.damagecontrol.AnotherTestResultsCollectorTest'.features.'shouldFail'
-
-        then:
-        feature.failure.message == 'java.lang.AssertionError: Expected: is <true> got: <false>'
-    }
-
     def 'should collect duration for each feature'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
@@ -150,7 +130,7 @@ class TestResultsCollectorTest extends BaseSpec {
         def feature = specs.'spock.damagecontrol.AnotherTestResultsCollectorTest'.features.'shouldFail'
 
         then:
-        feature.failure.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
+        feature.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
     }
 
     def 'should collect standard output for spec'() {

@@ -141,7 +141,7 @@ class SampleSpecificationTest {
     def 'should identify steps result for failed features'() {
         given:
         def feature = spec.failed('some feature')
-        feature.failure.details = 'at samples.SampleSpecificationTest.some feature(SampleSpecificationTest.groovy:5)'
+        feature.details = 'at samples.SampleSpecificationTest.some feature(SampleSpecificationTest.groovy:5)'
 
         when:
         spec.parseEachFeatureDefinition(sourceCode)
