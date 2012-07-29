@@ -135,17 +135,14 @@ div.details {
 div.steps span.PASSED {
     font-size: 9pt;
     color: green;
-    font-style: italic;
 }
 
 div.steps span.FAILED {
     font-size: 9pt;
     color: #B60808;
-    font-style: italic;
 }
 
 div.steps span.NOT_PERFORMED {
     font-size: 9pt;
     color: gray;
-    font-style: italic;
 }
