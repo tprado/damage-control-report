@@ -5,9 +5,11 @@
         $('[expand]').hover(
             function (event) {
                 $(event.target).css('cursor', 'pointer');
+                $(event.target).css('text-decoration', 'underline');
             },
             function (event) {
                 $(event.target).css('cursor', 'auto');
+                $(event.target).css('text-decoration', 'none');
             }
         );
 
