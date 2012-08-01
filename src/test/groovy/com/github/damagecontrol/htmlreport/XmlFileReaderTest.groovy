@@ -41,7 +41,7 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
         xmlFileReader.forEach { lines = IOUtils.readLines(it) }
 
         then:
-        lines[1] =~ /com.github.damagecontrol.htmlreport.TestResultsCollectorTest/
+        lines[1] =~ /samples.results.TestResultsCollectorTest/
     }
 
     def 'should always close each reader after used'() {

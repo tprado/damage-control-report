@@ -4,9 +4,9 @@ import static org.apache.commons.io.FileUtils.copyURLToFile
 
 class Report {
 
-    private static final CSS_URL = Report.getResource('/spock/damagecontrol/statics/style/damage-control.css')
-    private static final JQUERY_URL = Report.getResource('/spock/damagecontrol/statics/js/jquery-1.7.2.min.js')
-    private static final JS_URL = Report.getResource('/spock/damagecontrol/statics/js/damage-control.js')
+    private static final CSS_URL = Report.getResource('/com/github/damagecontrol/htmlreport/statics/style/damage-control.css')
+    private static final JQUERY_URL = Report.getResource('/com/github/damagecontrol/htmlreport/statics/js/jquery-1.7.2.min.js')
+    private static final JS_URL = Report.getResource('/com/github/damagecontrol/htmlreport/statics/js/damage-control.js')
 
     def testResultsFolder
     def specDefinitionsFolder

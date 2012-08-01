@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite errors="0" failures="1" hostname="rivendell" name="spock.damagecontrol.TestResultsCollectorTest" tests="2" time="0.005" timestamp="2012-04-26T02:43:19">
+<testsuite errors="0" failures="1" hostname="rivendell" name="samples.results.TestResultsCollectorTest" tests="2" time="0.005" timestamp="2012-04-26T02:43:19">
   <properties />
-  <testcase classname="spock.damagecontrol.TestResultsCollectorTest1" name="shouldParseXml" time="0.002" />
-  <testcase classname="spock.damagecontrol.TestResultsCollectorTest2" name="shouldFail" time="0.001">
+  <testcase classname="samples.results.TestResultsCollectorTest1" name="shouldParseXml" time="0.002" />
+  <testcase classname="samples.results.TestResultsCollectorTest2" name="shouldFail" time="0.001">
     <failure message="java.lang.AssertionError: &#xa;Expected: is &lt;true&gt;&#xa;     got: &lt;false&gt;&#xa;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError:
 Expected: is &lt;true&gt;
      got: &lt;false&gt;
