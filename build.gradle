@@ -3,7 +3,6 @@ apply plugin: 'maven'
 apply plugin: 'codenarc'
 
 project.group = 'com.github.damage-control'
-project.artifactId = 'html-report-generator'
 project.version = '1.0-SNAPSHOT'
 
 codenarc.configFile = file('codenarc.groovy')
