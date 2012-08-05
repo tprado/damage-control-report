@@ -27,7 +27,7 @@ project(':html-generator') {
 
 project(':plugins:maven') {
     task install(type: Exec, dependsOn: ':html-generator:install') {
-        def ext = System.getenv('os.name').contains('Win') ? '.bat' : ''
+        def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
         def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
         environment 'JAVA_HOME', System.getenv('JAVA_HOME')
@@ -37,3 +37,14 @@ project(':plugins:maven') {
     }
 }
 
+project(':end-2-end-test') {
+    
+    apply plugin: 'groovy'
+
+    dependencies {
+        groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
+        testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
+    }
+
+    test.dependsOn ':plugins:maven:install'
+}

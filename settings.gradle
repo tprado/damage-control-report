@@ -1,1 +1,1 @@
-include 'html-generator', 'plugins:maven'
+include 'html-generator', 'plugins:maven', 'end-2-end-test'
