@@ -5,7 +5,6 @@ subprojects {
     group = 'com.github.damage-control'
     version = '1.0-SNAPSHOT'
 
-
     repositories {
         mavenCentral()
     }
@@ -25,3 +24,16 @@ project(':html-generator') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
     }
 }
+
+project(':plugins:maven') {
+    task install(type: Exec, dependsOn: ':html-generator:install') {
+        def ext = System.getenv('os.name').contains('Win') ? '.bat' : ''
+        def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
+
+        environment 'JAVA_HOME', System.getenv('JAVA_HOME')
+        environment 'M2_HOME', System.getenv('M2_HOME')
+
+        commandLine mvn, 'clean', 'install'
+    }
+}
+
