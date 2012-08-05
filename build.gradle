@@ -58,4 +58,3 @@ project(':end-2-end-test') {
 
     test.dependsOn ':plugins:maven:install'
 }
-

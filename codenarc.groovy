@@ -171,7 +171,6 @@ ruleset {
     GetterMethodCouldBeProperty
     GroovyLangImmutable
     UseCollectMany
-    UseCollectNested
 
     // rulesets/imports.xml
     DuplicateImport
