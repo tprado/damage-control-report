@@ -30,7 +30,7 @@ project(':html-generator') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
     }
 
-    install.dependsOn test
+    install.dependsOn check, test
 }
 
 project(':plugins:maven') {
