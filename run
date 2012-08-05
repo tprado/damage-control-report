@@ -77,19 +77,21 @@ mkdir -p $OUT_DIR
 
 if [ $BUILD ]
 then
-    execute_command "Building... " "gradle clean test check install" build
+    cd html-generator 
+    execute_command "Building html-generator... " "gradle clean test check install" html-generator
+    cd ..
 fi
 
 if [ $MVN_PLUGIN ]
 then
     cd plugins/maven
-    execute_command "Building Maven Plugin... " "mvn clean install" mvn-plugin
+    execute_command "Building mvn-plugin... " "mvn clean install" mvn-plugin
     cd ../..
 fi
 
 if [ $RUN_MVN_SAMPLE_PROJECT ]
 then
-    cd functional-test
-    execute_command "Running functional tests... " "gradle clean test" functional-test
+    cd end-2-end-test
+    execute_command "Running end-2-end tests... " "gradle clean test" end-2-end-test
     cd ..
 fi
