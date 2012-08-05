@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.spockframework.damage-control.plugins</groupId>
+    <groupId>com.github.damage-control.report</groupId>
     <artifactId>damage-control-maven-plugin</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
-    <name>Spock Damage Control Report - Maven Plugin</name>
+    <name>Damage Control Report - Maven Plugin</name>
     
     <dependencies>
         <dependency>
@@ -19,8 +19,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.spockframework.damage-control</groupId>
-            <artifactId>damage-control</artifactId>
+            <groupId>com.github.damage-control.report</groupId>
+            <artifactId>html-generator</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

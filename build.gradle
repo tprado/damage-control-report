@@ -1,9 +1,13 @@
+ext {
+    damageControlReportGroupId = 'com.github.damage-control.report'
+    damageControlReportVersion = '1.0-SNAPSHOT'
+}
 
 subprojects {
     apply plugin: 'maven'
 
-    group = 'com.github.damage-control'
-    version = '1.0-SNAPSHOT'
+    group = damageControlReportGroupId
+    version = damageControlReportVersion 
 
     repositories {
         mavenCentral()
@@ -33,7 +37,9 @@ project(':plugins:maven') {
         environment 'JAVA_HOME', System.getenv('JAVA_HOME')
         environment 'M2_HOME', System.getenv('M2_HOME')
 
-        commandLine mvn, 'clean', 'install'
+        executable mvn
+        args 'clean'
+        args 'install'
     }
 }
 
@@ -46,5 +52,4 @@ project(':end-2-end-test') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
     }
 
-    test.dependsOn ':plugins:maven:install'
 }

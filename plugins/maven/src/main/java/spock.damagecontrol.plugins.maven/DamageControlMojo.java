@@ -3,7 +3,7 @@ package spock.damagecontrol.plugins.maven;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import spock.damagecontrol.Report;
+import com.github.damagecontrol.htmlreport.Report;
 
 import java.io.File;
 
