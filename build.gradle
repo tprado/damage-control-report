@@ -1,10 +1,11 @@
+defaultTasks 'clean', 'test'
+
 ext {
     damageControlReportGroupId = 'com.github.damage-control.report'
     damageControlReportVersion = '1.0-SNAPSHOT'
 }
 
 subprojects {
-    apply plugin: 'maven'
 
     group = damageControlReportGroupId
     version = damageControlReportVersion 
@@ -18,6 +19,7 @@ project(':html-generator') {
     
     apply plugin: 'groovy'
     apply plugin: 'codenarc'
+    apply plugin: 'maven'
 
     codenarc.configFile = file('../codenarc.groovy')
 
@@ -27,6 +29,8 @@ project(':html-generator') {
         compile         group: 'commons-io',            name: 'commons-io',     version: '1.3.2'
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
     }
+
+    install.dependsOn test
 }
 
 project(':plugins:maven') {
@@ -52,4 +56,6 @@ project(':end-2-end-test') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
     }
 
+    test.dependsOn ':plugins:maven:install'
 }
+
