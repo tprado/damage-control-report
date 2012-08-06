@@ -1,13 +1,14 @@
 defaultTasks 'clean', 'test'
 
 ext {
-    damageControlReportGroupId = 'com.github.damage-control.report'
+    groovyVersion = '1.8.6'
+    spockVersion = '0.6-groovy-1.8'
+    damageControlReportGroup = 'com.github.damage-control.report'
     damageControlReportVersion = '1.0-SNAPSHOT'
 }
 
 subprojects {
-
-    group = damageControlReportGroupId
+    group = damageControlReportGroup
     version = damageControlReportVersion 
 
     repositories {
@@ -24,10 +25,10 @@ project(':html-generator') {
     codenarc.configFile = file('../codenarc.groovy')
 
     dependencies {
-        groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
-        compile         group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
+        groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: groovyVersion
+        compile         group: 'org.codehaus.groovy',   name: 'groovy-all',     version: groovyVersion
         compile         group: 'commons-io',            name: 'commons-io',     version: '1.3.2'
-        testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
+        testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
     }
 
     install.dependsOn check, test
@@ -54,8 +55,8 @@ project(':end-2-end-test') {
     apply plugin: 'groovy'
 
     dependencies {
-        groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: '1.8.6'
-        testCompile     group: 'org.spockframework',    name: 'spock-core',     version: '0.6-groovy-1.8'
+        groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: groovyVersion
+        testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
     }
 
     test.dependsOn ':plugins:maven:install'
