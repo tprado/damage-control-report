@@ -1,0 +1,22 @@
+Damage Control Report
+---------------------
+
+Report generation tool for Spock Framework (http://github.com/spockframework) based tests. It reads the test result files and produces a nice HTML report using the specification steps (given, when, then).
+
+Modules
+-------
+
+html-generator
+plugins:maven
+end-2-end-test
+
+Building
+--------
+
+Prerequisites:
+JDK 6 or higher
+Maven (http://maven.apache.org)
+Gradle (http://www.gradle.org)
+
+Type:
+gradle
