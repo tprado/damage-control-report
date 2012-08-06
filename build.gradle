@@ -35,6 +35,8 @@ project(':html-generator') {
 
 project(':plugins:maven') {
     task install(type: Exec, dependsOn: ':html-generator:install') {
+        logging.captureStandardOutput LogLevel.INFO
+
         def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
         def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
