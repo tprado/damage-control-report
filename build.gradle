@@ -9,7 +9,7 @@ ext {
 
 subprojects {
     group = damageControlReportGroup
-    version = damageControlReportVersion 
+    version = damageControlReportVersion
 
     repositories {
         mavenCentral()
@@ -33,14 +33,15 @@ project(':html-generator') {
     }
 
     signing {
+        required { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
     }
 
     uploadArchives {
         repositories {
             mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signPom(deployment) }
-                
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
                 snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
                     authentication(userName: sonatypeUsername, password: sonatypePassword)
                 }
@@ -65,7 +66,7 @@ project(':html-generator') {
                             distribution 'repo'
                         }
                     }
-                    
+
                     developers {
                         developer {
                             id 'gsfreddo'
@@ -84,13 +85,15 @@ project(':html-generator') {
     }
 
     install.dependsOn check, test
+
+    uploadArchives.dependsOn check, test
 }
 
 project(':plugins:maven') {
     task install(type: Exec, dependsOn: ':html-generator:install') {
         logging.captureStandardOutput LogLevel.INFO
 
-        def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
+            def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
         def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
         environment 'JAVA_HOME', System.getenv('JAVA_HOME')
