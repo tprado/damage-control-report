@@ -32,6 +32,12 @@ project(':html-generator') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
     }
 
+    task cleanLocalMavenRepository(type: Delete) {
+        delete "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report/html-generator"
+    }
+
+    clean.dependsOn cleanLocalMavenRepository
+
     task javadocJar(type: Jar, dependsOn: javadoc) {
         classifier = 'javadoc'
         from 'build/docs/javadoc'
@@ -117,6 +123,12 @@ project(':html-generator') {
 project(':plugins:maven') {
     apply plugin: 'maven'
     apply plugin: 'signing'
+
+    task cleanLocalMavenRepository(type: Delete) {
+        delete "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report/damage-control-maven-plugin"
+    }
+
+    clean.dependsOn cleanLocalMavenRepository
 
     task install(type: Exec, dependsOn: ':html-generator:install') {
         logging.captureStandardOutput LogLevel.INFO
