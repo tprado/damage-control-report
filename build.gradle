@@ -51,7 +51,10 @@ project(':html-generator') {
                 }
 
                 pom.project {
-                    url 'https://github.com/damage-control'
+                    name 'Damage Control Report - HTML Generator'
+                    description 'Damage Control Report - HTML Generator'
+
+                    url 'https://github.com/damage-control/report'
 
                     scm {
                         url 'scm:git@github.com:damage-control/report.git'

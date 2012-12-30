@@ -9,6 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>Damage Control Report - Maven Plugin</name>
+    <description>Damage Control Report - Maven Plugin</description>
+    <url>https://github.com/damage-control/report</url>
 
     <licenses>
         <license>
