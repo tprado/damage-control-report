@@ -32,6 +32,28 @@ project(':html-generator') {
         testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
     }
 
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from 'build/docs/javadoc'
+    }
+
+    task groovydocJar(type: Jar, dependsOn: groovydoc) {
+        classifier = 'groovydoc'
+        from 'build/docs/groovydoc'
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives jar
+        archives javadocJar
+        archives groovydocJar
+        archives sourcesJar
+    }
+
     signing {
         required { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
         sign configurations.archives
