@@ -4,7 +4,7 @@ ext {
     groovyVersion = '1.8.6'
     spockVersion = '0.6-groovy-1.8'
     damageControlReportGroup = 'com.github.damage-control.report'
-    damageControlReportVersion = '1.0-SNAPSHOT'
+    damageControlReportVersion = '1.0.0'
 }
 
 subprojects {
