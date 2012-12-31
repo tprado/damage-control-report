@@ -49,3 +49,5 @@ uploadArchives {
         }
     }
 }
+
+uploadArchives.dependsOn ':end-2-end-test:test'

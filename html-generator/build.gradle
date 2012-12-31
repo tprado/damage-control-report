@@ -97,4 +97,4 @@ uploadArchives {
 
 install.dependsOn check, test
 
-uploadArchives.dependsOn check, test
+uploadArchives.dependsOn ':end-2-end-test:test'
