@@ -16,60 +16,6 @@ subprojects {
     }
 }
 
-project(':plugins:maven') {
-    apply plugin: 'maven'
-    apply plugin: 'signing'
-
-    task cleanLocalMavenRepository(type: Delete) {
-        delete "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report/damage-control-maven-plugin"
-    }
-
-    clean.dependsOn cleanLocalMavenRepository
-
-    task install(type: Exec, dependsOn: ':html-generator:install') {
-        logging.captureStandardOutput LogLevel.INFO
-
-        def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-        def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
-
-        environment 'JAVA_HOME', System.getenv('JAVA_HOME')
-        environment 'M2_HOME', System.getenv('M2_HOME')
-
-        executable mvn
-        args 'clean'
-        args 'install'
-    }
-
-    artifacts {
-        archives file: file("target/damage-control-maven-plugin-${version}.jar"), name: "damage-control-maven-plugin-${version}", type: 'jar', builtBy: install
-    }
-
-    signing {
-        required { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
-    }
-
-    uploadArchives {
-        repositories.mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.withXml { provider ->
-                def builder = provider.asString()
-                builder.length = 0 // delete previous content
-                builder << file("plugins/maven/pom.xml").getText("utf-8")
-            }
-        }
-    }
-}
-
 project(':end-2-end-test') {
     
     apply plugin: 'groovy'
