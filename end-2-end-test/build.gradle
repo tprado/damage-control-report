@@ -1,0 +1,8 @@
+apply plugin: 'groovy'
+
+dependencies {
+    groovy          group: 'org.codehaus.groovy',   name: 'groovy-all',     version: groovyVersion
+    testCompile     group: 'org.spockframework',    name: 'spock-core',     version: spockVersion
+}
+
+test.dependsOn ':plugins:maven:install'
