@@ -13,7 +13,7 @@ dependencies {
 }
 
 task cleanLocalMavenRepository(type: Delete) {
-    delete "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report/html-generator"
+    delete "${localMavenRepositoryPath}/html-generator"
 }
 
 clean.dependsOn cleanLocalMavenRepository

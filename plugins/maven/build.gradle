@@ -2,7 +2,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 task cleanLocalMavenRepository(type: Delete) {
-    delete "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report/damage-control-maven-plugin"
+    delete "${localMavenRepositoryPath}/damage-control-maven-plugin"
 }
 
 clean.dependsOn cleanLocalMavenRepository
