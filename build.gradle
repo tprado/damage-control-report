@@ -6,6 +6,7 @@ ext {
     damageControlReportGroup = 'com.github.damage-control.report'
     damageControlReportVersion = '1.1-SNAPSHOT'
     localMavenRepositoryPath = "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report"
+    releaseBuild = { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
 }
 
 subprojects {

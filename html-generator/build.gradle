@@ -41,7 +41,7 @@ artifacts {
 }
 
 signing {
-    required { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
+    required releaseBuild
     sign configurations.archives
 }
 
