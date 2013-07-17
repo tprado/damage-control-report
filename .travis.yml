@@ -1,5 +1,5 @@
 language: groovy
 jdk:
   - oraclejdk7
-scrtip: ./travis-build.sh
+script: ./travis-build.sh
 
