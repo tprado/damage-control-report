@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 if [[ ! $M2_HOME ]]; then
     echo 'M2_HOME env var not defined.'
