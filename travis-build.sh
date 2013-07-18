@@ -2,12 +2,23 @@
 
 echo
 echo 'Building html-generator module...'
-echo '-------------------------------------------------------------------'
+echo
+
 cd html-generator
-gradle install &> build.output
+pwd
+
+gradle install 1> build.output 2> build.error
 HTML_GENERATOR_RESULT=$?
+
+echo 'build output:'
+echo
 cat build.output
-echo '-------------------------------------------------------------------'
+echo
+
+echo 'build error:'
+echo
+cat build.error
+echo
 
 cd ..
 
