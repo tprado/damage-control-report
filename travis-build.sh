@@ -1,3 +1,8 @@
 #!/bin/bash
 
-gradle --info :html-generator:assemble
+echo
+echo 'Building html-generator module...'
+echo '-------------------------------------------------------------------'
+gradle --info :html-generator:clean :html-generator:install
+echo '-------------------------------------------------------------------'
+
