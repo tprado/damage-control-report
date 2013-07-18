@@ -27,3 +27,4 @@ echo
 cd ..
 
 exit $HTML_GENERATOR_RESULT
+
