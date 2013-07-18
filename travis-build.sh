@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cat $(which gradle)
+
+echo '----------------------------------------------------------------------------'
+
 echo
 echo 'Building html-generator module...'
 echo
