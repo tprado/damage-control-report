@@ -10,10 +10,6 @@ clean.dependsOn cleanLocalMavenRepository
 task install(type: Exec, dependsOn: ':html-generator:install') {
     logging.captureStandardOutput LogLevel.INFO
 
-    if (!System.getenv('M2_HOME')) {
-        throw new GradleException('M2_HOME environment variable not defined. Maven is required to build this plugin.')
-    }
-
     def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
     def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
