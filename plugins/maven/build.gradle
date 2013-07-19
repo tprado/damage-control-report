@@ -19,7 +19,6 @@ task install(type: Exec, dependsOn: ':html-generator:install') {
     def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
     def mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
 
-    environment 'JAVA_HOME', System.getenv('JAVA_HOME')
     environment 'M2_HOME', System.getenv('M2_HOME')
 
     executable mvn
