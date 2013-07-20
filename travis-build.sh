@@ -7,7 +7,7 @@ RESULT=$?
 
 echo 'build output:'
 echo
-cat build.output | grep -v -i '^\s*download.*' | grep -v '\s*K\{0,1\}B\s*$'
+cat build.output | grep -v -i 'download.*' | grep -v -i '^\s*download.*' | grep -v '\s*K\{0,1\}B\s*$' | cat -s
 echo
 
 if [[ $RESULT != 0 ]]; then
