@@ -4,9 +4,15 @@ ext {
     groovyVersion = '1.8.6'
     spockVersion = '0.6-groovy-1.8'
     damageControlReportGroup = 'com.github.damage-control.report'
-    damageControlReportVersion = '1.1-SNAPSHOT'
+    damageControlReportVersion = '1.1'
     localMavenRepositoryPath = "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report"
     releaseBuild = { !version.endsWith('SNAPSHOT') && gradle.taskGraph.hasTask("uploadArchives") }
+}
+
+allprojects {
+    ext."signing.keyId" = 'C17D777D'
+    ext."signing.secretKeyRingFile" = 'gnupg/secring.gpg'
+    ext."signing.password" = signingPassword
 }
 
 subprojects {
