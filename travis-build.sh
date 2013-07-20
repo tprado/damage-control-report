@@ -7,12 +7,16 @@ RESULT=$?
 
 echo 'build output:'
 echo
-cat build.output
+cat build.output | grep -v -i '^\s*download.*' | grep -v '\s*K\{0,1\}B\s*$'
 echo
 
-echo 'build error:'
-echo
-cat build.error
-echo
+if [[ $RESULT != 0 ]]; then
+    echo 'build error:'
+    echo
+    cat build.error
+    echo
 
-exit $RESULT
+    exit $RESULT
+fi
+
+exit 0
