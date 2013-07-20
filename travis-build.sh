@@ -2,6 +2,8 @@
 
 export MVN_COMMAND=$(which mvn)
 
+echo "ORG_GRADLE_PROJECT_sonatypeUsername=${ORG_GRADLE_PROJECT_sonatypeUsername}"
+
 run_gradle() {
     local task=$1
 
