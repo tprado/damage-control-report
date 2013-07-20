@@ -1,11 +1,9 @@
 #!/bin/bash
 
-echo
-echo 'building html-generator module...'
-echo
+export MVN_COMMAND=$(which mvn)
 
-gradle --info :html-generator:install 1> build.output 2> build.error
-HTML_GENERATOR_RESULT=$?
+gradle --info 1> build.output 2> build.error
+RESULT=$?
 
 echo 'build output:'
 echo
@@ -17,4 +15,4 @@ echo
 cat build.error
 echo
 
-exit $HTML_GENERATOR_RESULT
+exit $RESULT
