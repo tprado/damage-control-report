@@ -2,7 +2,8 @@
 
 export MVN_COMMAND=$(which mvn)
 
-echo "ORG_GRADLE_PROJECT_sonatypeUsername=${ORG_GRADLE_PROJECT_sonatypeUsername}"
+echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}"
+echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}"
 
 run_gradle() {
     local task=$1
