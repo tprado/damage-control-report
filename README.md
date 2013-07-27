@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/damage-control/report.png?branch=master)](https://travis-ci.org/damage-control/report)
+
 Damage Control Report
 ---------------------
 
