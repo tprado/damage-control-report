@@ -1,7 +1,7 @@
 <!DOCTYPE html >
 <html>
 <head>
-    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
     <link rel="stylesheet" type="text/css" href="style/damage-control.css"/>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/damage-control.js"></script>
@@ -85,7 +85,7 @@
                 </tr>
                 <tr expandable="feature_<%= featureIndex %>_steps">
                     <td colspan="3">
-                        <div class="steps">
+                        <div id="<%= featureName %>_steps" class="steps">
                         <% feature.steps.each{ step -> %>
                             <%= step.type %> <%= step.description %> <span class="<%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
                             <% if (step.details) { %>
@@ -94,7 +94,7 @@
                         <% } %>
                         </div>
                         <% if (feature.details) { %>
-                            <div class="details" expandable="feature_<%= featureIndex %>_details"><pre><%= feature.details %></pre></div>
+                            <div id="<%= featureName %>_details" class="details" expandable="feature_<%= featureIndex %>_details"><pre><%= feature.details %></pre></div>
                         <% } %>
                     </td>
                 </tr>
