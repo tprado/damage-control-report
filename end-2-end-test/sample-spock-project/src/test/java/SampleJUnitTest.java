@@ -9,4 +9,9 @@ public class SampleJUnitTest {
     public void shouldDoSomething() {
         assertThat("value", is("value"));
     }
+
+    @Test
+    public void shouldDoSomethingThatFails() {
+        assertThat("value", is("unexpected value"));
+    }
 }

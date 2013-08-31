@@ -106,8 +106,18 @@ class HtmlSpecTemplateTest extends BaseSpec {
         specHtml.findElementById('feature 1_steps').div.pre.text() == 'step failure details'
     }
 
+    def 'should hide steps section if there is no step'() {
+        expect:
+        !specHtml.hasElementWithId('feature 3_steps')
+    }
+
     def 'should show feature failure details'() {
         expect:
         specHtml.findElementById('feature 1_details').pre.text() == 'at SampleSpecificationTest.shouldFail(SampleSpecTest.groovy:14)'
+    }
+
+    def 'should hide feature failure details if there is no error details'() {
+        expect:
+        !specHtml.hasElementWithId('feature 3_details')
     }
 }

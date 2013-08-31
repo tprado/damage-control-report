@@ -91,18 +91,21 @@
           </tr>
           <tr expandable="feature_<%= featureIndex %>_steps">
             <td colspan="3">
-              <div id="<%= featureName %>_steps" class="steps">
-                <% feature.steps.each{ step -> %>
-                  <%= step.type %> <%= step.description %> <span class="<%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
-                  <% if (step.details) { %>
-                    <div class="details" expandable="feature_<%= featureIndex %>_details">
-                      <pre><%= step.details %></pre>
-                    </div>
+              <% if (!feature.steps.isEmpty()) { %>
+                <div id="<%= featureName %>_steps" class="steps">
+                  <% feature.steps.each { step -> %>
+                    <%= step.type %> <%= step.description %> <span class="<%= step.result %>" expand="feature_<%= featureIndex %>_details"><%= step.result.description %></span><br/>
+                    <% if (step.details) { %>
+                      <div class="details" expandable="feature_<%= featureIndex %>_details">
+                        <pre><%= step.details %></pre>
+                      </div>
+                    <% } %>
                   <% } %>
-                <% } %>
-              </div>
+                </div>
+              <% } %>
+
               <% if (feature.details) { %>
-                <div id="<%= featureName %>_details" class="details" expandable="feature_<%= featureIndex %>_details">
+                <div id="<%= featureName %>_details" class="details">
                   <pre><%= feature.details %></pre>
                 </div>
               <% } %>
