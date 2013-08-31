@@ -4,7 +4,7 @@ import spock.lang.Ignore
 @Ignore
 class AllIgnoredTest extends Specification {
 
-    def "length of Spocks and his friends names"() {
+    def "length of Spock's and his friends names"() {
         given: "Spock have 3 friends"
         def spockFriends = ["Kirk", "Sulu","McCoy"]
 
