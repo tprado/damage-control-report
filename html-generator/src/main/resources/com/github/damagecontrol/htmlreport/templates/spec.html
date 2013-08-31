@@ -78,7 +78,12 @@
         <tbody>
         <% features.eachWithIndex { featureName, feature, featureIndex -> %>
           <tr>
-            <td id="<%= featureName %>" class="result_<%= feature.result %>" expand="feature_<%= featureIndex %>_steps">
+            <td id="<%= featureName %>"
+                class="result_<%= feature.result %>"
+                <% if (feature.hasDetails()) { %>
+                  expand="feature_<%= featureIndex %>_steps"
+                <% } %>
+              >
               <%= featureName %>
             </td>
             <td id="<%= featureName %>_duration"><%= feature.duration %>s</td>
@@ -97,9 +102,9 @@
                 <% } %>
               </div>
               <% if (feature.details) { %>
-              <div id="<%= featureName %>_details" class="details" expandable="feature_<%= featureIndex %>_details">
-                <pre><%= feature.details %></pre>
-              </div>
+                <div id="<%= featureName %>_details" class="details" expandable="feature_<%= featureIndex %>_details">
+                  <pre><%= feature.details %></pre>
+                </div>
               <% } %>
             </td>
           </tr>
