@@ -107,7 +107,7 @@ class SampleSpecificationTest {
         spec.successPercentage == 100
     }
 
-    def 'should indicate 33% successful features'() {
+    def 'should indicate percentage of successful features'() {
         given:
         spec.passed('passed feature')
         spec.failed('a failed feature')

@@ -71,7 +71,7 @@ class Spec {
 
     int getSuccessPercentage() {
         def successfulFeatureCount = featureCount - failedFeatureCount
-        float successPercentage = successfulFeatureCount/featureCount * 100
+        float successPercentage = successfulFeatureCount / featureCount * 100
         successPercentage.round(0)
     }
 }
