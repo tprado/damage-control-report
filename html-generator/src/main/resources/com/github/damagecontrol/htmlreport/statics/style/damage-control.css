@@ -29,6 +29,15 @@ a {
 
 
 
+#navigation {
+  font-size: small;
+  color: darkgray;
+}
+
+#navigation a {
+  color: darkgray;
+}
+
 .summary-group {
   display: inline-block;
   border: solid 2px #D0D0D0;
