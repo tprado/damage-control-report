@@ -95,7 +95,7 @@ class TestResultsTest extends BaseSpec {
         results.successPercentage == 100
     }
 
-    def 'should indicate percentage of successful features'() {
+    def 'should indicate percentage of successful specs'() {
         given:
         results.spec('spec 1').passed('feature 1.1')
         results.spec('spec 2').failed('feature 2.1')
@@ -105,11 +105,16 @@ class TestResultsTest extends BaseSpec {
         results.successPercentage == 33
     }
 
-    def 'should indicate 0% successful features for all features failed'() {
+    def 'should indicate 0% successful specs for all specs failed'() {
         given:
         results.spec('spec 1').failed('feature 1.1')
         results.spec('spec 2').failed('feature 2.1')
 
+        expect:
+        results.successPercentage == 0
+    }
+
+    def 'should indicate 0% successful features if there is no feature'() {
         expect:
         results.successPercentage == 0
     }

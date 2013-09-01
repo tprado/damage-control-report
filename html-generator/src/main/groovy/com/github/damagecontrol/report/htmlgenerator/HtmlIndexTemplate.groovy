@@ -9,7 +9,7 @@ class HtmlIndexTemplate {
 
     private final basePage = new BaseHtmlTemplate()
 
-    def generate(specs) {
-        basePage.decorate('Specifications', TEMPLATE.make([specs: specs]))
+    def generate(results) {
+        basePage.decorate('Specifications', TEMPLATE.make([results: results]))
     }
 }

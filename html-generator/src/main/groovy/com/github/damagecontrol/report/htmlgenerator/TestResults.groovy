@@ -7,10 +7,6 @@ class TestResults {
 
     final specs = [:]
 
-    def getSpecList() {
-        specs.values().toList()
-    }
-
     def spec(specName) {
         specs[specName] = specs[specName] ?: new Spec(name: specName)
     }
@@ -55,6 +51,10 @@ class TestResults {
     }
 
     def getSuccessPercentage() {
+        if (specCount == 0) {
+            return 0
+        }
+
         def successfulSpecCount = specCount - failedSpecCount
         float successPercentage = successfulSpecCount / specCount * 100
         successPercentage.round(0)
