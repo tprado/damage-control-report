@@ -80,7 +80,7 @@ class SampleSpecificationTest {
         spec.failed('feature 2')
 
         expect:
-        spec.result == 'failed'
+        spec.result == FAILED
     }
 
     def 'should show "skipped" for specification with all skipped features'() {
@@ -88,7 +88,7 @@ class SampleSpecificationTest {
         spec.skipped('feature name')
 
         expect:
-        spec.result == 'skipped'
+        spec.result == SKIPPED
     }
 
     def 'should show "passed" for specification with no failures and at least 1 success feature'() {
@@ -96,7 +96,7 @@ class SampleSpecificationTest {
         spec.passed('feature 1')
 
         expect:
-        spec.result == 'passed'
+        spec.result == PASSED
     }
 
     def 'should indicate 100% successful features for no failures'() {

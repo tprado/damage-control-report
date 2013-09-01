@@ -1,5 +1,9 @@
 package com.github.damagecontrol.report.htmlgenerator
 
+import static com.github.damagecontrol.report.htmlgenerator.Results.FAILED
+import static com.github.damagecontrol.report.htmlgenerator.Results.PASSED
+import static com.github.damagecontrol.report.htmlgenerator.Results.SKIPPED
+
 class TestResultsTest extends BaseSpec {
 
     TestResults results
@@ -61,7 +65,7 @@ class TestResultsTest extends BaseSpec {
         results.spec('spec 2').failed('feature 2.1')
 
         expect:
-        results.result == 'failed'
+        results.result == FAILED
     }
 
     def 'should result in "skipped" if all specs are skipped'() {
@@ -70,7 +74,7 @@ class TestResultsTest extends BaseSpec {
         results.spec('spec 2').skipped('feature 2.1')
 
         expect:
-        results.result == 'skipped'
+        results.result == SKIPPED
     }
 
     def 'should result in "passed" if there is no failures and at least 1 success feature'() {
@@ -79,7 +83,7 @@ class TestResultsTest extends BaseSpec {
         results.spec('spec 2').skipped('feature 2.1')
 
         expect:
-        results.result == 'passed'
+        results.result == PASSED
     }
 
     def 'should indicate 100% successful specs for no failures'() {
