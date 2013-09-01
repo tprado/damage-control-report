@@ -113,4 +113,15 @@ class TestResultsTest extends BaseSpec {
         expect:
         results.successPercentage == 0
     }
+
+    def 'should summarize duration of all specs'() {
+        given:
+        results.spec('spec 1').duration = '0.725'
+        results.spec('spec 2').duration = '0.270'
+        results.spec('spec 3').duration = ''
+        results.spec('spec 4').duration = 'unexpected value'
+
+        expect:
+        results.duration == '0.995'
+    }
 }

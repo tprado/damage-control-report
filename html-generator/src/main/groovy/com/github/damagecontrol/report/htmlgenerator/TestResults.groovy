@@ -1,8 +1,7 @@
 package com.github.damagecontrol.report.htmlgenerator
 
-import static com.github.damagecontrol.report.htmlgenerator.Results.FAILED
-import static com.github.damagecontrol.report.htmlgenerator.Results.PASSED
-import static com.github.damagecontrol.report.htmlgenerator.Results.SKIPPED
+import static com.github.damagecontrol.report.htmlgenerator.Results.*
+import static java.lang.Float.parseFloat
 
 class TestResults {
 
@@ -26,6 +25,23 @@ class TestResults {
 
     def getFailedSpecCount() {
         specs.count { name, spec -> spec.failedResult }
+    }
+
+    def getDuration() {
+        float duration = 0
+        specs.each { name, spec ->
+            duration += parseDuration(spec.duration)
+        }
+        duration.toString()
+    }
+
+    @SuppressWarnings('CatchException')
+    private float parseDuration(duration) {
+        try {
+            parseFloat(duration)
+        } catch (Exception e) {
+            0
+        }
     }
 
     def getResult() {
