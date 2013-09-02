@@ -13,7 +13,7 @@ class HtmlIndexTemplate {
         basePage.decorate(
             'Specifications',
             TEMPLATE.make([
-                summary: results.summary,
+                featuresSummaryFragment: new HtmlFeaturesSummaryTemplate().generate(results.summary),
                 results: results
             ])
         )
