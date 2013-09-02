@@ -1,8 +1,5 @@
 package com.github.damagecontrol.report.htmlgenerator
 
-import static com.github.damagecontrol.report.htmlgenerator.Results.*
-import static java.lang.Float.parseFloat
-
 class TestResults {
 
     final specs = [:]
@@ -11,52 +8,11 @@ class TestResults {
         specs[specName] = specs[specName] ?: new Spec(name: specName)
     }
 
-    def getSpecCount() {
-        specs.size()
-    }
-
-    def getSkippedSpecCount() {
-        specs.count { name, spec -> spec.skippedResult }
-    }
-
-    def getFailedSpecCount() {
-        specs.count { name, spec -> spec.failedResult }
-    }
-
-    def getDuration() {
-        float duration = 0
+    def getSummary() {
+        def features = []
         specs.each { name, spec ->
-            duration += parseDuration(spec.duration)
+            features.addAll(spec.features.values())
         }
-        duration.toString()
-    }
-
-    @SuppressWarnings('CatchException')
-    private float parseDuration(duration) {
-        try {
-            parseFloat(duration)
-        } catch (Exception e) {
-            0
-        }
-    }
-
-    def getResult() {
-        if (failedSpecCount > 0) {
-            return FAILED
-        }
-        if (skippedSpecCount == specCount) {
-            return SKIPPED
-        }
-        PASSED
-    }
-
-    def getSuccessPercentage() {
-        if (specCount == 0) {
-            return 0
-        }
-
-        def successfulSpecCount = specCount - failedSpecCount
-        float successPercentage = successfulSpecCount / specCount * 100
-        successPercentage.round(0)
+        new FeaturesSummary(features: features)
     }
 }

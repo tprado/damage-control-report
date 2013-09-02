@@ -4,29 +4,29 @@
   <div id="summary">
     <div class="summary-group">
       <div class="summary-counter">
-        <div class="counter" id="specCount"><%= results.specCount %></div>
-        <div class="label">specs</div>
+        <div class="counter" id="featureCount"><%= summary.count %></div>
+        <div class="label">features</div>
       </div>
 
       <div class="summary-counter">
-        <div class="counter" id="failedSpecCount"><%= results.failedSpecCount %></div>
+        <div class="counter" id="failedFeatureCount"><%= summary.failedCount %></div>
         <div class="label">failures</div>
       </div>
 
       <div class="summary-counter">
-        <div class="counter" id="skippedSpecCount"><%= results.skippedSpecCount %></div>
+        <div class="counter" id="skippedFeatureCount"><%= summary.skippedCount %></div>
         <div class="label">skipped</div>
       </div>
 
       <div class="summary-counter">
-        <div class="counter" id="duration"><%= results.duration %>s</div>
+        <div class="counter" id="specDuration"><%= summary.duration %>s</div>
         <div class="label">duration</div>
       </div>
     </div>
 
-    <div class="summary-group <%= results.result %>">
+    <div class="summary-group <%= summary.result %>">
       <div class="summary-counter">
-        <div class="counter" id="successPercentage"><%= results.successPercentage %>%</div>
+        <div class="counter" id="successPercentage"><%= summary.successPercentage %>%</div>
         <div class="label">successful</div>
       </div>
     </div>
@@ -52,12 +52,12 @@
 
       <% results.specs.each { name, spec -> %>
         <tr>
-          <td id="<%= name %>"><a href="<%= name %>.html" class="result_<%= spec.result %>"><%= spec.name %></a></td>
-          <td id="<%= name %>_featureCount"><%= spec.featureCount %></td>
-          <td id="<%= name %>_failedFeatureCount"><%= spec.failedFeatureCount %></td>
-          <td id="<%= name %>_skippedFeatureCount"><%= spec.skippedFeatureCount %></td>
+          <td id="<%= name %>"><a href="<%= name %>.html" class="result_<%= spec.summary.result %>"><%= spec.name %></a></td>
+          <td id="<%= name %>_featureCount"><%= spec.summary.count %></td>
+          <td id="<%= name %>_failedFeatureCount"><%= spec.summary.failedCount %></td>
+          <td id="<%= name %>_skippedFeatureCount"><%= spec.summary.skippedCount %></td>
           <td id="<%= name %>_duration"><%= spec.duration %>s</td>
-          <td id="<%= name %>_result" class="result_<%= spec.result %>"><%= spec.result.description %></td>
+          <td id="<%= name %>_result" class="result_<%= spec.summary.result %>"><%= spec.summary.result.description %></td>
         </tr>
       <% } %>
 

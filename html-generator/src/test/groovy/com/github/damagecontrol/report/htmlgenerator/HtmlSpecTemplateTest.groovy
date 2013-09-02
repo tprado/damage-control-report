@@ -91,7 +91,7 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should show duration for specification'() {
         expect:
-        specHtml.findElementById('specDuration').text() == '0.355s'
+        specHtml.findElementById('specDuration').text() == '0.25s'
     }
 
     def 'should show success percentage'() {

@@ -1,9 +1,5 @@
 package com.github.damagecontrol.report.htmlgenerator
 
-import static com.github.damagecontrol.report.htmlgenerator.Results.FAILED
-import static com.github.damagecontrol.report.htmlgenerator.Results.PASSED
-import static com.github.damagecontrol.report.htmlgenerator.Results.SKIPPED
-
 class Spec {
 
     final output = new SpecOutput()
@@ -39,39 +35,7 @@ class Spec {
         }
     }
 
-    def getFeatureCount() {
-        features.size()
-    }
-
-    def getFailedFeatureCount() {
-        features.count { name, feature -> feature.failed }
-    }
-
-    def getSkippedFeatureCount() {
-        features.count { name, feature -> feature.ignored }
-    }
-
-    def getResult() {
-        if (failedFeatureCount > 0) {
-            return FAILED
-        }
-        if (skippedFeatureCount == featureCount) {
-            return SKIPPED
-        }
-        PASSED
-    }
-
-    def getFailedResult() {
-        result == FAILED
-    }
-
-    def getSkippedResult() {
-        result == SKIPPED
-    }
-
-    int getSuccessPercentage() {
-        def successfulFeatureCount = featureCount - failedFeatureCount
-        float successPercentage = successfulFeatureCount / featureCount * 100
-        successPercentage.round(0)
+    def getSummary() {
+        new FeaturesSummary(features: features.values())
     }
 }
