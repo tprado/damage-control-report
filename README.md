@@ -41,7 +41,7 @@ Change Notes
 
 ### 1.1.0
 
-* new "skip" configuration property (Maven plugin)
+* new "skip" configuration property and support to -DskitTests flag (Maven plugin)
 * summary on index page
 * navigation link on top of each page
 * generation timestamps on each page
