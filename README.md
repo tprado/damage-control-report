@@ -39,7 +39,7 @@ gradle :html-generator:install
 Change Notes
 ------------
 
-## 1.1.0
+### 1.1.0
 
 * new "skip" configuration property (Maven plugin)
 * summary on index page
