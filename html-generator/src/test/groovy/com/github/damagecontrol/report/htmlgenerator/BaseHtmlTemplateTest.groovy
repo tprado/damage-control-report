@@ -2,7 +2,7 @@ package com.github.damagecontrol.report.htmlgenerator
 
 class BaseHtmlTemplateTest extends BaseSpec {
 
-    private static final CONFIG_URL = getResource('/damage-control-config.properties')
+    private static final CONFIG_URL = getResource('/damage-control-config.groovy')
 
     def page
 
