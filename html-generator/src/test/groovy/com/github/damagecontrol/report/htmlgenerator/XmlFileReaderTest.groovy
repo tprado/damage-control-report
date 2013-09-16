@@ -8,19 +8,27 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
 
     static final SAMPLES = 'src/test/resources/samples/results'
 
-    static final XML_WITH_ONE_TEST_CASE = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsParserTest.xml')
-    static final XML_WITH_TWO_TEST_CASES = new File(SAMPLES + '/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml')
+    static final XML_WITH_ONE_TEST_CASE = new File("${SAMPLES}/TEST-spock.damagecontrol.TestResultsParserTest.xml")
+    static final XML_WITH_TWO_TEST_CASES = new File("${SAMPLES}/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml")
 
     def xmlFileReader
+    def testResultsFolders
 
     def setup() {
-        xmlFileReader = new XmlFileReader(inputFolder: testFolder)
+        testResultsFolders = [
+            new File("${testFolder.absolutePath}/unit-tests-results"),
+            new File("${testFolder.absolutePath}/integration-tests-results")
+        ]
+
+        testResultsFolders.each { it.mkdirs() }
+
+        xmlFileReader = new XmlFileReader(inputFolders: testResultsFolders)
     }
 
     def 'should read all XML files in the folder'() {
         given:
-        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testFolder)
-        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testFolder)
+        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testResultsFolders[0])
+        copyFileToDirectory(XML_WITH_TWO_TEST_CASES, testResultsFolders[1])
 
         int count = 0
 
@@ -33,7 +41,7 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
 
     def 'should provide reader for each XML file in the folder'() {
         given:
-        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testFolder)
+        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testResultsFolders[0])
 
         def lines
 
@@ -46,7 +54,7 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
 
     def 'should always close each reader after used'() {
         given:
-        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testFolder)
+        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testResultsFolders[0])
 
         when:
         def reader
