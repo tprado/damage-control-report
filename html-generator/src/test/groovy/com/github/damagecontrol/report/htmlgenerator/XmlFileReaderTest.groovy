@@ -8,6 +8,7 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
 
     static final SAMPLES = 'src/test/resources/samples/results'
 
+    static final XML_SUMMARY = new File("${SAMPLES}/summary.xml")
     static final XML_WITH_ONE_TEST_CASE = new File("${SAMPLES}/TEST-spock.damagecontrol.TestResultsParserTest.xml")
     static final XML_WITH_TWO_TEST_CASES = new File("${SAMPLES}/TEST-spock.damagecontrol.TestResultsWith2TestCases.xml")
 
@@ -37,6 +38,20 @@ class XmlFileReaderTest extends BaseFileHandlingSpec {
 
         then:
         count == 2
+    }
+
+    def 'should ignore non-result files in the folder'() {
+        given:
+        copyFileToDirectory(XML_SUMMARY, testResultsFolders[0])
+        copyFileToDirectory(XML_WITH_ONE_TEST_CASE, testResultsFolders[0])
+
+        int count = 0
+
+        when:
+        xmlFileReader.forEach { count++ }
+
+        then:
+        count == 1
     }
 
     def 'should provide reader for each XML file in the folder'() {

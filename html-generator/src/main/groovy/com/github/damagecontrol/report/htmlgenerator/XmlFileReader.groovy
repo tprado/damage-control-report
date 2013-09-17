@@ -17,6 +17,10 @@ class XmlFileReader {
             iterateFiles(inputFolder, XML, INCLUDE_SUB_FOLDERS).each { file ->
                 def reader
 
+                if (!file.name.startsWith('TEST-')) {
+                    return
+                }
+
                 try {
                     reader = new FileReader(file)
                     closure(reader)
