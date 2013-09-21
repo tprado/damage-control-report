@@ -31,6 +31,9 @@ public class DamageControlMojo extends AbstractMojo {
     @Parameter(defaultValue = "false")
     private boolean skip;
 
+    @Parameter(defaultValue = "${project.name} - ${project.version}")
+    private String reportTitle;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (skipTests()) {
@@ -45,6 +48,7 @@ public class DamageControlMojo extends AbstractMojo {
         getLog().info("reports target folder=" + outputFolder);
 
         Report report = new Report();
+        report.setTitle(reportTitle);
         report.setTestResultsFolder(testResultsFolder);
         report.setTestResultsFolders(testResultsFolders);
         report.setSpecDefinitionsFolder(specDefinitionsFolder);

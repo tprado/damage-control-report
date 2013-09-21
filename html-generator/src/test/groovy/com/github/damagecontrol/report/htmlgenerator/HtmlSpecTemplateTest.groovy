@@ -27,12 +27,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
         spec.failed('feature 3')
 
         template = new HtmlSpecTemplate()
-        specHtml =  new HtmlPage(template.generate(spec))
+        specHtml =  new HtmlPage(template.generate('Report Title', spec))
     }
 
     def 'should have spec name as page title'() {
         expect:
-        specHtml.html.head.title.text() == 'samples.definitions.SampleSpecTest - Damage Control Report'
+        specHtml.html.head.title.text() == 'samples.definitions.SampleSpecTest - Report Title'
     }
 
     def 'should generate the features summary'() {

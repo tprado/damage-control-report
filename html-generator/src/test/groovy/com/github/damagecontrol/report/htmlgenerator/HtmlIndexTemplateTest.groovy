@@ -18,12 +18,17 @@ class HtmlIndexTemplateTest extends BaseSpec {
         results.spec('Spec2')
 
         indexTemplate = new HtmlIndexTemplate()
-        indexHtml =  new HtmlPage(indexTemplate.generate(results))
+        indexHtml =  new HtmlPage(indexTemplate.generate('Report Title', results))
     }
 
     def 'should have page title'() {
         expect:
-        indexHtml.html.head.title.text() == 'Specifications - Damage Control Report'
+        indexHtml.html.head.title.text() == 'Specifications - Report Title'
+    }
+
+    def 'should have page header'() {
+        expect:
+        indexHtml.findElementById('content').h1.text() == 'Report Title'
     }
 
     def 'should generate the features summary'() {
