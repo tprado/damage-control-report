@@ -13,7 +13,7 @@ class BaseHtmlTemplateTest extends BaseSpec {
 
     def 'should decorate page using provided title'() {
         expect:
-        page.html.head.title.text() == 'page title - Damage Control Report'
+        page.html.head.title.text() == 'page title'
     }
 
     def 'should decorate page using provided content'() {

@@ -8,6 +8,8 @@ class Report {
     private static final JQUERY_URL = getResource('/com/github/damagecontrol/htmlreport/statics/js/jquery-1.7.2.min.js')
     private static final JS_URL = getResource('/com/github/damagecontrol/htmlreport/statics/js/damage-control.js')
 
+    def title = 'Damage Control Report'
+
     def testResultsFolder
     def testResultsFolders
 
@@ -27,11 +29,11 @@ class Report {
         HtmlFileWriter writer = new HtmlFileWriter(outputFolder: outputFolder)
         GroovyFileReader reader = new GroovyFileReader(inputFolders: specDefinitionsFolderList())
 
-        writer.write('index', indexTemplate.generate(results))
+        writer.write('index', indexTemplate.generate(title, results))
 
         results.specs.each { name, spec ->
             spec.parseEachFeatureDefinition(reader.read(name))
-            writer.write(name, specTemplate.generate(spec))
+            writer.write(name, specTemplate.generate(title, spec))
         }
 
         copyURLToFile(CSS_URL, new File(outputFolder.absolutePath + '/style/damage-control.css'))

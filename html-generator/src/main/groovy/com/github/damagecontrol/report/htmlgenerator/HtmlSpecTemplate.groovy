@@ -9,9 +9,9 @@ class HtmlSpecTemplate {
 
     private final basePage = new BaseHtmlTemplate()
 
-    def generate(spec) {
+    def generate(title, spec) {
         basePage.decorate(
-            spec.name,
+            "${spec.name} - ${title}",
             TEMPLATE.make([
                 featuresSummaryFragment: new HtmlFeaturesSummaryTemplate().generate(spec.summary),
                 spec_standard_output: spec.output.standard,
