@@ -1,5 +1,5 @@
 ---
-language: java
+language: groovy
 jdk:
 - oraclejdk7
 script: ./travis-build.sh
