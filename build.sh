@@ -3,8 +3,8 @@
 export MVN_COMMAND=$(which mvn)
 
 echo
-echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}"
-echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}"
+echo "MVN_COMMAND=${MVN_COMMAND}"
+echo "SNAP_BRANCH=${SNAP_BRANCH}"
 echo
 
 run_gradle() {

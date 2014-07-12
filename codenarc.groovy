@@ -130,7 +130,6 @@ ruleset {
     BracesForIfElse
     BracesForMethod
     BracesForTryCatchFinally
-    ClassJavadoc
     LineLength
 
     // rulesets/generic.xml

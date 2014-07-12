@@ -22,7 +22,7 @@ class MvnWrapper {
         mvnCommand.addAll(Arrays.asList(extraArgs))
         println "Maven Command=$mvnCommand"
 
-        def mvnProcess = mvnCommand.execute([], project)
+        def mvnProcess = mvnCommand.execute(['JAVA_HOME=' + System.getenv('JAVA_HOME')], project)
         consumeOutput(mvnProcess)
 
         def exitValue = mvnProcess.exitValue()

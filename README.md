@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/damage-control/report.png?branch=master)](https://travis-ci.org/damage-control/report)
+[![Build Status](https://snap-ci.com/damage-control/report/branch/master/build_image)](https://snap-ci.com/damage-control/report/branch/master)
 
 Damage Control Report
 ---------------------
