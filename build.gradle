@@ -6,7 +6,7 @@ ext {
     damageControlReportGroup = 'com.github.damage-control.report'
     damageControlReportVersion = '1.2'
     isReleaseBuild = !damageControlReportVersion.endsWith('SNAPSHOT')
-    localMavenRepositoryPath = "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report"
+    localMavenRepositoryPath = "${System.env.HOME}/.m2/repository/com/github/damage-control/report"
 }
 
 subprojects { project ->

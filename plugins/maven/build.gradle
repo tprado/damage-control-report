@@ -18,18 +18,18 @@ task install(type: Exec) {
     logging.captureStandardOutput LogLevel.INFO
 
     doFirst {
-        if (!System.getenv('M2_HOME') && !System.getenv('MVN_COMMAND')) {
+        if (!System.env.M2_HOME && !System.env.MVN_COMMAND) {
             throw new GradleException('M2_HOME nor MVN_COMMAND environment variables not defined.')
         }
     }
 
     def mvn
 
-    if (System.getenv('M2_HOME')) {
+    if (System.env.M2_HOME) {
         def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-        mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
+        mvn = System.env.M2_HOME + '/bin/mvn' + ext
     } else {
-        mvn = System.getenv('MVN_COMMAND')
+        mvn = System.env.MVN_COMMAND
     }
 
     executable mvn
