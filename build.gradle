@@ -18,8 +18,12 @@ subprojects { project ->
     }
 
     if (isReleaseBuild) {
+        if (!System.env.DCR_SIGNING_PASSWORD) {
+            throw new GradleException('DCR_SIGNING_PASSWORD environment variable not defined (required for signing artifacts).')
+        }
+
         ext."signing.keyId" = 'C17D777D'
         ext."signing.secretKeyRingFile" = "${project.rootProject.projectDir}/gnupg/secring.gpg"
-        ext."signing.password" = signingPassword
+        ext."signing.password" = System.env.DCR_SIGNING_PASSWORD
     }
 }
