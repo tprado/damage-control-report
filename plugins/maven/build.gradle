@@ -17,11 +17,7 @@ task generatePom {
 task install(type: Exec) {
     logging.captureStandardOutput LogLevel.INFO
 
-    doFirst {
-        if (!System.env.M2_HOME && !System.env.MVN_COMMAND) {
-            throw new GradleException('M2_HOME nor MVN_COMMAND environment variables not defined.')
-        }
-    }
+    doFirst checkMavenLocation
 
     def mvn
 
