@@ -17,19 +17,15 @@ task generatePom {
 task install(type: Exec) {
     logging.captureStandardOutput LogLevel.INFO
 
-    doFirst {
-        if (!System.getenv('M2_HOME') && !System.getenv('MVN_COMMAND')) {
-            throw new GradleException('M2_HOME nor MVN_COMMAND environment variables not defined.')
-        }
-    }
+    doFirst checkMavenLocation
 
     def mvn
 
-    if (System.getenv('M2_HOME')) {
+    if (System.env.M2_HOME) {
         def ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-        mvn = System.getenv('M2_HOME') + '/bin/mvn' + ext
+        mvn = System.env.M2_HOME + '/bin/mvn' + ext
     } else {
-        mvn = System.getenv('MVN_COMMAND')
+        mvn = System.env.MVN_COMMAND
     }
 
     executable mvn
@@ -49,15 +45,17 @@ signing {
 }
 
 uploadArchives {
+    doFirst checkMavenRepositoryCredentials
+
     repositories.mavenDeployer {
         beforeDeployment { deployment -> signing.signPom(deployment) }
 
         snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-            authentication(userName: sonatypeUsername, password: sonatypePassword)
+            authentication(userName: System.env.DCR_SONATYPE_USERNAME, password: System.env.DCR_SONATYPE_PASSWORD)
         }
 
         repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-            authentication(userName: sonatypeUsername, password: sonatypePassword)
+            authentication(userName: System.env.DCR_SONATYPE_USERNAME, password: System.env.DCR_SONATYPE_PASSWORD)
         }
 
         pom.withXml { provider ->

@@ -4,9 +4,21 @@ ext {
     groovyVersion = '1.8.6'
     spockVersion = '0.6-groovy-1.8'
     damageControlReportGroup = 'com.github.damage-control.report'
-    damageControlReportVersion = '1.2-SNAPSHOT'
+    damageControlReportVersion = '1.2'
     isReleaseBuild = !damageControlReportVersion.endsWith('SNAPSHOT')
-    localMavenRepositoryPath = "${System.getenv('HOME')}/.m2/repository/com/github/damage-control/report"
+    localMavenRepositoryPath = "${System.env.HOME}/.m2/repository/com/github/damage-control/report"
+
+    checkMavenLocation = {
+        if (!System.env.M2_HOME && !System.env.MVN_COMMAND) {
+            throw new GradleException('M2_HOME nor MVN_COMMAND environment variables not defined.')
+        }
+    }
+
+    checkMavenRepositoryCredentials = {
+        if (!System.env.DCR_SONATYPE_USERNAME || !System.env.DCR_SONATYPE_PASSWORD) {
+            throw new GradleException('DCR_SONATYPE_USERNAME or DCR_SONATYPE_PASSWORD environment variables not defined (required for uploading artifacts).')
+        }
+    }
 }
 
 subprojects { project ->
@@ -18,8 +30,12 @@ subprojects { project ->
     }
 
     if (isReleaseBuild) {
+        if (!System.env.DCR_SIGNING_PASSWORD) {
+            throw new GradleException('DCR_SIGNING_PASSWORD environment variable not defined (required for signing artifacts).')
+        }
+
         ext."signing.keyId" = 'C17D777D'
         ext."signing.secretKeyRingFile" = "${project.rootProject.projectDir}/gnupg/secring.gpg"
-        ext."signing.password" = signingPassword
+        ext."signing.password" = System.env.DCR_SIGNING_PASSWORD
     }
 }

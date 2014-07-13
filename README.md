@@ -39,6 +39,12 @@ gradle :html-generator:install
 Change Notes
 ------------
 
+### 1.2.0
+
+* capability of reading test results from several directories (testResultsFolders property)
+* custom report title (reportTitle property)
+* specs sorted by name
+
 ### 1.1.0
 
 * new "skip" configuration property and support to -DskipTests flag (Maven plugin)

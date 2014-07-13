@@ -8,11 +8,11 @@ class MvnWrapper {
 
     private static String mvnPath() {
         String mvnPath
-        if (System.getenv('M2_HOME')) {
+        if (System.env.M2_HOME) {
             String ext = System.getProperty('os.name').contains('Win') ? '.bat' : ''
-            mvnPath = System.getenv('M2_HOME') + '/bin/mvn' + ext
+            mvnPath = System.env.M2_HOME + '/bin/mvn' + ext
         } else {
-            mvnPath = System.getenv('MVN_COMMAND')
+            mvnPath = System.env.MVN_COMMAND
         }
         mvnPath
     }
@@ -22,7 +22,7 @@ class MvnWrapper {
         mvnCommand.addAll(Arrays.asList(extraArgs))
         println "Maven Command=$mvnCommand"
 
-        def mvnProcess = mvnCommand.execute(['JAVA_HOME=' + System.getenv('JAVA_HOME')], project)
+        def mvnProcess = mvnCommand.execute(['JAVA_HOME=' + System.env.JAVA_HOME], project)
         consumeOutput(mvnProcess)
 
         def exitValue = mvnProcess.exitValue()
