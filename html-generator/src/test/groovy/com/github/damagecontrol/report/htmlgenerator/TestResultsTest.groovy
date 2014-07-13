@@ -37,4 +37,18 @@ class TestResultsTest extends BaseSpec {
         expect:
         results.summary.count == 3
     }
+
+    def 'should sort specs by name'() {
+        given:
+        def specNames = []
+        results.spec('spec B').passed('feature 1.1')
+        results.spec('spec A').passed('feature 1.2')
+        results.spec('spec C').passed('feature 2.1')
+
+        when:
+        results.specs.each { name, spec -> specNames.add(name) }
+
+        then:
+        specNames == ['spec A', 'spec B', 'spec C']
+    }
 }
