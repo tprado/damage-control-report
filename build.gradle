@@ -7,6 +7,12 @@ ext {
     damageControlReportVersion = '1.2'
     isReleaseBuild = !damageControlReportVersion.endsWith('SNAPSHOT')
     localMavenRepositoryPath = "${System.env.HOME}/.m2/repository/com/github/damage-control/report"
+
+    checkMavenRepositoryCredentials = {
+        if (!System.env.DCR_SONATYPE_USERNAME || !System.env.DCR_SONATYPE_PASSWORD) {
+            throw new GradleException('DCR_SONATYPE_USERNAME or DCR_SONATYPE_PASSWORD environment variables not defined (required for uploading artifacts).')
+        }
+    }
 }
 
 subprojects { project ->
