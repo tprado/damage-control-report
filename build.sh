@@ -1,8 +1,10 @@
 #!/bin/bash
 
 export MVN_COMMAND=$(which mvn)
+export GRADLE_COMMAND=$(which gradle)
 
 echo "MVN_COMMAND=${MVN_COMMAND}"
+echo "GRADLE_COMMAND=${GRADLE_COMMAND}"
 echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}"
 echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}"
 
