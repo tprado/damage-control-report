@@ -5,12 +5,12 @@ class HtmlPage {
     final html
 
     HtmlPage(contents) {
-        html = new XmlParser().parseText(contents)
+        html = new XmlSlurper().parseText(contents)
     }
 
     @SuppressWarnings('ThrowRuntimeException')
     def findElementById(id) {
-        def nodes = html.depthFirst().findAll { it.'@id' == id }
+        def nodes = html.'**'.findAll { it.@id == id }
 
         if (nodes.size() == 0) {
             throw new RuntimeException("No element found where id == '${id}'.")
@@ -20,7 +20,7 @@ class HtmlPage {
     }
 
     def hasElementWithId(id) {
-        def nodes = html.depthFirst().findAll { it.'@id' == id }
+        def nodes = html.'**'.findAll { it.@id == id }
 
         !nodes.isEmpty()
     }

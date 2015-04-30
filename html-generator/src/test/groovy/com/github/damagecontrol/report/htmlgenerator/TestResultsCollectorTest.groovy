@@ -131,14 +131,13 @@ class TestResultsCollectorTest extends BaseSpec {
         feature.ignored
     }
 
+    @SuppressWarnings('LineLength')
     def 'should collect failure details for each feature'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
             <testsuite name="samples.results.AnotherTestResultsCollectorTest" time="0.005">
                 <testcase classname="samples.results.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
-                    <failure message="failure message">
-                        <![CDATA[ TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19) ]]>
-                    </failure>
+                    <failure message="failure message"><![CDATA[TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)]]></failure>
                 </testcase>
             </testsuite>'''
 
@@ -153,14 +152,13 @@ class TestResultsCollectorTest extends BaseSpec {
         feature.details == 'TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)'
     }
 
+    @SuppressWarnings('LineLength')
     def 'should collect error details for each feature'() {
         given:
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
             <testsuite name="samples.results.AnotherTestResultsCollectorTest" time="0.005">
                 <testcase classname="samples.results.AnotherTestResultsCollectorTest" name="shouldFail" time="0.001">
-                    <error message="failure message">
-                        <![CDATA[ TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19) ]]>
-                    </error>
+                    <error message="failure message"><![CDATA[TestResultsCollectorTest.shouldFail(TestResultsParserTest.groovy:19)]]></error>
                 </testcase>
             </testsuite>'''
 
@@ -180,7 +178,7 @@ class TestResultsCollectorTest extends BaseSpec {
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
             <testsuite name="samples.results.TestResultsWithSysOut" time="0.005">
                 <testcase classname="samples.results.TestResultsWithSysOut" name="feature name" time="0.001"/>
-                <system-out><![CDATA[ standard output message ]]></system-out>
+                <system-out><![CDATA[standard output message]]></system-out>
             </testsuite>'''
 
         when:
@@ -211,7 +209,7 @@ class TestResultsCollectorTest extends BaseSpec {
         String xml = '''<?xml version="1.0" encoding="UTF-8"?>
             <testsuite name="samples.results.TestResultsWithSysOut" time="0.005">
                 <testcase classname="samples.results.TestResultsWithSysOut" name="feature name" time="0.001"/>
-                <system-err><![CDATA[ error output message ]]></system-err>
+                <system-err><![CDATA[error output message]]></system-err>
             </testsuite>'''
 
         when:

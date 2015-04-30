@@ -52,12 +52,12 @@ class HtmlSpecTemplateTest extends BaseSpec {
 
     def 'should be expandable if feature has steps or details'() {
         expect:
-        specHtml.findElementById('feature 1').'@expand' == 'feature_0_steps'
+        specHtml.findElementById('feature 1').@expand == 'feature_0_steps'
     }
 
     def 'should not be expandable if feature does not have steps and do not have details'() {
         expect:
-        specHtml.findElementById('feature 3').'@expand' == null
+        specHtml.findElementById('feature 3').@expand == ''
     }
 
     def 'should list all features'() {
