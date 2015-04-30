@@ -2,6 +2,10 @@
 
 export MVN_COMMAND=$(which mvn)
 
+echo "MVN_COMMAND=${MVN_COMMAND}"
+echo "TRAVIS_BRANCH=${TRAVIS_BRANCH}"
+echo "TRAVIS_PULL_REQUEST=${TRAVIS_PULL_REQUEST}"
+
 run_gradle() {
     local task=$1
 
@@ -26,7 +30,7 @@ run_gradle() {
 echo 'building artifacts...'
 run_gradle
 
-if [[ ${SNAP_BRANCH} = 'master' ]]; then
+if [[ ${TRAVIS_BRANCH} = 'master' ]]; then
     echo 'uploading archives...'
     run_gradle uploadArchives
 fi

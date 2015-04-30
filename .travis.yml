@@ -1,0 +1,8 @@
+jdk:
+- oraclejdk7
+script: ./build.sh
+env:
+  global:
+  - secure: v8zX29M8+TFFEdZCF3iElSoOQzjCgZZtLdF3X/dML1kKb1z84MvVImwFumREFWRKvfNStwPNOz+OOVyPrjvtyuKdP+Rw+4l9tip58MO7FbvAC0m+/xaZP+/eg9UBLZjI0ej1Mchzv8+/miP/V/T5P3LaiTNB6uqaypbUpZE0IpE=
+  - secure: X90iQ6lJkQ6HxqD+N6D1MqSELr+kF6VCKiBidbACMwQwecpAl3f5mCTU3Mx64aKBaPZG1VeetHVovZQ2SqCVbETSCAJFx4Xyb0BcdgrTdPIQVxKWKIr5yfviT5ZRQATZ47kV7UhezVrnH/q0vtaGC9GrPsjEPn+83kjjphGMfqs=
+  - secure: p0IaPRceSt/K1TNVPKQnqBtblPW2+9w3cYpUA6pFLFjPCm42g48+ACBhSWm8pcS5gmu3WMmzx6h1ph1eftzVHT02U7oCFox5lGnn9+3H5dP9CsXQDtETAATCHjBr1BnNJ8jMLufh7hxeYUDI8IWtohc4l1BQigAls5UgKEwHG3M=
