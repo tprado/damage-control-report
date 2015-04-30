@@ -1,7 +1,8 @@
 language: groovy
+
 jdk:
 - oraclejdk7
-script: ./build.sh
+
 env:
   global:
   - secure: v8zX29M8+TFFEdZCF3iElSoOQzjCgZZtLdF3X/dML1kKb1z84MvVImwFumREFWRKvfNStwPNOz+OOVyPrjvtyuKdP+Rw+4l9tip58MO7FbvAC0m+/xaZP+/eg9UBLZjI0ej1Mchzv8+/miP/V/T5P3LaiTNB6uqaypbUpZE0IpE=
