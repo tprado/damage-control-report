@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/damage-control/report.svg?branch=master)](https://travis-ci.org/damage-control/report)
 
 Damage Control Report
----------------------
+=====================
 
 Report generation tool for [Spock Framework](http://github.com/spockframework) based tests. It reads the test result files and produces a nice HTML report using the specification steps (given, when, then).
 
